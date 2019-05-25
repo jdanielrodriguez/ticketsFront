@@ -1,0 +1,51 @@
+.card-block {
+  min-height: 220px;
+}
+.scrolling{
+  overflow-x: auto;
+}
+.rate {
+  height: 50px;
+  width: 100%;
+}
+
+.rate p {
+  text-align: center;
+}
+
+.rate label {
+  font-size: 20px;
+  margin-right: 0.3rem;
+}
+@media only screen and (max-width: 1300px) {
+
+  .rate label {
+    font-size: 100%!important;
+      margin-right: 0.3rem!important;
+  }
+}
+input[type="radio"] {
+  display: none;
+}
+
+label {
+  color: grey;
+}
+
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+/* label:hover,
+label:hover ~ label {
+  color: #ff00ff;
+  cursor: pointer;
+} */
+
+/* input[type="radio"]:active ~ label {
+  color: #ff00ff;
+} */
+.checkStar ~ label{
+  color: #ff00ff;
+}

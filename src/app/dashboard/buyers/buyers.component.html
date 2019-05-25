@@ -1,0 +1,132 @@
+<div class="pr-5 pl-5 bg-bishound">
+  <app-dashboard-nav-bar></app-dashboard-nav-bar>
+
+    <!-- Home Windows -->
+
+    <div class="row">
+      <!-- Main Home Page -->
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <ul class="nav nav-tabs mt-3" style="margin-bottom:-0.5%!important;">
+          <li class="nav-item"  *ngIf="tipoUsuario>=2">
+            <a class="nav-link pointer c-celeste-bishound" [class.active]="navSelect==0" (click)="navSelect=0">My Buyers</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link pointer c-celeste-bishound" [class.active]="navSelect==1" (click)="navSelect=1">My Sellers</a>
+          </li>
+        </ul>
+        <div class="row ml-0 mr-0 mt-1 mb-4 border border-primary p-4" style="border-top:0px !important;" *ngIf="navSelect==0">
+
+          <div class="container">
+            <table class="table table-hover commerce" style="border-spacing:0px;" [mfData]="Table" #mf="mfDataTable" [mfRowsOnPage]="6">
+                <thead>
+                    <tr class="row mt-1 border-secondary">
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 border-secondary bg-celeste-bishound c-blanco-bishound text-center p-3 row" style="border:solid 0.15rem;border-right:0px;margin:auto" >
+                            <mfDefaultSorter by="nombre" class="text-center">Buyer Name</mfDefaultSorter>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 border-secondary bg-celeste-bishound c-blanco-bishound text-center p-3" style="border:solid 0.15rem;border-right:0px;" >
+                            <mfDefaultSorter by="nombre" class="text-center">Completed Orders</mfDefaultSorter>
+                        </div>
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 border-secondary bg-celeste-bishound c-blanco-bishound text-center p-3" style="border:solid 0.15rem;" >
+                            <mfDefaultSorter by="nombre" class="text-center">Last Order</mfDefaultSorter>
+                        </div>
+
+                    </tr>
+                </thead>
+                <tbody >
+                  <div class="row border-secondary" style="border-bottom:solid 0.15rem;border-left:solid 0.15rem;" *ngFor="let data of mf.data">
+                      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 p-3 row border-secondary" style="margin:auto" >
+
+                        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 pl-5">
+                          <img src="http://placehold.it/100X100?text=Data" class="img-responsive w-100" alt="Image">
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                          Buyer Name
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                              <a href="#">User Profile</a>
+                                <span>|</span>
+                              <a href="#">History</a>
+                        </div>
+
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 border-secondary p-3 text-center" style="border-left:solid 0.15rem;">
+                        <h3>5</h3>
+                      </div>
+                      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 border-secondary p-3 text-center" style="border-left:solid 0.15rem;border-right:solid 0.15rem;">
+                        <h5>Mar 04 , 2018</h5>
+                      </div>
+                    </div>
+
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="3">
+                        <mfBootstrapPaginator></mfBootstrapPaginator>
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+          </div>
+
+        </div>
+        <div class="row ml-0 mr-0 mt-1 mb-4 border border-secondary p-4" style="border-top:0px !important;" *ngIf="navSelect==1">
+
+            <div class="container">
+                <table class="table table-hover commerce" style="border-spacing:0px;" [mfData]="Table" #mf="mfDataTable" [mfRowsOnPage]="6">
+                    <thead>
+                        <tr class="row mt-1 border-secondary">
+                            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 border-secondary bg-celeste-bishound c-blanco-bishound text-center p-3 row" style="border:solid 0.15rem;border-right:0px;margin:auto" >
+                                <mfDefaultSorter by="nombre" class="text-center">Seller Name</mfDefaultSorter>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 border-secondary bg-celeste-bishound c-blanco-bishound text-center p-3" style="border:solid 0.15rem;border-right:0px;" >
+                                <mfDefaultSorter by="nombre" class="text-center">Completed Orders</mfDefaultSorter>
+                            </div>
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 border-secondary bg-celeste-bishound c-blanco-bishound text-center p-3" style="border:solid 0.15rem;" >
+                                <mfDefaultSorter by="nombre" class="text-center">Last Order</mfDefaultSorter>
+                            </div>
+
+                        </tr>
+                    </thead>
+                    <tbody >
+                      <div class="row border-secondary" style="border-bottom:solid 0.15rem;border-left:solid 0.15rem;" *ngFor="let data of mf.data">
+                          <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 p-3 row border-secondary" style="margin:auto" >
+
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 pl-5">
+                              <img src="http://placehold.it/100X100?text=Data" class="img-responsive w-100" alt="Image">
+                            </div>
+                            <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                              Seller Name
+                            </div>
+                            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                                  <a href="#">User Profile</a>
+                                    <span>|</span>
+                                  <a href="#">History</a>
+                            </div>
+
+                          </div>
+                          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 border-secondary p-3 text-center" style="border-left:solid 0.15rem;">
+                            <h3>5</h3>
+                          </div>
+                          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 border-secondary p-3 text-center" style="border-left:solid 0.15rem;border-right:solid 0.15rem;">
+                            <h5>Mar 04 , 2018</h5>
+                          </div>
+                        </div>
+
+                    </tbody>
+                    <tfoot>
+                    <tr>
+                        <td colspan="3">
+                            <mfBootstrapPaginator></mfBootstrapPaginator>
+                        </td>
+                    </tr>
+                    </tfoot>
+                </table>
+              </div>
+
+        </div>
+      </div>
+      <!-- Fin Main Home Page -->
+    </div>
+
+    <!-- Fin Home Windows -->
+  </div>

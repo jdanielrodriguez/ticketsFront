@@ -1,0 +1,83 @@
+<div class="pl-5 pr-5 mt-3">
+  <div class="row">
+    <!-- Columna para filtros de Busqueda -->
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 mini-show searchFilters mb-3" id="serchFilters">
+      <div class="containess pb-3 w-100">
+        <h3 class="c-azul-bishound font-size-125 font-bold">Search for</h3>
+
+        <div class="mb-3 mt-3">
+          <h4 class="c-celeste-bishound mb-2 font-size-1">Price Range</h4>
+          <form>
+            <div class="form-row align-items-center">
+              <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5">
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="c-bishound text-center pt-1">$</div>
+                  </div>
+                  <input type="number" style="width:80%;text-align:center;background: none;border-top:none;border-left:none;border-right:none;border-bottom:solid 0.15rem #0000ff;" placeholder="0">
+                </div>
+              </div>
+              <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                <span>to</span>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <div class="input-group mb-2">
+                  <div class="input-group-prepend">
+                    <div class="c-bishound text-center ml-1 pt-1">$</div>
+                  </div>
+                  <input type="number" style="width:80%;text-align:center;background: none;border-top:none;border-left:none;border-right:none;border-bottom:solid 0.15rem #0000ff;" placeholder="0">
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!-- Fin Columna para filtros de Busqueda -->
+    <!-- Columna con Bis -->
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 mb-3" [class.d-none]="Table && Table.length>0">
+      <h1 class="c-azul-bishound" style="text-align:center;">No items Found</h1>
+    </div>
+
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 mb-3" [class.d-none]="!Table">
+
+    <!-- <button type="button" class="btn btn-success btn-circle btn-xl floating mini-hide mt-1 ml-1" (click)="filtrosOn();"><i class="fa fa-filter"></i></button> -->
+      <div class="row">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mb-4" *ngFor="let data of Table">
+          <div class="bis-card-base box-shadow-medium height-full">
+            <app-bis-card [data]="data"></app-bis-card>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="row">
+        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 offset-xl-5 text-center">
+          <mfBootstrapPaginator></mfBootstrapPaginator>
+        </div>
+      </div>   -->
+    </div>
+      <!-- Fin Columna con Bis -->
+  </div>
+</div>
+
+
+  <!-- Inicio Notificaciones -->
+  <simple-notifications [options]="options"></simple-notifications>
+  <!-- Fin Notificaciones -->
+
+
+  <!-- Fin Loader Modal -->
+<div class="modal fade" id="generalModalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-login [isModal]="true"></app-login>
+      </div>
+    </div>
+  </div>
+</div>

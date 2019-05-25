@@ -1,0 +1,21 @@
+.loading22:after {
+  position: absolute;
+  overflow: hidden;
+  display: inline-block;
+  vertical-align: bottom;
+  animation: ellipsis steps(4,end) 900ms infinite;
+  content: "\2026"; /* ascii code for the ellipsis character */
+  width: 0px;
+}
+
+@keyframes ellipsis {
+  to {
+    width: 3.8rem;
+  }
+}
+
+@-webkit-keyframes ellipsis {
+  to {
+    width: 3.8rem;
+  }
+}

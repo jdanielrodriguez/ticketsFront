@@ -1,0 +1,340 @@
+<div class="container c-azul-bishound">
+
+  <form class="row" *ngIf="!selectedData" #projectForm="ngForm" (ngSubmit)="insert(projectForm.value)">
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4">
+      <h1>Telling to supliers about your request</h1>
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4">
+      <h3>Choose a name for your Project</h3>
+
+      <input type="text" name="titulo" id="titulo" ngModel #titulo="ngModel" class="form-control bishound-input" required>
+
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4">
+      <h3>Describe your Project</h3>
+
+      <textarea name="descripcion" id="descripcion" ngModel #descripcion="ngModel" class="form-control bishound-input" required rows="10">
+        </textarea>
+
+    </div>
+    <!-- <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4">
+      <h3>Files</h3>
+
+      <input type="file" name="files" id="files" ngModel #files="ngModel" class="form-control bishound-input">
+
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4">
+      <h3>Skills Required</h3>
+
+      <input type="text" name="skills" id="skills" ngModel #skills="ngModel" class="form-control bishound-input">
+
+    </div> -->
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4">
+      <h3>How do you want to pay for it?</h3>
+      <div class="cc-selector col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center row">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 row text-center">
+            <input id="largo_plazo" type="radio" name="tipoPago" value="largo_plazo" [(ngModel)]="selector" [ngModelOptions]="{standalone: true}"/>
+            <label class="drinkcard-cc row" for="largo_plazo">
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <img src="https://cdn0.iconfinder.com/data/icons/security-account-alarm-2-0-glyph/128/yumminky-secure-01-512.png" alt="" border="0" height="100" width="100" style="max-width: 100px;">
+              </div>
+              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <h3>Proyecto de Precio Fijo</h3>
+                <h5>Recomendado para proyectos que tienen entregables finitos</h5>
+              </div>
+            </label>
+          </div>
+
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              <input id="por_hora" type="radio" name="tipoPago" value="por_hora" [(ngModel)]="selector"  [ngModelOptions]="{standalone: true}"/>
+              <label class="drinkcard-cc row" for="por_hora">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                  <img src="https://image.flaticon.com/icons/png/512/49/49203.png" alt="" border="0" height="100" width="100" style="max-width: 100px;">
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                  <h3>Proyecto Por hora</h3>
+                  <h5>Recomendado para proyectos continuos</h5>
+                </div>
+              </label>
+            </div>
+      </div>
+
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 offset-xl-2 row" *ngIf="selector=='largo_plazo'">
+          <h3>Minimun Budget</h3>
+
+          <div class="range-form mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <nouislider [connect]="true" [min]="0" [max]="500000" [step]="1" [(ngModel)]="someRage" (ngModelChange)="onChange($event)" [ngModelOptions]="{standalone: true}"></nouislider>
+          </div>
+          <div class="input-group mb-3 col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="input-group-prepend">
+              <span><i class="fa fa-dollar"></i></span>
+            </div>
+            <input type="number" name="minPrice" id="minPrice" ngModel #minPrice="ngModel" class="form-control bishound-input" [(ngModel)]="price.min" max="500000" min="0">
+          </div>
+          <div class="input-group mb-3 col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <select name="type" id="type" ngModel #type="ngModel" class="form-control bishound-input">
+              <option value="1">USD</option>
+            </select>
+          </div>
+          <div class="input-group mb-3 col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="input-group-prepend">
+              <span><i class="fa fa-dollar"></i></span>
+            </div>
+            <input type="number" name="maxPrice" id="maxPrice" ngModel #maxPrice="ngModel" class="form-control bishound-input" [(ngModel)]="price.max" max="500000" min="0">
+          </div>
+          <div class="input-group mb-3 col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <select name="type" id="type" ngModel #type="ngModel" class="form-control bishound-input">
+              <option value="1">USD</option>
+            </select>
+          </div>
+
+      </div>
+
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 offset-xl-2 row" *ngIf="selector=='por_hora'">
+
+
+          <h3>Minimun Budget</h3>
+          <div class="input-group mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="input-group-prepend">
+              <span><i class="fa fa-dollar"></i></span>
+            </div>
+            <input type="number" name="minimun" id="minimun" ngModel #minimun="ngModel" class="form-control bishound-input" [(ngModel)]="price.min" max="500000" min="0">
+          </div>
+          <h3>Maximun Budget</h3>
+          <div class="input-group mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="input-group-prepend">
+              <span ><i class="fa fa-dollar"></i></span>
+            </div>
+            <input type="number" name="maximun" id="maximun" ngModel #maximun="ngModel" class="form-control bishound-input" [(ngModel)]="price.max" max="500000" min="0">
+          </div>
+
+      </div>
+
+
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4 row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+          <h3 class="tituloFrame">Delivery Time Frame</h3>
+      </div>
+      <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 offset-xl-1">
+          <img src="https://image.flaticon.com/icons/png/512/49/49203.png" alt="" border="0" height="50" width="50" style="max-width: 50px;">
+      </div>
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 border-bottom border-dark mb-3">
+        3 a 30 dias
+      </div>
+
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 offset-xl-3 input-group">
+          <div class="input-group-prepend">
+              <span>Dias</span>
+            </div>
+        <input type="number" name="time" id="time" ngModel #time="ngModel" class="form-control bishound-input">
+
+      </div>
+
+
+    </div>
+
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xs-1 offset-sm-1 offset-md-1 offset-lg-1 offset-xl-1 p-4 row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+        <h3 class="tituloFrame">Categorys</h3>
+    </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 input-group">
+        <h5 class="d-block">Category</h5>
+         <select name="category" id="category" ngModel #category="ngModel" [(ngModel)]="categoria"  class="form-control bishound-input d-block w-100" (change)="cargarSubCategorias()">
+              <option value=""></option>
+              <option *ngFor="let data of categorias" value="{{data.id}}">{{data.descripcion}}</option>
+          </select>
+      </div>
+
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 input-group">
+        <h5 class="d-block">Sub Category</h5>
+         <select *ngIf="subCategorias" name="subcategory" id="subcategory"  [(ngModel)]="subcategoria" ngModel #subcategory="ngModel" class="form-control bishound-input d-block w-100">
+              <option *ngFor="let data of subCategorias" value="{{data.id}}">{{data.descripcion}}</option>
+          </select>
+      </div>
+
+
+    </div>
+
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4">
+
+      <button type="submit" class="btn btn-primary col-xs-3 col-sm-3 col-md-3 col-lg-3 offset-xl-2">Save and Send Offer</button>
+      <button type="button" class="btn btn-outline-primary col-xs-3 col-sm-3 col-md-3 col-lg-3 ml-2">Cancel Offer</button>
+
+    </div>
+
+  </form>
+
+
+  <form class="row" *ngIf="selectedData" #projectForm2="ngForm" (ngSubmit)="update(projectForm2.value)">
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4">
+      <h1>Telling to supliers about your request</h1>
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4">
+      <h3>Choose a name for your Project</h3>
+
+      <input type="text" name="titulo" id="titulo" ngModel #titulo="ngModel" class="form-control bishound-input" [(ngModel)]="selectedData.titulo" required>
+
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4">
+      <h3>Describe your Project</h3>
+
+      <textarea name="descripcion" id="descripcion" ngModel #descripcion="ngModel" class="form-control bishound-input" [(ngModel)]="selectedData.descripcion" required rows="10">
+        </textarea>
+
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4">
+      <h3>Files</h3>
+
+      <input type="file" name="files" id="files" ngModel #files="ngModel" class="form-control bishound-input">
+
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4">
+      <h3>Skills Required</h3>
+
+      <input type="text" name="skills" id="skills" ngModel #skills="ngModel" class="form-control bishound-input">
+
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4">
+      <h3>How do you want to pay for it?</h3>
+      <div class="cc-selector col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center row">
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 row text-center">
+            <input id="largo_plazo" type="radio" name="tipoPago" value="largo_plazo" [(ngModel)]="selector" [ngModelOptions]="{standalone: true}"/>
+            <label class="drinkcard-cc row" for="largo_plazo">
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                <img src="https://cdn0.iconfinder.com/data/icons/security-account-alarm-2-0-glyph/128/yumminky-secure-01-512.png" alt="" border="0" height="100" width="100" style="max-width: 100px;">
+              </div>
+              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <h3>Proyecto de Precio Fijo</h3>
+                <h5>Recomendado para proyectos que tienen entregables finitos</h5>
+              </div>
+            </label>
+          </div>
+
+          <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+              <input id="por_hora" type="radio" name="tipoPago" value="por_hora" [(ngModel)]="selector"  [ngModelOptions]="{standalone: true}"/>
+              <label class="drinkcard-cc row" for="por_hora">
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
+                  <img src="https://image.flaticon.com/icons/png/512/49/49203.png" alt="" border="0" height="100" width="100" style="max-width: 100px;">
+                </div>
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                  <h3>Proyecto Por hora</h3>
+                  <h5>Recomendado para proyectos continuos</h5>
+                </div>
+              </label>
+            </div>
+      </div>
+
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 offset-xl-2 row" *ngIf="selector=='largo_plazo'">
+          <h3>Minimun Budget</h3>
+
+          <div class="range-form mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <nouislider [connect]="true" [min]="0" [max]="500000" [step]="1" [(ngModel)]="someRage" (ngModelChange)="onChange($event)" [ngModelOptions]="{standalone: true}"></nouislider>
+          </div>
+          <div class="input-group mb-3 col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="input-group-prepend">
+              <span><i class="fa fa-dollar"></i></span>
+            </div>
+            <input type="number" name="minPrice" id="minPrice" ngModel #minPrice="ngModel" class="form-control bishound-input" [(ngModel)]="price.min" max="500000" min="0">
+          </div>
+          <div class="input-group mb-3 col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <select name="type" id="type" ngModel #type="ngModel" class="form-control bishound-input">
+              <option value="1">USD</option>
+            </select>
+          </div>
+          <div class="input-group mb-3 col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <div class="input-group-prepend">
+              <span><i class="fa fa-dollar"></i></span>
+            </div>
+            <input type="number" name="maxPrice" id="maxPrice" ngModel #maxPrice="ngModel" class="form-control bishound-input"  [(ngModel)]="price.max" max="500000" min="0">
+          </div>
+          <div class="input-group mb-3 col-xs-6 col-sm-6 col-md-6 col-lg-6">
+            <select name="type" id="type" ngModel #type="ngModel" class="form-control bishound-input">
+              <option value="1">USD</option>
+            </select>
+          </div>
+
+      </div>
+
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 offset-xl-2 row" *ngIf="selector=='por_hora'">
+
+
+          <h3>Minimun Budget</h3>
+          <div class="input-group mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="input-group-prepend">
+              <span><i class="fa fa-dollar"></i></span>
+            </div>
+            <input type="number" name="minimun" id="minimun" ngModel #minimun="ngModel" class="form-control bishound-input" [(ngModel)]="selectedData.minimo" max="500000" min="0">
+          </div>
+          <h3>Maximun Budget</h3>
+          <div class="input-group mb-3 col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="input-group-prepend">
+              <span ><i class="fa fa-dollar"></i></span>
+            </div>
+            <input type="number" name="maximun" id="maximun" ngModel #maximun="ngModel" class="form-control bishound-input" [(ngModel)]="selectedData.maximo" max="500000" min="0">
+          </div>
+
+      </div>
+
+
+    </div>
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4 row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+          <h3 class="tituloFrame">Delivery Time Frame</h3>
+      </div>
+      <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 offset-xl-1">
+          <img src="https://image.flaticon.com/icons/png/512/49/49203.png" alt="" border="0" height="50" width="50" style="max-width: 50px;">
+      </div>
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 border-bottom border-dark mb-3">
+        3 a 30 dias
+      </div>
+
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 offset-xl-3 input-group">
+          <div class="input-group-prepend">
+              <span>Dias</span>
+            </div>
+        <input type="number" name="time" id="time" ngModel #time="ngModel" class="form-control bishound-input" >
+
+      </div>
+
+
+    </div>
+
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xs-1 offset-sm-1 offset-md-1 offset-lg-1 offset-xl-1 p-4 row">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-3">
+        <h3 class="tituloFrame">Categorys</h3>
+      </div>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 input-group">
+        <h5 class="d-block">Category</h5>
+         <select name="category" id="category" ngModel #category="ngModel"  [(ngModel)]="categoria"  class="form-control bishound-input d-block w-100" (change)="cargarSubCategorias()">
+              <option value=""></option>
+              <option *ngFor="let data of categorias" value="{{data.id}}">{{data.descripcion}}</option>
+          </select>
+      </div>
+
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 input-group">
+        <h5 class="d-block">Sub Category</h5>
+         <select *ngIf="subCategorias" name="subcategory" id="subcategory"  [(ngModel)]="selectedData.subCategoriaId" ngModel #subcategory="ngModel" class="form-control bishound-input d-block w-100">
+              <option *ngFor="let data of subCategorias" value="{{data.id}}">{{data.descripcion}}</option>
+          </select>
+      </div>
+
+
+    </div>
+
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xl-1 p-4">
+
+      <button type="submit" class="btn btn-primary col-xs-3 col-sm-3 col-md-3 col-lg-3 offset-xl-2">Save and Send Offer</button>
+      <button type="button" class="btn btn-outline-primary col-xs-3 col-sm-3 col-md-3 col-lg-3 ml-2">Cancel Offer</button>
+
+    </div>
+
+  </form>
+
+</div>
+
+<!-- Inicio Notificaciones -->
+<simple-notifications [options]="options"></simple-notifications>
+<!-- Fin Notificaciones -->
+
+

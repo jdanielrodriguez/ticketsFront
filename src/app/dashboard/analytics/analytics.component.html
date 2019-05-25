@@ -1,0 +1,370 @@
+<div class="pr-5 pl-5 bg-bishound">
+  <app-dashboard-nav-bar></app-dashboard-nav-bar>
+
+  <!-- Home Windows -->
+
+  <div class="row mt-3">
+    <!-- Main Home Page -->
+
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+      <div id="accordion" class="box-shadow-medium p-3">
+
+        <div class="">
+          <div class="border-bottom border-primary" id="headingOrders" data-toggle="collapse" data-target="#collapseOrder" aria-expanded="true" aria-controls="collapseOrder">
+            <h5 class="mb-0">
+              <button class="btn btn-link c-celeste-bishound">
+                Orders
+              </button>
+            </h5>
+          </div>
+          <div id="collapseOrder" class="collapse  bg-secundary" aria-labelledby="headingOrders" data-parent="#accordion">
+            <div class="card-body">
+              <nav class="ml-4">
+                <a class="nav-link " routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../../dashboard/selling/active-orders']">Actives</a>
+                <a class="nav-link " routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../../dashboard/selling/delivered-orders']">Delivered</a>
+                <a class="nav-link " routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../../dashboard/selling/completed-orders']">Completed</a>
+                <a class="nav-link " routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../../dashboard/selling/canceled-orders']">Cancelled</a>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="border-bottom border-primary" id="headingBIS" data-toggle="collapse" data-target="#collapseBIS" aria-expanded="true" aria-controls="collapseBIS">
+            <h5 class="mb-0">
+              <button class="btn btn-link c-celeste-bishound">
+                BIS
+              </button>
+            </h5>
+          </div>
+          <div id="collapseBIS" class="collapse bg-secundary" aria-labelledby="headingBIS" data-parent="#accordion">
+            <div class="card-body">
+              <nav class="ml-4">
+                <a class="nav-link " routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../../dashboard/bis/active']">Actives</a>
+                <a class="nav-link " routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../../dashboard/bis/draft']">Drafts</a>
+                <a class="nav-link " routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../../dashboard/bis/denied']">Denied</a>
+                <a class="nav-link " routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../../dashboard/bis/disabled']">Disabled</a>
+              </nav>
+            </div>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="border-bottom border-primary">
+            <h5 class="mb-0 pl-0">
+              <a class="btn btn-link ml-0 pl-0" routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../../dashboard/products/active']">Catalog</a>
+            </h5>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="border-bottom border-primary" >
+            <h5 class="mb-0 pl-0">
+                <a class="btn btn-link ml-0 pl-0" routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../../dashboard/bis/analytics']">Analytics</a>
+            </h5>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="border-bottom border-primary">
+            <h5 class="mb-0 pl-0">
+                <a class="btn btn-link ml-0 pl-0" routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../../dashboard/selling/buyers-request']">Buyer Request</a>
+            </h5>
+          </div>
+        </div>
+
+        <div class="">
+          <div class="border-bottom border-primary">
+            <h5 class="mb-0 pl-0">
+                <a class="btn btn-link ml-0 pl-0" routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../../dashboard/selling/offers']">My Offers</a>
+            </h5>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8  offset-xl-1 c-azul-bishound">
+        <h1>Analytics</h1>
+        <div class="row ml-0 mr-0 mt-1 mb-4 p-4">
+            <div class="mb-0 col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center border border-bishound p-5">
+              <h1>
+                <h5>Total Customers</h5>
+                <h2>10</h2>
+              </h1>
+            </div>
+            <div class="mb-0 col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center border border-bishound p-5">
+              <h1>
+                <h5>Total Customers</h5>
+                <h2>15</h2>
+              </h1>
+            </div>
+            <div class="mb-0 col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center border border-bishound p-5">
+              <h1>
+                <h5>Total Customers</h5>
+                <h2>12</h2>
+              </h1>
+            </div>
+            <div class="mb-0 col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center border border-bishound p-5">
+              <h1>
+                <h5>Total Customers</h5>
+                <h2>8</h2>
+              </h1>
+            </div>
+        </div>
+
+        <div class="row ml-0 mr-0 mt-1 mb-4 p-4">
+          <h2>Overview</h2>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center">
+                    <canvas baseChart width="400" height="300px" style="height:300px;"
+                      [datasets]="lineChartData"
+                      [labels]="lineChartLabels"
+                      [options]="lineChartOptions"
+                      [colors]="lineChartColors"
+                      [legend]="lineChartLegend"
+                      [chartType]="lineChartType"
+                      (chartHover)="chartHovered($event)"
+                      (chartClick)="chartClicked($event)"></canvas>
+            </div>
+        </div>
+
+        <div class="row">
+
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 border-bottom border-secundary">
+            <h1 class="d-inline">Your seller level</h1> <small class="d-inline ml-3"> <a href="">LEARN MORE</a></small>
+          </div>
+
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mt-5 text-center before-right">
+            <div class="btn btn-outline-primary level0">
+              <img src="../../assets/png/Iconos/isotipo_large.png" alt="" style="width:5rem;height:5rem;">
+            </div>
+          </div>
+
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mt-5 text-center before-center">
+            <div class="btn btn-outline-primary level1">
+              <div style="width:5rem;height:5rem;" class="text-center pt-2">
+                <h4>LEVEL <br> ONE</h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mt-5 text-center before-center">
+            <div class="btn btn-outline-primary level2">
+              <div style="width:5rem;height:5rem;" class="text-center pt-2">
+                <h4>LEVEL <br> TWO</h4>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mt-5 text-center before-left">
+            <div class="btn btn-outline-primary level3">
+              <div style="width:5rem;height:5rem;" class="text-center pt-2">
+                <h4>TOP <br> RATED</h4>
+              </div>
+            </div>
+          </div>
+
+
+
+        </div>
+
+        <div class="row">
+
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 border-bottom border-secundary">
+            <h1 class="d-inline">Rating</h1>
+          </div>
+          <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 mt-3 row">
+
+            <div class="col-xl-8 col-sm-8 col-md-8 col-lg-8 text-left">
+                <h3>ALL-TIME RATING 0 </h3>
+            </div>
+            <div class="col-xl-4 col-sm-4 col-md-4 col-lg-4 text-center">
+                <div class="rate">
+                    <p class="clasificacion">
+                      <input id="radio1-commentsOfComments" type="radio" name="commentsOfComments" value="5" [checked]="calificacion==5"><!--
+                      --><label for="radio1-commentsOfComments">★</label><!--
+                      --><input id="radio2-commentsOfComments" type="radio" name="commentsOfComments" value="4" [checked]="calificacion==4"><!--
+                      --><label for="radio2-commentsOfComments">★</label><!--
+                      --><input id="radio3-commentsOfComments" type="radio" name="commentsOfComments" value="3" [checked]="calificacion==3"><!--
+                      --><label for="radio3-commentsOfComments">★</label><!--
+                      --><input id="radio4-commentsOfComments" type="radio" name="commentsOfComments" value="2" [checked]="calificacion==2"><!--
+                      --><label for="radio4-commentsOfComments">★</label><!--
+                      --><input id="radio5-commentsOfComments" type="radio" name="commentsOfComments" value="1" [checked]="calificacion==1"><!--
+                      --><label for="radio5-commentsOfComments">★</label>
+                    </p>
+                  </div>
+            </div>
+
+
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 mb-3 c-bishound">
+              <h5>5 star</h5>
+            </div>
+
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 mb-3 c-bishound">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                      <span class="sr-only">  100% Complete</span>
+                    </div>
+                  </div>
+            </div>
+
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 mb-3 c-bishound">
+              <h5>(0)</h5>
+            </div>
+
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 mb-3 c-bishound">
+              <h5>4 star</h5>
+            </div>
+
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 mb-3 c-bishound">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                      <span class="sr-only">  100% Complete</span>
+                    </div>
+                  </div>
+            </div>
+
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 mb-3 c-bishound">
+              <h5>(0)</h5>
+            </div>
+
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 mb-3 c-bishound">
+              <h5>3 star</h5>
+            </div>
+
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 mb-3 c-bishound">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                      <span class="sr-only">  100% Complete</span>
+                    </div>
+                  </div>
+            </div>
+
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 mb-3 c-bishound">
+              <h5>(0)</h5>
+            </div>
+
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 mb-3 c-bishound">
+              <h5>2 star</h5>
+            </div>
+
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 mb-3 c-bishound">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                      <span class="sr-only">  100% Complete</span>
+                    </div>
+                  </div>
+            </div>
+
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 mb-3 c-bishound">
+              <h5>(0)</h5>
+            </div>
+
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 mb-3 c-bishound">
+              <h5>1 star</h5>
+            </div>
+
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 mb-3 c-bishound">
+                <div class="progress">
+                    <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                      <span class="sr-only">  100% Complete</span>
+                    </div>
+                  </div>
+            </div>
+
+            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 mb-3 c-bishound">
+              <h5>(0)</h5>
+            </div>
+
+
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 mt-3 row">
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h3>RATING BREAKDOWN</h3>
+            </div>
+
+
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 c-bishound">
+              <h5>Communication with seller</h5>
+            </div>
+
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 c-bishound">
+                <div class="rate">
+                    <p class="clasificacion" style="position:absolute">
+                      <input id="radio1-commentsOfComments" type="radio" name="commentsOfComments" value="5" [checked]="calificacion==5"><!--
+                      --><label for="radio1-commentsOfComments">★</label><!--
+                      --><input id="radio2-commentsOfComments" type="radio" name="commentsOfComments" value="4" [checked]="calificacion==4"><!--
+                      --><label for="radio2-commentsOfComments">★</label><!--
+                      --><input id="radio3-commentsOfComments" type="radio" name="commentsOfComments" value="3" [checked]="calificacion==3"><!--
+                      --><label for="radio3-commentsOfComments">★</label><!--
+                      --><input id="radio4-commentsOfComments" type="radio" name="commentsOfComments" value="2" [checked]="calificacion==2"><!--
+                      --><label for="radio4-commentsOfComments">★</label><!--
+                      --><input id="radio5-commentsOfComments" type="radio" name="commentsOfComments" value="1" [checked]="calificacion==1"><!--
+                      --><label for="radio5-commentsOfComments">★</label>
+                    </p>
+                  </div>
+            </div>
+
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 c-bishound">
+              <h5>Service as described</h5>
+            </div>
+
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 c-bishound">
+                <div class="rate">
+                    <p class="clasificacion" style="position:absolute">
+                      <input id="radio1-commentsOfComments" type="radio" name="commentsOfComments" value="5" [checked]="calificacion==5"><!--
+                      --><label for="radio1-commentsOfComments">★</label><!--
+                      --><input id="radio2-commentsOfComments" type="radio" name="commentsOfComments" value="4" [checked]="calificacion==4"><!--
+                      --><label for="radio2-commentsOfComments">★</label><!--
+                      --><input id="radio3-commentsOfComments" type="radio" name="commentsOfComments" value="3" [checked]="calificacion==3"><!--
+                      --><label for="radio3-commentsOfComments">★</label><!--
+                      --><input id="radio4-commentsOfComments" type="radio" name="commentsOfComments" value="2" [checked]="calificacion==2"><!--
+                      --><label for="radio4-commentsOfComments">★</label><!--
+                      --><input id="radio5-commentsOfComments" type="radio" name="commentsOfComments" value="1" [checked]="calificacion==1"><!--
+                      --><label for="radio5-commentsOfComments">★</label>
+                    </p>
+                  </div>
+            </div>
+
+            <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 c-bishound">
+              <h5>Buy again or recommend</h5>
+            </div>
+
+            <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 c-bishound">
+                <div class="rate">
+                    <p class="clasificacion" style="position:absolute">
+                      <input id="radio1-commentsOfComments" type="radio" name="commentsOfComments" value="5" [checked]="calificacion==5"><!--
+                      --><label for="radio1-commentsOfComments">★</label><!--
+                      --><input id="radio2-commentsOfComments" type="radio" name="commentsOfComments" value="4" [checked]="calificacion==4"><!--
+                      --><label for="radio2-commentsOfComments">★</label><!--
+                      --><input id="radio3-commentsOfComments" type="radio" name="commentsOfComments" value="3" [checked]="calificacion==3"><!--
+                      --><label for="radio3-commentsOfComments">★</label><!--
+                      --><input id="radio4-commentsOfComments" type="radio" name="commentsOfComments" value="2" [checked]="calificacion==2"><!--
+                      --><label for="radio4-commentsOfComments">★</label><!--
+                      --><input id="radio5-commentsOfComments" type="radio" name="commentsOfComments" value="1" [checked]="calificacion==1"><!--
+                      --><label for="radio5-commentsOfComments">★</label>
+                    </p>
+                  </div>
+            </div>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mt-3">
+              <h3>RATED ORDERS 0%</h3>
+
+            <div class="progress mt-5">
+              <div class="progress-bar progress-bar-danger progress-bar-striped" role="progressbar" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                <span class="sr-only">  100% Complete</span>
+              </div>
+            </div>
+
+          </div>
+
+
+        </div>
+
+      </div>
+    <!-- Fin Main Home Page -->
+  </div>
+
+  <!-- Fin Home Windows -->
+</div>

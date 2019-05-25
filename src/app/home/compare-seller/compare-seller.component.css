@@ -1,0 +1,52 @@
+.rate {
+  height: 50px;
+  width: 100%;
+}
+
+.rate p {
+  text-align: center;
+}
+
+.rate label {
+  font-size: 1.7rem;
+}
+
+input[type="radio"] {
+  display: none;
+}
+
+.rate label {
+  color: #a7acb1;
+}
+@media only screen and (max-width: 1300px) {
+
+  .rate label {
+    font-size: 100%!important;
+      margin-right: 0.3rem!important;
+  }
+}
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+
+.selectedCheck:checked ~ label i{
+  color: #0000ff!important;
+}
+
+.selectedCheck ~ label i{
+  color: #a7acb1!important;
+}
+
+.selectedCheckActive ~ label i{
+  color: #0000ff!important;
+}
+
+input[type="radio"]:checked ~ label {
+  color: #0000ff;
+}
+.checkStar ~ label{
+  color: #0000ff;
+}
+
+

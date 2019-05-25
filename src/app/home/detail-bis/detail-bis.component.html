@@ -1,0 +1,371 @@
+<div class="container mt-3">
+  <div class="row">
+    <!-- Columna con Bis -->
+    <div class="col-xl-9 col-sm-9 col-md-9 col-lg-9 box-shadow-medium mb-20" *ngIf="selectedData">
+      <!-- Cuadro de Titulo -->
+
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" *ngIf="!selectedData.publicado">
+
+        <div class="alert alert-info">
+          This bis is not publish yet. <strong>Publish your Bis <a class="" [routerLink]="['/update/bis',selectedData.id+':7']">Now!</a></strong> <a class="ml-3" [routerLink]="['./../../update/bis',selectedData.id+':7']">Here</a>
+        </div>
+
+      </div>
+
+      <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12 bg-bishound c-bishound">
+        <h1 class="mb-5 pt-3 c-azul-bishound font-bold font-size-175">{{selectedData.titulo?selectedData.titulo:''}}</h1>
+        <div class="row">
+          <div class="col-xl-3 col-sm-3 col-md-3 col-lg-3 mb-1">
+            <div class="rate">
+              <div class="clasificacion">
+                <input id="Ranking1" name="ranking" type="radio" [value]="5" disabled [class.checkStar]="ranking>=5">
+                <label for="Ranking1">★</label>
+                <input id="Ranking2" name="ranking" type="radio" [value]="4" disabled [class.checkStar]="ranking>=4">
+                <label for="Ranking2">★</label>
+                <input id="Ranking3" name="ranking" type="radio" [value]="3" disabled [class.checkStar]="ranking>=3">
+                <label for="Ranking3">★</label>
+                <input id="Ranking4" name="ranking" type="radio" [value]="2" disabled [class.checkStar]="ranking>=2">
+                <label for="Ranking4">★</label>
+                <input id="Ranking5" name="ranking" type="radio" [value]="1" disabled [class.checkStar]="ranking>=1">
+                <label for="Ranking5">★</label>
+              </div>
+            </div>
+          </div>
+          <div class="col-xl-7 col-sm-7 col-md-7 col-lg-7 text-left mx-sm-3">
+              <span>5 | {{selectedData.Categoria?selectedData.Categoria.descripcion:'Without category'}}</span>
+          </div>
+        </div>
+      </div>
+      <!-- Fin Cuadro de Titulo -->
+      <!-- Slider de fotos de Bis -->
+      <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12 mb-2 pb-2 bg-bishound c-bishound">
+        <div id="carouselExampleIndicators" class="carousel slide mb-3 w-100" data-ride="carousel" *ngIf="selectedData.ImagenesBis">
+          <div class="carousel-inner">
+            <div class="carousel-item" [class.active]="i==0" *ngFor="let data of selectedData.ImagenesBis;let i = index">
+              <img class="d-block w-100" style="height:30rem;" src="{{(data.url)?data.url:'http://placehold.it/800x400?auto=yes&bg=777&fg=555&text=First slide'}}" alt="First slide">
+            </div>
+          </div>
+          <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+        </div>
+      </div>
+      <!-- Fin Slider de fotos de Bis -->
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <!-- Detalle del Bis -->
+        <div class="row mb-20">
+          <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12  mb-2">
+            <h2 class="ml-3 mt-3 c-azul-bishound font-size-125 font-bold">Description of the teaser</h2>
+              <h5 class="ml-3 mt-3 mr-3 mb-3 text-left dark-gray-text font-size-09375">
+                {{selectedData.descripcion?selectedData.descripcion:''}}
+              </h5>
+          </div>
+        </div>
+          <!-- Fin Detalle del Bis -->
+
+        <!-- Preguntas del Bis -->
+        <div class="row mb-20">
+          <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12  mb-2">
+            <h2 class="ml-3 mt-3 c-azul-bishound font-size-125 font-bold">FAQ's</h2>
+            <div class="accordion mb-3 mt-3" id="accordionExample" *ngIf="selectedData.BisFAQs">
+              <div class="card" *ngFor="let data of selectedData.BisFAQs">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" type="button" (click)="collapse('collapseOne'+((data.id)?data.id:''))">
+                      {{data.titulo?data.titulo:''}}
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseOne{{((data.id)?data.id:'')}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
+                  <div class="card-body">
+                    {{data.respuesta?data.respuesta:''}}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Fin Preguntas del Bis -->
+
+        <!-- Requierements -->
+        <div class="row mb-20">
+          <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12  mb-2">
+            <h2 class="ml-3 mt-3 c-azul-bishound font-size-125 font-bold">Requirements</h2>
+            <div class="accordion mb-3 mt-3" id="accordionExample" *ngIf="selectedData.Requerimientos">
+              <div class="card" *ngFor="let data of selectedData.Requerimientos">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" type="button">
+                      {{data.descripcion?data.descripcion:''}}
+                    </button>
+                  </h5>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Fin Requierements -->
+
+        <!-- Reviews del Bis -->
+        <div class="row mb-10">
+          <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12  mb-2">
+              <div class="row pt-3">
+
+                  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-right mx-sm-3 mb-2">
+                      <div class="rateMini">
+                          <div class="clasificacion">
+                             <input id="Ranking1" name="ranking" type="radio" [value]="5" disabled [class.checkStar]="ranking>=5">
+                             <label for="Ranking1">★</label>
+                             <input id="Ranking2" name="ranking" type="radio" [value]="4" disabled [class.checkStar]="ranking>=4">
+                             <label for="Ranking2">★</label>
+                             <input id="Ranking3" name="ranking" type="radio" [value]="3" disabled [class.checkStar]="ranking>=3">
+                             <label for="Ranking3">★</label>
+                             <input id="Ranking4" name="ranking" type="radio" [value]="2" disabled [class.checkStar]="ranking>=2">
+                             <label for="Ranking4">★</label>
+                             <input id="Ranking5" name="ranking" type="radio" [value]="1" disabled [class.checkStar]="ranking>=1">
+                             <label for="Ranking5">★</label>
+                           </div>
+                         </div>
+                  </div>
+
+                  <div class="col-xl-2 col-sm-2 col-md-2 col-lg-2 pt-2 text-right mx-sm-3 mb-2">
+                      <span class="c-celeste-bishound">0 Reviews</span>
+                  </div>
+                  <div class="col-xl-2 col-sm-2 col-md-2 col-lg-2 offset-xl-1 offset-sm-1 offset-md-1 offset-lg-1 pt-2 text-right mb-2">
+                    <a href="#" class="bishound-outline-rosa-evento">See Detalis</a>
+                  </div>
+
+                  <div class="col-xl-3 col-sm-3 col-md-3 col-lg-3 text-left mb-4 ">
+
+                    <button type="button" class="form-control w-100 btn bg-rosa-bishound c-blanco-bishound pointer"  (click)="contactSeller();">Contact me</button>
+
+                  </div>
+              </div>
+
+          </div>
+        </div>
+        <!-- Fin Reviews del Bis -->
+
+        <!-- Comentarios del Bis -->
+        <div class="row mb-10">
+          <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12  mb-2">
+              <table class="table table-striped table-hover commerce" [mfData]="Comments" #mf="mfDataTable" [mfRowsOnPage]="5">
+                  <div *ngFor="let data of mf.data">
+                      <div class="row hover">
+                            <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 pt-4 pb-3">
+                              <img src="{{((data.picture!=null)?data.picture:'http://placehold.it/1000px1000/?text='+data.nombre)}}" class="w-100" alt="">
+                            </div>
+                            <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 mt-0 pt-0" style="">
+                                <div class="row">
+                                    <div class="col-xl-4 col-sm-4 col-md-4 col-lg-4 pt-4 text-left">
+                                      <blockquote class="blockquote">
+                                        <p class="mb-0">{{((data.nombre!=null)?data.nombre:'')}}</p>
+                                        <footer class="created-date">{{((data.fecha!=null)?data.fecha:'')}}</footer>
+                                      </blockquote>
+                                    </div>
+                                    <div class="col-xl-3 col-sm-3 col-md-3 col-lg-3 pt-4 text-left">
+                                        <div id="rate">
+                                            <p class="clasificacion">
+                                              <input id="radio1-commentsOfComments" type="radio" name="commentsOfComments" value="5" [checked]="data.calificacion==5"><!--
+                                              --><label for="radio1-commentsOfComments">★</label><!--
+                                              --><input id="radio2-commentsOfComments" type="radio" name="commentsOfComments" value="4" [checked]="data.calificacion==4"><!--
+                                              --><label for="radio2-commentsOfComments">★</label><!--
+                                              --><input id="radio3-commentsOfComments" type="radio" name="commentsOfComments" value="3" [checked]="data.calificacion==3"><!--
+                                              --><label for="radio3-commentsOfComments">★</label><!--
+                                              --><input id="radio4-commentsOfComments" type="radio" name="commentsOfComments" value="2" [checked]="data.calificacion==2"><!--
+                                              --><label for="radio4-commentsOfComments">★</label><!--
+                                              --><input id="radio5-commentsOfComments" type="radio" name="commentsOfComments" value="1" [checked]="data.calificacion==1"><!--
+                                              --><label for="radio5-commentsOfComments">★</label>
+                                            </p>
+                                          </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12 pt-12 text-justify">
+                                        <p>{{((data.description!=null)?data.description:'')}}</p>
+                                    </div>
+                                </div>
+                            </div>
+                      </div>
+                      <div class="row media hover" style="margin-left:9rem!important;" *ngFor="let comments of data.comments">
+                          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 pt-4 pb-3">
+                            <img src="{{((comments.picture!=null)?comments.picture:'http://placehold.it/1000px1000/?text='+comments.nombre)}}" class="w-100" alt="">
+                          </div>
+                          <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 mt-0 pt-0">
+                              <div class="row">
+                                  <div class="col-xl-5 col-sm-5 col-md-5 col-lg-5 pt-4 text-left">
+                                    <blockquote class="blockquote">
+                                      <p class="mb-0">{{((comments.nombre!=null)?comments.nombre:'')}}</p>
+                                      <footer class="created-date">{{((comments.fecha!=null)?comments.fecha:'')}}</footer>
+                                    </blockquote>
+                                  </div>
+                                  <div class="col-xl-3 col-sm-3 col-md-3 col-lg-3 pt-4 text-left">
+                                      <div id="rate">
+                                        <p class="clasificacion">
+                                          <input id="radio1-" type="radio" name="estrellas" value="5" [checked]="comments.calificacion==5"><!--
+                                          --><label for="radio1-">★</label><!--
+                                          --><input id="radio2-" type="radio" name="estrellas" value="4" [checked]="comments.calificacion==4"><!--
+                                          --><label for="radio2-">★</label><!--
+                                          --><input id="radio3-" type="radio" name="estrellas" value="3" [checked]="comments.calificacion==3"><!--
+                                          --><label for="radio3-">★</label><!--
+                                          --><input id="radio4-" type="radio" name="estrellas" value="2" [checked]="comments.calificacion==2"><!--
+                                          --><label for="radio4-">★</label><!--
+                                          --><input id="radio5-" type="radio" name="estrellas" value="1" [checked]="comments.calificacion==1"><!--
+                                          --><label for="radio5-">★</label>
+                                        </p>
+                                      </div>
+                                  </div>
+                              </div>
+                              <div class="row">
+                                  <div class="col-xl-12 col-sm-12 col-md-12 col-lg-12 pt-12 text-justify">
+                                      <p>{{((data.description!=null)?data.description:'')}}</p>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                    </div>
+                    <tfoot>
+                        <tr>
+                            <td colspan="4">
+                                <mfBootstrapPaginator></mfBootstrapPaginator>
+                            </td>
+                        </tr>
+                    </tfoot>
+              </table>
+          </div>
+        </div>
+        <!-- Fin Comentarios del Bis -->
+      </div>
+
+    </div>
+    <!-- Fin Columna con Bis -->
+    <!-- Columna con Seller -->
+      <div class="col-xl-3 col-sm-3 col-md-3 col-lg-3" *ngIf="selectedData">
+          <!-- Seller Card -->
+          <div class="card">
+
+              <img class="w-100 p-3" style="max-height:16rem;" src="{{selectedData.Usuario.avatar?selectedData.Usuario.avatar:'http://placehold.it/1000px1000/'}}" alt="Card image cap">
+              <div class="card-body">
+                <h5 class="card-title text-center">{{selectedData.nombre?selectedData.nombre+' '+selectedData.apellido:''}}</h5>
+                <a  class="btn btn-primary form-control" *ngIf="contact" (click)="contactSeller();">Contact me</a>
+                <a  class="btn btn-primary form-control" *ngIf="!contact">Contact You</a>
+                <a  class="form-control w-100 btn bg-blanco-bishound c-rosa-bishound">Visit My Site</a>
+              </div>
+              <!-- Seller Data -->
+              <div class="row ml-0 mr-0 mt-3 mb-4">
+                <!-- <div class="mb-2 col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left">
+                  From
+                </div>
+                <div class="mb-2 col-xs-7 col-sm-7 col-md-7 col-lg-7 text-right">
+                  Guatemala City
+                </div> -->
+                <div class="mb-2 col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                  Member Since
+                </div>
+                <div class="mb-2 col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
+                 {{selectedData.Usuario?selectedData.Usuario.createdAt.split('T')[0].substr(0,4):''}}
+                </div>
+                <!-- <div class="mb-2 col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left">
+                  Location
+                </div>
+                <div class="mb-2 col-xs-7 col-sm-7 col-md-7 col-lg-7 text-right">
+                  <a href="#">view on map</a>
+                </div> -->
+                <div class="mb-2 col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+                  # Deliveries
+                </div>
+                <div class="mb-2 col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
+                  0
+                </div>
+              </div>
+              <!-- Fin Seller Data -->
+              <!-- Rate Area -->
+              <div class="row ml-0 mr-0">
+                <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                  <div class="rateMini">
+                    <div class="clasificacion">
+                      <input id="Ranking1" name="ranking" type="radio" [value]="5" disabled [class.checkStar]="ranking>=5">
+                      <label for="Ranking1">★</label>
+                      <input id="Ranking2" name="ranking" type="radio" [value]="4" disabled [class.checkStar]="ranking>=4">
+                      <label for="Ranking2">★</label>
+                      <input id="Ranking3" name="ranking" type="radio" [value]="3" disabled [class.checkStar]="ranking>=3">
+                      <label for="Ranking3">★</label>
+                      <input id="Ranking4" name="ranking" type="radio" [value]="2" disabled [class.checkStar]="ranking>=2">
+                      <label for="Ranking4">★</label>
+                      <input id="Ranking5" name="ranking" type="radio" [value]="1" disabled [class.checkStar]="ranking>=1">
+                      <label for="Ranking5">★</label>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 pt-1 text-left">
+                  <h5>5</h5>
+                </div>
+              </div>
+              <!-- Fin Rate Area -->
+              <!-- Description Area -->
+              <div class="row ml-0 mr-0 fs-bishound">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pl-3 pr-3 text-left">
+                  {{selectedData.Usuario?selectedData.Usuario.descripcion:''}}
+                </div>
+              </div>
+              <!-- Fin Description Area -->
+              <!-- Social Buttoms Area -->
+              <div class="row ml-0 mr-0">
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 text-center social-media">
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-linkedin"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                </div>
+              </div>
+              <!-- Fin Social Buttoms Area -->
+          </div>
+          <!-- Fin Seller Card -->
+
+
+      </div>
+    <!-- Fin Columna con Seller -->
+  </div>
+
+  <!-- Sellers Area -->
+  <div class="container-fluid mb-3">
+      <h2 class="font-bold font-size-125 mb-20">Service Related</h2>
+      <div class="row flex-row flex-nowrap">
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 w-50" *ngFor="let data of Table">
+            <app-bis-card [data]="data"></app-bis-card>
+          </div>
+      </div>
+  </div>
+  <!-- Fin Sellers Area -->
+
+</div>
+
+
+
+<!-- Inicio Notificaciones -->
+<simple-notifications [options]="options"></simple-notifications>
+<!-- Fin Notificaciones -->
+
+
+  <!-- Fin Loader Modal -->
+  <div class="modal fade" id="generalModalDetalle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body" *ngIf="!generalModalDetalle">
+          <app-register></app-register>
+        </div>
+        <div class="modal-body" *ngIf="generalModalDetalle && selectedData">
+          <app-login [isModal]="true" [idBis]="selectedData.id"></app-login>
+        </div>
+      </div>
+    </div>
+  </div>

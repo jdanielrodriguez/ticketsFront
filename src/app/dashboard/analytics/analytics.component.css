@@ -1,0 +1,156 @@
+.before-right:before{
+  content: '';
+  width: 50%;
+  background-color: #0000ff;
+  border: 0.3rem solid #0000ff;
+  position: absolute;
+  top: 40%;
+  transition: all 200ms ease-in;
+  right: 0px;
+  z-index: -3;
+}
+
+.before-left:before{
+  content: '';
+  width: 50%;
+  background-color: #0000ff;
+  border: 0.3rem solid #0000ff;
+  position: absolute;
+  top: 40%;
+  transition: all 200ms ease-in;
+  left: 0px;
+  z-index: -3;
+}
+
+.before-center:before{
+  content: '';
+  width: 100%;
+  background-color: #0000ff;
+  border: 0.3rem solid #0000ff;
+  position: absolute;
+  top: 40%;
+  transition: all 200ms ease-in;
+  left: 0px;
+  z-index: -3;
+}
+
+.level0{
+  color:#fff;
+  background-color: #fff!important;
+}
+
+.level1{
+  color:#fff;
+  background-color: rgb(178,179,255)!important;
+}
+
+.level2{
+  color:#fff;
+  background-color: rgb(102,102,255)!important;
+}
+
+.level3{
+  color:#fff;
+  background-color: #0000ff!important;
+}
+
+
+.rate {
+  height: 50px;
+  width: 100%;
+}
+.rateMini {
+  height: 50px;
+  width: 100%;
+}
+.rateMini {
+  height: 50px;
+  width: 100%;
+}
+.rateMini{
+  position: absolute!important;
+  margin-left:0.5rem!important;
+}
+
+.rateMini label{
+  font-size: 1.5rem!important;
+  margin-right: 0.3rem!important;
+
+}
+.rate p {
+  text-align: left;
+}
+
+.rateMini p {
+  text-align: left;
+}
+
+.rateMini label{
+  font-size: 1rem!important;
+  margin-right: 0.2rem!important;
+
+}
+.rate p {
+  text-align: left;
+}
+
+.rateMini p {
+  text-align: left;
+}
+
+.rate label {
+  font-size: 1.3rem;
+  margin-right: 0.2rem;
+}
+@media only screen and (max-width: 1360px) {
+
+  .rate label {
+    font-size: 0.6rem!important;
+      margin-right: 0.3rem!important;
+  }
+}
+input[type="radio"] {
+  display: none;
+}
+
+.rate label {
+  color: #a7acb1;
+}
+
+.rateMini label {
+  color: #a7acb1;
+}
+
+.clasificacion {
+  direction: rtl;
+  unicode-bidi: bidi-override;
+}
+.rate label:hover,
+.rate label:hover ~ label {
+  color: #0000ff;
+  cursor: pointer;
+}
+.btn-bishound:hover{
+  background-color: #0000ff!important;
+  color: #f8f9fa!important;
+  cursor: pointer;
+}
+.btn-bishound-active:hover{
+  background-color: #f8f9fa!important;
+  color: #0000ff!important;
+  cursor: pointer;
+}
+/*
+
+
+input[type="radio"]:checked ~ label {
+  color: #0000ff;
+}
+.valoracionRanking:checked ~ label {
+  color: #0000ff;
+} */
+
+
+.checkStar ~ label{
+  color: #0000ff;
+}

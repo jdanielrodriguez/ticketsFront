@@ -1,0 +1,78 @@
+<footer class="footer bg-bishound pt-4 mt-5 site-footer-padding site-footer" style="margin-bottom: auto;bottom: 0px;">
+  <div class="pr-5 pl-5 text-center">
+    <!-- Links Footer -->
+    <div class="container c-bishound">
+        <div class="row c-bishound">
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-left">
+            <h3 class="c-azul-bishound font-bold font-size-1">Categories</h3>
+              <h5><a class="pointer d-block" *ngFor="let data of categorias" (click)="navegar('./category/'+data.descripcion.replace(' ','_'),data.id)">{{data.descripcion?data.descripcion:'Category XXX'}}</a></h5>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left" style="padding:0px;margin:0px;">
+              <h3 class="c-azul-bishound font-bold font-size-1">
+                About us
+            </h3>
+            <a href="https://sites.bishound.com/" style="padding:0px;margin:0px;">
+              <h5 class="font-size-09375">How it works?</h5>
+            </a>
+          </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left">
+              <h3 class="c-azul-bishound font-bold font-size-1">
+                  Support
+              </h3>
+            <h5><a href="https://sites.bishound.com/">
+              Support
+            </a>
+              </h5>
+            </div>
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-left" style="padding:0px;margin:0px;">
+              <h3 class="c-azul-bishound font-bold font-size-1">
+                  Join to Bishound
+              </h3>
+            <h5>
+            <a class="pointer" (click)="navegar('./register')" style="padding:0px;margin:0px;">
+            Sign Up
+            </a></h5>
+            <h5>
+            <a class="pointer" (click)="navegar('./login')" style="padding:0px;margin:0px;">
+            Sign in
+            </a></h5>
+            <h5>
+            <a class="pointer" (click)="navegar('./become-seller')" style="padding:0px;margin:0px;">
+            Become a Professional
+            </a></h5>
+          </div>
+        </div>
+      </div>
+    <!-- Fin Links Footer -->
+    <!-- Footer Social -->
+    <hr>
+    <div class="row text-center c-bishound">
+        <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+            <a class="navbar-brand" [routerLink]="['./']" (click)="navegar('./../')">
+              <img class="footer-logo" src="../../assets/png/Iconos/isotipo_small.png" style="height:3rem; width:3rem; margin-right:-1.5rem;; " alt="Bishound">
+            </a>
+            <a class="mini-hide">
+                <span>BISHOUND</span>
+            </a>
+            <br class="mini-hide">
+            <div class="d-inline">
+              <strong class="font-11">
+                <a href="https://s3.amazonaws.com/bishound-cdn-bucket/tools/Politicas_Privacidad_Bishound.pdf" target="_blank" class="footer-link">PRIVACY POLICY</a> | <a class="footer-link">TERMS OF SERVICE</a>
+              </strong>
+            </div>
+            <br class="mini-hide">
+            <div class="d-inline">
+              <span class="font-10">
+                Copyright Bishound 2019
+              </span>
+            </div>
+        </div>
+        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right social-media">
+            <a href="#"><i class="fa fa-facebook"></i></a>
+            <a href="#"><i class="fa fa-linkedin"></i></a>
+            <a href="#"><i class="fa fa-instagram"></i></a>
+        </div>
+      </div>
+    <!-- Fin Footer Social -->
+  </div>
+</footer>

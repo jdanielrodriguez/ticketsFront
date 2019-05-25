@@ -1,0 +1,225 @@
+<div class="pr-5 pl-5 bg-bishound">
+    <nav class="navbar navbar-expand-lg navbar-bishound-prof ">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" routerLinkActive="active-bishound bg-bishound"   [routerLink]="['./../../dashboard/home']">Dashboard </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  routerLinkActive="active-bishound bg-bishound"  [routerLink]="['./../../dashboard/selling/active-orders']" *ngIf="tipoUsuario>=2">Selling </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  routerLinkActive="active-bishound bg-bishound"  [routerLink]="['./../../dashboard/buying/my-projects']">Buying </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link c-rosa-bishound"  routerLinkActive="active-bishound bg-bishound"  [routerLink]="['./../../dashboard/tools/benefits']" *ngIf="tipoUsuario>=2">Tools for Grow </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  routerLinkActive="active-bishound bg-bishound"  [routerLink]="['./../../dashboard/buyers']">Contacts </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link"  tooltip="Comming Soon" placement="bottom" [routerLink]="['./']"  *ngIf="tipoUsuario>=2">Inbox </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active-bishound bg-bishound"  routerLinkActive="active-bishound bg-bishound"  [routerLink]="['./../settings']">Settings</a>
+          </li>
+        </ul>
+        <div class="text-right" style="margin-left:auto;">
+          <button type="button" class="btn c-rosa-bishound " style="background-color:#fafafa!important" [routerLink]="['./../create/landing']" *ngIf="tipoUsuario>=2">Create your site</button>
+          <button type="button" class="btn btn-primary" [routerLink]="['./../create/bis']" *ngIf="tipoUsuario>=2">Create a Bis</button>
+        </div>
+      </nav>
+
+    <!-- Home Windows -->
+
+    <div class="row mt-3">
+      <!-- Main Home Page -->
+
+      <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+          <div id="accordion" class="box-shadow-medium p-3">
+
+            <div class="">
+              <div class="border-bottom border-primary">
+                <h5 class="mb-0 pl-0">
+                  <a class="btn btn-link ml-0 pl-0 ml-0 pl-0" routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../settings/profile']">Profile</a>
+                </h5>
+              </div>
+            </div>
+
+            <div class=""*ngIf="tipoUsuario>=2">
+              <div class="border-bottom border-primary">
+                <h5 class="mb-0 pl-0">
+                  <a class="btn btn-link ml-0 pl-0 ml-0 pl-0" tooltip="Comming Soon" placement="right" [routerLink]="['./']" >Skills</a>
+                </h5>
+              </div>
+            </div>
+
+            <div class=""*ngIf="tipoUsuario>=2">
+              <div class="border-bottom border-primary">
+                <h5 class="mb-0 pl-0">
+                  <a class="btn btn-link ml-0 pl-0 ml-0 pl-0" routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../profile/verified']">Trust and Verification</a>
+                </h5>
+              </div>
+            </div>
+
+            <div class=""*ngIf="tipoUsuario>=2">
+              <div class="border-bottom border-primary">
+                <h5 class="mb-0 pl-0">
+                  <a class="btn btn-link ml-0 pl-0 ml-0 pl-0" tooltip="Comming Soon" placement="right" [routerLink]="['./']" >References</a>
+                </h5>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+
+        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8  offset-xl-1 row">
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  text-left mb-4">
+            <span class="c-azul-bishound"><h1>Checkout!</h1></span>
+          </div>
+
+
+          <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12  row mb-5">
+
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+                <div class="row p-3 mt-3 mb-3 ">
+                    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center btn-primary border border-bishound" >
+                      <h3 class="pt-2 mb-5 mt-5 pb-4">PLUS</h3>
+                    </div>
+                    <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9 text-left border border-bishound" >
+                      <div class="row pt-2 pb-1" >
+                        <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 ">
+                         <p class="text-left">
+                            1 BIShound License, Unlimited BISs, Unlimited Products,
+                            Website, Bidding, Access, Intern Chat, Sellin Tools Pay with Credit/Debit Card or with BIS Card
+                         </p>
+                        </div>
+                        <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 pt-3 text-center">
+                            <h5>
+                              USD $ US$ 2.99 <strong> Monthly </strong>
+                            </h5>
+                        </div>
+
+                      </div>
+
+                    </div>
+              </div>
+            </div>
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 border border-solid mb-4 mt-4">
+            </div>
+
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pl-3 row mb-5">
+
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-4 c-azul-bishound">
+                <h3>CHOOSE THE TYPE OF CHARGE</h3>
+              </div>
+
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+
+                <div class="checkbox">
+
+                  <input id="selectedCheckMastercard" name="selectedCheck" class="selectedCheck" type="radio" [(ngModel)]="selected"  value="1" style="margin-top: 0.5rem;position: absolute;margin-left: -1.4rem;">
+                  <label for="selectedCheckMastercard" class="selectedCheck">
+                    <i class="fa fa-cc-mastercard pointer pr-2" [class.c-celeste-bishound]="selected==1" style="font-size:1.5rem;"> *****-*****-93849</i>
+                  </label>
+                </div>
+
+              </div>
+
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+
+                <div class="checkbox">
+
+                  <input id="selectedCheckVisa" name="selectedCheck" class="selectedCheck" type="radio" [(ngModel)]="selected" value="2" style="margin-top: 0.5rem;position: absolute;margin-left: -1.4rem;">
+                  <label for="selectedCheckVisa" class="selectedCheck">
+                    <i class="fa fa-cc-visa pointer pr-2" [class.c-celeste-bishound]="selected==2" style="font-size:1.5rem;"> *****-*****-93849</i>
+                  </label>
+                </div>
+
+              </div>
+
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+
+                <div class="checkbox">
+
+                  <input id="selectedCheckAmerican" name="selectedCheck" class="selectedCheck" type="radio" [(ngModel)]="selected" value="3" style="margin-top: 0.5rem;position: absolute;margin-left: -1.4rem;">
+                  <label for="selectedCheckAmerican" class="selectedCheck">
+                    <i class="fa fa-cc-visa pointer pr-2" [class.c-celeste-bishound]="selected==3" style="font-size:1.5rem;"> *****-*****-93849</i>
+                  </label>
+                </div>
+
+              </div>
+
+
+
+            </div>
+
+
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 border border-solid mb-4 mt-4">
+            </div>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pl-3 row mt-5">
+
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mb-4 c-azul-bishound">
+                  <h3>CHOOSE THE TYPE OF CHARGE</h3>
+                </div>
+
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+
+                  <div class="checkbox">
+
+                    <input id="selectedCheckMastercard" name="selectedCheckPaid" class="selectedCheck" type="radio" [(ngModel)]="selected"  value="1" style="margin-top: 0.5rem;position: absolute;margin-left: -1.4rem;">
+                    <label for="selectedCheckMastercard" class="selectedCheck">
+                      <i class="pointer pr-2" [class.c-celeste-bishound]="selected==1" style="font-size:1.5rem;"> Monthly/ $ 2.99 per Month</i>
+                    </label>
+                  </div>
+
+                </div>
+
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+
+                  <div class="checkbox">
+
+                    <input id="selectedCheckVisa" name="selectedCheckPaid" class="selectedCheck" type="radio" [(ngModel)]="selected" value="2" style="margin-top: 0.5rem;position: absolute;margin-left: -1.4rem;">
+                    <label for="selectedCheckVisa" class="selectedCheck">
+                        <i class="pointer pr-2" [class.c-celeste-bishound]="selected==2" style="font-size:1.5rem;"> Biyearly/ $ 17.94 each 6 months</i>
+                    </label>
+                  </div>
+
+                </div>
+
+                <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+
+                  <div class="checkbox">
+
+                    <input id="selectedCheckAmerican" name="selectedCheckPaid" class="selectedCheck" type="radio" [(ngModel)]="selected" value="3" style="margin-top: 0.5rem;position: absolute;margin-left: -1.4rem;">
+                    <label for="selectedCheckAmerican" class="selectedCheck">
+                        <i class="pointer pr-2" [class.c-celeste-bishound]="selected==3" style="font-size:1.5rem;"> Yearly/ $35.88 per year</i>
+                    </label>
+                  </div>
+
+                </div>
+
+
+
+              </div>
+
+          </div>
+
+
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 offset-md-2 mt-5 text-center">
+            <button type="button" class="btn btn-primary btn-lg btn-block p-3" [routerLink]="['./../../checkout/detail/1']">PAY</button>
+          </div>
+          <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-center mt-5">
+            <button type="button" class="btn btn-outline-primary btn-lg btn-block p-3"> Cancel</button>
+          </div>
+        </div>
+      <!-- Fin Main Home Page -->
+    </div>
+
+    <!-- Fin Home Windows -->
+  </div>

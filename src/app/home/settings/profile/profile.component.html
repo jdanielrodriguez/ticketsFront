@@ -1,0 +1,283 @@
+<div class="pr-5 pl-5 bg-bishound">
+  <nav class="navbar navbar-expand-lg navbar-bishound-prof ">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" routerLinkActive="active-bishound bg-bishound"   [routerLink]="['./../../dashboard/home']">Dashboard </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  routerLinkActive="active-bishound bg-bishound"  [routerLink]="['./../../dashboard/selling/active-orders']" *ngIf="tipoUsuario>=2">Selling </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  routerLinkActive="active-bishound bg-bishound"  [routerLink]="['./../../dashboard/buying/my-projects']">Buying </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link c-rosa-bishound"  routerLinkActive="active-bishound bg-bishound"  [routerLink]="['./../../dashboard/tools/benefits']" *ngIf="tipoUsuario>=2">Tools for Grow </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  routerLinkActive="active-bishound bg-bishound"  [routerLink]="['./../../dashboard/buyers']">Contacts </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link"  tooltip="Comming Soon" placement="bottom" [routerLink]="['./']"  *ngIf="tipoUsuario>=2">Inbox </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link active-bishound bg-bishound"  routerLinkActive="active-bishound bg-bishound"  [routerLink]="['./../../settings']">Settings</a>
+      </li>
+    </ul>
+    <div class="text-right" style="margin-left:auto;">
+      <button type="button" class="btn c-rosa-bishound " style="background-color:#fafafa!important" tooltip="Comming Soon" placement="left" *ngIf="tipoUsuario>=2">Create your site</button>
+      <button type="button" class="btn btn-primary" [routerLink]="['./../../create/bis']" *ngIf="tipoUsuario>=2">Create a Bis</button>
+    </div>
+  </nav>
+
+  <!-- Home Windows -->
+
+  <div class="row mt-3">
+    <!-- Main Home Page -->
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+      <div id="accordion" class="box-shadow-medium p-3">
+
+        <div class="">
+          <div class="border-bottom border-primary">
+            <h5 class="mb-0 pl-0">
+              <a class="btn btn-link ml-0 pl-0 ml-0 pl-0" routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../settings/profile']">Profile</a>
+            </h5>
+          </div>
+        </div>
+
+        <div class=""*ngIf="tipoUsuario>=2">
+          <div class="border-bottom border-primary">
+            <h5 class="mb-0 pl-0">
+              <a class="btn btn-link ml-0 pl-0 ml-0 pl-0" tooltip="Comming Soon" placement="right" [routerLink]="['./']" >Skills</a>
+            </h5>
+          </div>
+        </div>
+
+        <div class=""*ngIf="tipoUsuario>=2">
+          <div class="border-bottom border-primary">
+            <h5 class="mb-0 pl-0">
+              <a class="btn btn-link ml-0 pl-0 ml-0 pl-0" routerLinkActive="c-rosa-bishound"  [routerLink]="['./../../profile/verified']">Trust and Verification</a>
+            </h5>
+          </div>
+        </div>
+
+        <div class=""*ngIf="tipoUsuario>=2">
+          <div class="border-bottom border-primary">
+            <h5 class="mb-0 pl-0">
+              <a class="btn btn-link ml-0 pl-0 ml-0 pl-0" tooltip="Comming Soon" placement="right" [routerLink]="['./']" >References</a>
+            </h5>
+          </div>
+        </div>
+
+
+
+      </div>
+    </div>
+
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 offset-xl-1">
+        <div class="text-center w-100 mb-3">
+          <div class="c-azul-bishound text-left">
+            <h2>Membership & Bill</h2>
+          </div>
+          <div class="card-body">
+
+            <div class="row" *ngIf="SelectedData">
+              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 text-left c-azul-bishound">
+                {{SelectedData.email?SelectedData.email:''}}
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right c-bishound">
+                <!-- <a class="mr-3" [routerLink]="['./../../settings/change-email']">Change email</a> -->
+                <a class="ml-3" [routerLink]="['./../../settings/change-password']">Change password</a>
+              </div>
+              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 text-left">
+                <small>Password: ******* </small>
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
+                <a [routerLink]="['./../../profile/upload/avatar']">Upload Avatar</a>
+              </div>
+
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 border border-solid mb-4 mt-4">
+
+              </div>
+              <div class="col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left">
+               <h2 *ngIf="!SelectedData.bisCardId">
+                <i class="fa fa-cc-mastercard"></i>
+                **** **** **** ****</h2>
+
+              <h6 *ngIf="SelectedData.bisCardId">
+                  <i class=""><img src="../../assets/png/Iconos/isotipo_large.png" style="height:1rem; width:1rem; " alt="Bishound"> </i>
+                  #{{SelectedData.BisCard.numeroBisCard}}</h6>
+              </div>
+              <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
+                <a [routerLink]="['./../../paid/paid-method']">Update or Change Paid  Method</a><br>
+                <a [routerLink]="['./../../settings/billing']"  tooltip="Comming Soon" placement="left">Billing Information</a>
+              </div>
+
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 border border-solid mb-4 mt-4">
+
+              </div>
+              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 text-left">
+               <h2 class="c-azul-bishound">
+                Membership - Basic</h2>
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-right">
+                <a >Cancel Membership</a>
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left">
+               <button type="button" class="btn btn-outline-primary btn-lg btn-block" [routerLink]="['./../../settings/plans']">Update plan</button>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 border border-solid mb-4 mt-4">
+
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <div class=" text-center w-100 mb-3" *ngIf="SelectedData">
+          <div class=" c-azul-bishound text-left">
+            <h2>Profile - Required</h2>
+          </div>
+          <div class="card-body text-left">
+            <form class="row" #profileForm="ngForm" (ngSubmit)="update(profileForm.value)">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-4">
+                <h3 class="c-azul-bishound">Name(s)</h3>
+
+                <input type="text" name="nombre" id="nombre" ngModel #nombre="ngModel" class="form-control bishound-input" [(ngModel)]="SelectedData.nombre">
+
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-4">
+                <h3 class="c-azul-bishound">Last Name (s)</h3>
+
+                <input type="text" name="apellido" id="apellido" ngModel #apellido="ngModel" class="form-control bishound-input" [(ngModel)]="SelectedData.apellido">
+
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 p-4">
+                <h3 class="c-azul-bishound">I am</h3>
+
+                <select name="genre" id="genre" class="form-control bishound-input" ngModel #genre="ngModel"  [(ngModel)]="SelectedData.genre">
+                  <option value="M">-- Male --</option>
+                  <option value="F">-- Female --</option>
+                  <option value="N">-- Neather--</option>
+                </select>
+                <small>We use this data for analysis ands never share it with other users</small>
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 p-4">
+                <h3 class="c-azul-bishound">Birth Date</h3>
+               <input type="date" name="birthday" id="birthday" class="form-control bishound-input" ngModel #birthday="ngModel" [(ngModel)]="SelectedData.birthday">
+                <small>We use this data for analysis ands never share it with other users</small>
+              </div>
+              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 p-4">
+                <h3 class="c-azul-bishound">Phone Number</h3>
+               <input type="number" name="phone" id="phone" class="form-control bishound-input" ngModel #phone="ngModel" [(ngModel)]="SelectedData.telefono">
+                <small>We use this data for analysis ands never share it with other users</small>
+              </div>
+
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h3 class="c-azul-bishound">Address</h3>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-1">
+                  <textarea name="address" id="address" ngModel #address="ngModel" class="form-control bishound-input" rows="1" [(ngModel)]="CurrentAddress" [ngModelOptions]="{standalone: true}">
+                  </textarea>
+                </div>
+                  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left pb-1 c-celeste-bishound">
+                    <a (click)="agregarDireccion()" class="pointer"><i class="fa fa-plus-circle"> </i> Add new Address...</a>
+                 </div>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-1" *ngFor="let dat of SelectedData.Direcciones">
+                  <textarea class="form-control bishound-input" [disabled]="true" rows="1" [(ngModel)]="dat.direccion" [ngModelOptions]="{standalone: true}">
+                  </textarea>
+                </div>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h3 class="c-azul-bishound">Describe yourself</h3>
+
+                <textarea name="descripcion" id="descripcion" ngModel #descripcion="ngModel" class="form-control bishound-input" rows="10" [(ngModel)]="SelectedData.descripcion">
+                  </textarea>
+              </div>
+
+
+              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 pt-3 text-left">
+                <button type="submit" class="btn btn-outline-primary form-control">Save</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+        <div class=" text-center w-100 mb-3" *ngIf="tipoUsuario>=2">
+          <div class=" c-azul-bishound text-left">
+            <h2> Enterprice Profile - Optional </h2>
+          </div>
+          <div class="card-body">
+            <form class="row text-left" #projectForm="ngForm" (ngSubmit)="insert(projectForm.value)">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-4">
+                <h3 class="c-azul-bishound">Enterprise Name</h3>
+                <input type="text" name="nombre" id="nombre" ngModel #nombre="ngModel" class="form-control bishound-input">
+                <small>We use this data for analysis ands never share it with other users</small>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 p-4 ">
+                <h3 class="c-azul-bishound">Show Enterprise Name?</h3>
+                <div class="input-group mb-3 ">
+                  <div class="input-group-prepend pr-2 pt-1">
+                    <div>No</div>
+                  </div>
+                  <label class="switch">
+                    <input type="checkbox">
+                    <span class="slider round"></span>
+                  </label>
+                  <div class="input-group-prepend pl-2 pt-1">
+                    <div>Yes</div>
+                  </div>
+                </div>
+                <small>We use this data for analysis ands never share it with other users</small>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 p-4">
+                <h3 class="c-azul-bishound">Size of your Enterprise</h3>
+
+                <input type="number" name="iam" id="inputiam" class=" bishound-input" value="" min="1" max="" step="" required="required" title="">
+<br>
+                <small>We use this data for analysis ands never share it with other users</small>
+              </div>
+
+
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 p-4">
+                <h3 class="c-azul-bishound">Address</h3>
+                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 p-1" *ngFor="let dat of rowsItems">
+                  <textarea name="nombre" id="nombre" ngModel #nombre="ngModel" class="form-control bishound-input" rows="1">
+                  </textarea>
+                </div>
+                  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 text-left pb-1 c-celeste-bishound">
+                    <a (click)="agregar()" class="pointer"><i class="fa fa-plus-circle"> </i> Add new Item...</a>
+                 </div>
+                 <small>We use this data for analysis ands never share it with other users</small>
+              </div>
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 p-4">
+                <h3 class="c-azul-bishound">Phone Number</h3>
+               <input type="number" name="" id="input" class="form-control bishound-input" value="" min="5" max="10" step="" required="required" title="">
+                <small>We use this data for analysis ands never share it with other users</small>
+              </div>
+
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                <h3 class="c-azul-bishound">Business Description</h3>
+
+                <textarea name="nombre" id="nombre" ngModel #nombre="ngModel" class="form-control bishound-input" rows="10">
+                  </textarea>
+              </div>
+
+
+              <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 pt-3 text-left">
+                <button type="submit" class="btn btn-outline-primary form-control">Save</button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+
+    </div>
+    <!-- Fin Main Home Page -->
+  </div>
+
+  <!-- Fin Home Windows -->
+</div>
+
+<!-- Inicio Notificaciones -->
+<simple-notifications [options]="options"></simple-notifications>
+<!-- Fin Notificaciones -->

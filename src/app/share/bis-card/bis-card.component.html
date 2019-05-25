@@ -1,0 +1,38 @@
+<div class="bis-card-base box-shadow-medium height-full">
+
+  <a [routerLink]="['/bis/', data.id]">
+    <div class="bis-media-container">
+      <img class="card-img-top pointer w-100"
+            style="height: 12.5rem;width:12.5rem;"
+            src="{{((data.ImagenesBis!=null && data.ImagenesBis.length>0)?data.ImagenesBis[0].url:'http://placehold.it/1000X1000?text='+data.titulo)}}" alt="{{data.titulo}}" >
+    </div>
+  </a>
+
+  <div class="bis-card-caption">
+
+    <div class="bis-seller-info">
+      <span class="fit-avatar">
+        <img src="" alt="">
+      </span>
+      <span class="seller-name">
+      </span>
+    </div>
+
+    <a [routerLink]="['/bis/', data.id]" class="mb-10">
+      <h5 class="ml-10 mb-10 c-azul-bishound font-size-09375 font-bold height-50">{{((data.titulo!=null)?data.titulo.substr(0,50):'')}}</h5>
+    </a>
+
+    <div class="bis-rating-badges-container mb-20">
+      <span class="ml-10 bis-rating c-morado-bishound font-bold">
+        <span>★</span>
+        <span>5</span>
+      </span>
+    </div>
+  </div>
+
+  <footer class="bis-card-footer">
+    <a (click)="data.compare=!data.compare;addShoppingCar(data)" class="btn bg-bishound c-bishound btn-bishound form-control text-mini text-light" *ngIf="!data.compare">  Add to Compare</a>
+    <a (click)="data.compare=!data.compare;removeShoppingCar(data)" class="btn btn-primary btn-bishound-active form-control text-mini text-light"  *ngIf="data.compare"> Ready to Compare</a>
+  </footer>
+
+</div>
