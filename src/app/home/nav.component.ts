@@ -2,9 +2,6 @@ import { Observable, Subscription } from 'rxjs';
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { AppComponent } from "./../app.component";
-import { BisService } from "./_services/bis.service";
-import { CategorysService } from "./_services/categorys.service";
-import { ParnertsService } from "./_services/parnerts.service";
 import { GlobalsService } from "./_services/globals.service";
 import { LangService } from "./_services/lang.service";
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
@@ -68,9 +65,6 @@ export class NavComponent implements OnInit {
     private router: Router,
     private LangService: LangService,
     private GlobalsService: GlobalsService,
-    private BisService:BisService,
-    private CategorysService:CategorysService,
-    private ParnertsService:ParnertsService,
     public app: AppComponent
     ) {}
 
@@ -192,94 +186,72 @@ export class NavComponent implements OnInit {
   }
   getCategories(){
 
-    this.CategorysService.getMasters()
-                        .then(response => {
-                          this.categorias = response;
-
-
-                          this.blockUI.stop();
-                        }).catch(error => {
-                          console.clear
-
-                          this.blockUI.stop();
-                        })
 
   }
   getParnerts(){
 
-    this.ParnertsService.getAll()
-                        .then(response => {
-                          this.partners = response;
-                          console.log(response);
 
-
-                          this.blockUI.stop();
-                        }).catch(error => {
-                          console.clear
-
-                          this.blockUI.stop();
-                        })
 
   }
   getSearch($event){
-    let semaforo = false;
-    if($event.keyCode==13){
-      semaforo = true;
-    }
-    if(!$event.keyCode){
-      semaforo = true;
-    }
-    if(semaforo){
-      this.changeValSerach()
+    // let semaforo = false;
+    // if($event.keyCode==13){
+    //   semaforo = true;
+    // }
+    // if(!$event.keyCode){
+    //   semaforo = true;
+    // }
+    // if(semaforo){
+    //   this.changeValSerach()
 
-    let info = this.searchValues.searchContent;
-    this.tipo = this.searchValues.type;
-    if($('#searchContent').hasClass('d-none')){
-      this.blockUI.start();
-    }
-    // this.searchType?tipo="services":tipo="supliers";
-      this.router.navigate([`./../search/${this.tipo}/${info}`])
-      // console.log(this.searchContent);
+    // let info = this.searchValues.searchContent;
+    // this.tipo = this.searchValues.type;
+    // if($('#searchContent').hasClass('d-none')){
+    //   this.blockUI.start();
+    // }
+    // // this.searchType?tipo="services":tipo="supliers";
+    //   this.router.navigate([`./../search/${this.tipo}/${info}`])
+    //   // console.log(this.searchContent);
 
-      let params = null
-      if(this.tipo=='All'){
-        params = {
-          search: this.searchValues.searchContent,
-        }
-      }else{
-        params = {
-          tipo: this.getType(this.tipo),
-          search: this.searchValues.searchContent,
-        }
-      }
-    let dato = {
-      searchContent: this.searchValues.searchContent,
-      type: (this.tipo)
-    }
-    this.GlobalsService.changeSearch(dato);
-    this.BisService.getFind(params)
-                        .then(response => {
-                          response.forEach(element => {
-                            if(this.agregados.find(data => {
-                              return data.id == element.id
-                            })){
-                              element.compare = true;
-                              element.ranking = 5;
-                            }else{
-                              element.compare = false;
-                              element.ranking = 5;
-                            }
+    //   let params = null
+    //   if(this.tipo=='All'){
+    //     params = {
+    //       search: this.searchValues.searchContent,
+    //     }
+    //   }else{
+    //     params = {
+    //       tipo: this.getType(this.tipo),
+    //       search: this.searchValues.searchContent,
+    //     }
+    //   }
+    // let dato = {
+    //   searchContent: this.searchValues.searchContent,
+    //   type: (this.tipo)
+    // }
+    // this.GlobalsService.changeSearch(dato);
+    // this.BisService.getFind(params)
+    //                     .then(response => {
+    //                       response.forEach(element => {
+    //                         if(this.agregados.find(data => {
+    //                           return data.id == element.id
+    //                         })){
+    //                           element.compare = true;
+    //                           element.ranking = 5;
+    //                         }else{
+    //                           element.compare = false;
+    //                           element.ranking = 5;
+    //                         }
 
-                          });
-                          this.Table = response;
-                          this.GlobalsService.changeResults(response);
-                          this.changeValSerach();
-                          this.blockUI.stop();
-                        }).catch(error => {
-                          console.clear
-                          this.blockUI.stop();
-                        })
-    }
+    //                       });
+    //                       this.Table = response;
+    //                       this.GlobalsService.changeResults(response);
+    //                       this.changeValSerach();
+    //                       this.blockUI.stop();
+    //                     }).catch(error => {
+    //                       console.clear
+    //                       this.blockUI.stop();
+    //                     })
+    // }
     // this.changeResults.emit(this.Table)
     // this.GlobalsService.changeResults(this.Table);
   }

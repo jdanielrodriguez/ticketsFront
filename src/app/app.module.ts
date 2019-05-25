@@ -14,16 +14,9 @@ import {TranslateHttpLoader} from '@ngx-translate/http-loader';
 import { AppComponent } from './app.component';
 import { NavComponent } from './home/nav.component';
 
-import { BisService } from "./home/_services/bis.service";
-import { CategorysService } from "./home/_services/categorys.service";
-import { ParnertsService } from "./home/_services/parnerts.service";
-
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { LangService } from './home/_services/lang.service';
 import { GlobalsService } from './home/_services/globals.service';
-
-import {FooterComponent } from './share/footer/footer.component';
-
 
 export function HttpLoaderFactory(httpClient: HttpClient) {
   return new TranslateHttpLoader(httpClient, './assets/i18n/', '.json');
@@ -32,8 +25,7 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
 @NgModule({
   declarations: [
     AppComponent,
-    NavComponent,
-    FooterComponent
+    NavComponent
   ],
   imports: [
     BrowserModule,
@@ -56,9 +48,6 @@ export function HttpLoaderFactory(httpClient: HttpClient) {
   providers: [
     GlobalsService,
     LangService,
-    CategorysService,
-    ParnertsService,
-    BisService
   ],
   bootstrap: [AppComponent],
   schemas: [ NO_ERRORS_SCHEMA ]

@@ -4,8 +4,6 @@ import { Router, ActivatedRoute } from "@angular/router";
 
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { AppComponent } from "./../app.component";
-import { BisService } from "./../home/_services/bis.service";
-import { CategorysService } from "./../home/_services/categorys.service";
 import { GlobalsService } from "./../home/_services/globals.service";
 import { LangService } from "./../home/_services/lang.service";
 declare var $: any
@@ -52,8 +50,6 @@ export class DashboardComponent implements OnInit {
     private router: Router,
     private LangService: LangService,
     private GlobalsService: GlobalsService,
-    private BisService:BisService,
-    private CategorysService:CategorysService,
     public app: AppComponent
     ) {}
 
@@ -155,67 +151,67 @@ export class DashboardComponent implements OnInit {
     }
   }
   getCategories(){
-    this.blockUI.start();
+    // this.blockUI.start();
 
-    this.CategorysService.getAll()
-                        .then(response => {
-                          this.categorias = response;
-                          this.blockUI.stop();
-                        }).catch(error => {
-                          console.clear
+    // this.CategorysService.getAll()
+    //                     .then(response => {
+    //                       this.categorias = response;
+    //                       this.blockUI.stop();
+    //                     }).catch(error => {
+    //                       console.clear
 
-                          this.blockUI.stop();
-                        })
+    //                       this.blockUI.stop();
+    //                     })
 
   }
   getSearch(){
-    let info = this.searchContent;
-    this.blockUI.start();
-    // this.searchType?tipo="services":tipo="supliers";
-      this.router.navigate([`./../search/${this.tipo}/${info}`])
-      // console.log(this.searchContent);
+    // let info = this.searchContent;
+    // this.blockUI.start();
+    // // this.searchType?tipo="services":tipo="supliers";
+    //   this.router.navigate([`./../search/${this.tipo}/${info}`])
+    //   // console.log(this.searchContent);
 
-      let params = null
-      if(this.tipo=='All'){
-        params = {
-          search: this.searchContent,
-        }
-      }else{
-        params = {
-          tipo: this.getType(this.tipo),
-          search: this.searchContent,
-        }
-      }
-    this.BisService.getFind(params)
-                        .then(response => {
-                          response.forEach(element => {
-                            if(this.agregados.find(data => {
-                              return data.id == element.id
-                            })){
-                              element.compare = true;
-                              element.ranking = 5;
-                            }else{
-                              element.compare = false;
-                              element.ranking = 5;
-                            }
+    //   let params = null
+    //   if(this.tipo=='All'){
+    //     params = {
+    //       search: this.searchContent,
+    //     }
+    //   }else{
+    //     params = {
+    //       tipo: this.getType(this.tipo),
+    //       search: this.searchContent,
+    //     }
+    //   }
+    // this.BisService.getFind(params)
+    //                     .then(response => {
+    //                       response.forEach(element => {
+    //                         if(this.agregados.find(data => {
+    //                           return data.id == element.id
+    //                         })){
+    //                           element.compare = true;
+    //                           element.ranking = 5;
+    //                         }else{
+    //                           element.compare = false;
+    //                           element.ranking = 5;
+    //                         }
 
-                          });
-                          this.Table = response;
-
-
-
-
-                          this.blockUI.stop();
-                        }).catch(error => {
-                          console.clear
-
-                          this.blockUI.stop();
-                        })
+    //                       });
+    //                       this.Table = response;
 
 
 
-    // this.changeResults.emit(this.Table)
-    this.GlobalsService.changeResults(this.Table);
+
+    //                       this.blockUI.stop();
+    //                     }).catch(error => {
+    //                       console.clear
+
+    //                       this.blockUI.stop();
+    //                     })
+
+
+
+    // // this.changeResults.emit(this.Table)
+    // this.GlobalsService.changeResults(this.Table);
 
   }
   getType(type:string){
