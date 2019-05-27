@@ -1,21 +1,28 @@
 <block-ui>
-<div class="body w-100" *ngIf="searchValues">
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <ul class="nav ">
-  <li class="nav-item">
-  <a class="nav-link active" href="#">Active</a>
-  </li>
-  <li class="nav-item">
-  <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-  <a class="nav-link disabled" href="#">Disabled</a>
-  </li>
-  </ul>
+<div class="body w-100">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+      <a class="navbar-brand" [routerLink]="['./']" (click)="navegar('./../')">
+          <img src="/docs/4.3/assets/brand/bootstrap-solid.svg" width="30" height="30" class="d-inline-block align-top" alt="">
+          Ticketera
+        </a>
+    <ul class="nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link active pointer" [routerLink]="['./']" (click)="navegar('./../')">Inicio</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link pointer" [routerLink]="['./']" (click)="navegar('./../')">Conocenos</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link pointer" [routerLink]="['./']" (click)="navegar('./login')">Entrar</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link pointer" [routerLink]="['./']" (click)="navegar('./register')">Registrate</a>
+      </li>
+
+    </ul>
   </nav>
   <div>
     <router-outlet></router-outlet>
   </div>
-
 </div>
 </block-ui>

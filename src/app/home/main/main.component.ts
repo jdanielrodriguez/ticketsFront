@@ -92,7 +92,13 @@ navegar(url:string,id?:number){
   }
 }
 getCategories(){
-
+    this.Table = [
+      {
+        descripcion: "Primer Evento",
+        imagen:"http://placehold.it/3000x3000?text=X",
+        id: 1
+      }
+    ]
 
   }
   cargarSlides(){
