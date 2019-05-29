@@ -12,7 +12,7 @@ declare var $: any
 })
 export class RecoveryComponent implements OnInit {
   data = {
-    hash:'',
+    password:'',
     username:'',
     id:'0',
     type:'recovery'
@@ -29,19 +29,20 @@ export class RecoveryComponent implements OnInit {
     $('#searchContent').addClass('d-none');
     $('#inSeachForm').removeClass('d-none');
     $('#logoTipo').addClass('d-none');
-    this.data.hash=this.generatePasswordRand(20);
+    this.data.password=this.generatePasswordRand(20);
 
   }
 
   recovery(){
-    this.data.hash=this.generatePasswordRand(20);
-    console.log(this.data.hash);
+    this.data.password=this.generatePasswordRand(20);
+    // console.log(this.data);
     this.blockUI.start()
     this.mainService.recovery(this.data)
                     .then( response => {
-                      console.log(response);
-                      this.createSuccess("Check your email!")
+                      // console.log(response);
+                      this.createSuccess("Hemos enviado un correo con tu nueva clave!")
                       this.data.username = '';
+                      this.data.password = '';
                       this.blockUI.stop()
                     })
                     .catch( error => {

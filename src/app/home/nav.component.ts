@@ -20,32 +20,12 @@ interface searchValue {
 })
 export class NavComponent implements OnInit {
   Table:any
-  Table2:any
-  subscriptionResult:Subscription;
-  subscriptionSearch:Subscription;
   @BlockUI() blockUI: NgBlockUI;
-  public resultsSearch: Observable<any>;
-  public resultsResult: Observable<any>;
   @Input() result;
-  @Output() changeResults: EventEmitter<any> = new EventEmitter();
-  public searchContent='0';
   lang: Observable<string>;
-  categorias:any = null
-  partners:any = null
-  placeholder:string
-  private results2: Observable<any>;
   tipoUsuario:number = +localStorage.getItem('currentTipoUsuarioId');
-  Loading1 = false;
-  bandera = false;
-  subscription:Subscription;
   mainImg:string = localStorage.getItem('currentAvatar');
-  public searchType:boolean = false;
-  public searchValues:searchValue;
-  generalModalDetalle:boolean = true;
   public agregados: any[] = [];
-  filter:boolean =false;
-  clicks =0;
-  tipo:string="All"
   browserLang:any;
   translate:any;
   public user = {
@@ -76,13 +56,6 @@ export class NavComponent implements OnInit {
     // this.browserLang = this.app.translate.getBrowserLang();
     this.browserLang = 'en';
     this.translate = this.app.translate;
-    let dato:any = {
-      searchContent: '',
-      type: 'All'
-    }
-    this.GlobalsService.changeSearch(dato);
-    this.changeValSerach();
-    this.changePlaceholder()
     this.changeLang()
     this.fullSession(true);
     this.cargarCarrito()
@@ -94,10 +67,7 @@ export class NavComponent implements OnInit {
     $('.bg-animate-adds').css( {'background-image': 'url("./../assets/png/fondos/fondo1.jpeg")'} );
     // this.changeIMG();
   }
-  changePlaceholder(){
-    this.tipo = this.searchValues.type
-    this.placeholder = "What kind of "+(this.tipo=='All'?"product / service":this.tipo)+" are you looking for?"
-  }
+
   activeModal(message?){
     this.blockUI.start(message);
 
@@ -121,13 +91,7 @@ export class NavComponent implements OnInit {
       }, 500);
   }
 
-  changeValSerach(data?){
-    this.resultsResult = this.GlobalsService.getResults();
-    this.subscriptionResult = this.resultsResult.subscribe(item => this.Table = item)
-    this.resultsSearch = this.GlobalsService.getSearch();
-    this.subscriptionSearch = this.resultsSearch.subscribe(item => this.searchValues = item)
-    // console.log(this.searchValues);
-  }
+
   changeLang(){
     // this.browserLang = lang;
     // console.log(this.browserLang);
@@ -140,7 +104,6 @@ export class NavComponent implements OnInit {
     let datos = localStorage.getItem('carrito');
     if(datos){
       this.agregados = JSON.parse(datos);
-      this.Table2 = this.agregados
     }
   }
   fullSession(dato:boolean){
@@ -271,9 +234,6 @@ export class NavComponent implements OnInit {
       }
     }
   }
-  cargarModal(flag:boolean){
-    this.generalModalDetalle=flag
-  }
 
   navegar(url:string,id?:number){
     this.router.navigate([url])
@@ -324,13 +284,6 @@ export class NavComponent implements OnInit {
 
     this.cargarGetCarrito();
   }
-  ocultar(){
-    this.clicks++;
-    if(this.bandera){
-      this.filter=false;
-      this.bandera=false;
-    }
-  }
 
 
   postProject(){
@@ -338,7 +291,6 @@ export class NavComponent implements OnInit {
     if (!localStorage.getItem('currentUser')) {
       $('#loginTemplate').removeClass('container');
       $('#generalModalDetalle').modal("show");
-      this.generalModalDetalle = true;
     }else{
       this.router.navigate([`post-project`])
     }

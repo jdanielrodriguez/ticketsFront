@@ -38,7 +38,7 @@ export class AuthService {
   }
 
   Authentication(login:any):Promise<any> {
-    let url = `${this.basePath}/login`
+    let url = `${this.basePath}/api/login`
 
     this.reloadToken();
     return this.http.post(url,login)
@@ -51,15 +51,27 @@ export class AuthService {
   }
 
   recovery(form:any):Promise<any>{
-    let url = `${this.basePath}/recovery/${form.id}`
+    let url = `${this.basePath}/api/users/password/reset`
 
     this.reloadToken();
-    return this.http.put(url,form)
+    return this.http.post(url,form)
                       .toPromise()
                       .then(response => {
                         return response;
                       })
                       .catch(this.handleError)
   }
+
+  updatePass(form):Promise<any> {
+    let url = `${this.basePath}/api/users/${form.id}/changepassword`
+
+      return this.http.post(url,form)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response.json())
+                          return response
+                        })
+                        .catch(this.handleError)
+    }
 
 }

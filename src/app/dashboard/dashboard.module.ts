@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoadersCssModule } from 'angular2-loaders-css';
 import { SimpleNotificationsModule } from 'angular2-notifications';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
 import { DataTableModule } from 'angular-6-datatable';
 import { DashboardRoutingModule } from './dashboard.routing';
 import { DashboardComponent } from './dashboard.component';
@@ -25,6 +24,9 @@ import { InboxComponent } from './inbox/inbox.component';
 import { HomeComponent } from './home/home.component';
 
 import { BlockUIModule } from 'ng-block-ui';
+import { EventosComponent } from './eventos/eventos.component';
+import { LocalidadesComponent } from './localidades/localidades.component';
+import { AsientosComponent } from './asientos/asientos.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -46,7 +48,6 @@ export function HttpLoaderFactory(http: HttpClient) {
     SimpleNotificationsModule.forRoot(),
     BlockUIModule,
     LoadersCssModule,
-    Ng2SearchPipeModule,
     DataTableModule,
     ChartsModule,
     DashboardRoutingModule
@@ -56,6 +57,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     LoaderComponent,
     InboxComponent,
     HomeComponent,
+    EventosComponent,
+    LocalidadesComponent,
+    AsientosComponent,
   ],
   providers:[
     AuthGuard,

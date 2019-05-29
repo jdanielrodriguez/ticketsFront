@@ -209,37 +209,3 @@
   <!-- Inicio Notificaciones -->
   <simple-notifications [options]="options"></simple-notifications>
   <!-- Fin Notificaciones -->
-
-<div class="modal fade" id="ActualizaPass">
-  <div class="modal-dialog">
-    <form class="modal-content" autocomplete="off" #recoveryForm="ngForm" (ngSubmit)="changePass(recoveryForm.value)">
-      <div class="modal-header">
-          <h4 class="modal-title">Tu clave fue reseteada, debes cambiarla</h4>
-      </div>
-      <div class="modal-body">
-            <div class="form-group">
-              <div class="input-group mb-3">
-                  <input type="password" class="form-control bishound-input" placeholder="Escribe otra vez la clave que te enviamos" id="old_pass" name="old_pass" required
-                  ngModel #old_pass="ngModel">
-              </div>
-            </div>
-          <div class="form-group">
-              <div class="input-group mb-3">
-                  <input type="password" class="form-control bishound-input" placeholder="Crea una nueva clave" id="new_pass" name="new_pass" required
-                  ngModel #new_pass="ngModel">
-              </div>
-            </div>
-            <div class="form-group">
-              <div class="input-group mb-3">
-                  <input type="password" class="form-control bishound-input" placeholder="Confirma tu nueva clave" id="new_pass_rep" name="new_pass_rep" required
-                  ngModel #new_pass_rep="ngModel">
-              </div>
-            </div>
-      </div>
-      <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" [disabled]="(new_pass.value!=new_pass_rep.value) || new_pass.value==''">Change Password</button>
-        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
-      </div>
-    </form>
-  </div>
-</div>

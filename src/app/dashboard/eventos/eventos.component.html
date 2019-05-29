@@ -1,0 +1,43 @@
+<div class="pr-5 pl-5 bg-bishound mt-5">
+  <nav class="navbar navbar-expand-lg navbar-light">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['./../../dashboard/home']" >Home</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['./../../dashboard/eventos']" >Eventos</a>
+        </li>
+        <li class="nav-item" routerLinkActive="active">
+          <a class="nav-link" [routerLink]="['./../../dashboard/localidades']" >Localidades</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+  <!-- Home Windows -->
+  <div class="row mt-3">
+    <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2">
+      <button type="button" class="btn btn-large btn-block btn-primary">Guardar</button>
+    </div>
+
+    <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+
+    </div>
+
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+      <div class="row">
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+<!-- Fin Home Windows -->
+</div>
+
+  <!-- Inicio Notificaciones -->
+  <simple-notifications [options]="options"></simple-notifications>
+  <!-- Fin Notificaciones -->

@@ -4,10 +4,9 @@ import { Location } from '@angular/common';
 
 import { NavComponent } from "./../nav.component";
 import { NotificationsService } from 'angular2-notifications';
-import { Subject } from 'rxjs';
-// import 'rxjs/add/operator/switchMap';;
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
+import { EventosFuncionesService } from "./../_services/eventos-funciones.service";
 import { AppComponent } from "./../../app.component";
 import {TranslateService} from '@ngx-translate/core';
 
@@ -43,6 +42,7 @@ constructor(
   private _service: NotificationsService,
   private route: ActivatedRoute,
   private location: Location,
+  private mainService: EventosFuncionesService,
   private router: Router,
   private app: AppComponent,
   public translate: TranslateService,
@@ -77,9 +77,9 @@ ngOnInit() {
   })
 }
 ngAfterViewInit() {
-  setTimeout(() => {
-      this.parentComponent.searchContent = '';
-  });
+  // setTimeout(() => {
+  //     this.parentComponent.searchContent = '';
+  // });
 }
 changeLang(){
   this.translate.use(this.parentComponent.browserLang);
@@ -92,6 +92,33 @@ navegar(url:string,id?:number){
   }
 }
 getCategories(){
+  this.blockUI.start();
+  let today = new Date();
+  let dd = String(today.getDate()).padStart(2, '0');
+  let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  let yyyy = today.getFullYear();
+  let stoday = yyyy + '-' + mm + '-' + dd;
+  let data = {
+    id:stoday,
+    state:'0',
+    filter:'proximos'
+  }
+      this.mainService.getAllFilter(data)
+                          .then(response => {
+
+                            this.Table = response;
+                            // console.log(this.slides);
+
+                            this.sliderInicio = Math.round(Math.random() * (response.length));
+
+                            this.blockUI.stop();
+                          }).catch(error => {
+
+                            console.clear
+
+                            this.blockUI.stop();
+                            this.createError(error)
+                          })
     this.Table = [
       {
         descripcion: "Primer Evento",

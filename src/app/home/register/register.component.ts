@@ -18,63 +18,8 @@ export class RegisterComponent implements OnInit {
   comboParent:any
   @BlockUI() blockUI: NgBlockUI;
   selectedData:any
-  birthday:any = {
-    month : "Month",
-    day : "Day",
-    year : "Year"
-  }
-  months = [
-    {
-      id:1,
-      nombre:"January"
-    },
-    {
-      id:2,
-      nombre:"Febrary"
-    },
-    {
-      id:3,
-      nombre:"March"
-    },
-    {
-      id:4,
-      nombre:"April"
-    },
-    {
-      id:5,
-      nombre:"May"
-    },
-    {
-      id:6,
-      nombre:"June"
-    },
-    {
-      id:7,
-      nombre:"July"
-    },
-    {
-      id:8,
-      nombre:"August"
-    },
-    {
-      id:9,
-      nombre:"September"
-    },
-    {
-      id:10,
-      nombre:"October"
-    },
-    {
-      id:11,
-      nombre:"November"
-    },
-    {
-      id:12,
-      nombre:"December"
-    }
-  ]
-  days:any=[];
-  years:any=[];
+  today:any
+  nacimientoToday:any
   public rowsOnPage = 5;
   public search:any
   constructor(
@@ -88,16 +33,12 @@ export class RegisterComponent implements OnInit {
     $('#searchContent').addClass('d-none');
     $('#inSeachForm').removeClass('d-none');
     $('#logoTipo').addClass('d-none');
-    for(let i=2020;i>=1900;i--){
-      this.years.push({
-        id:i
-      })
-    }
-    for(let i=1;i<=31;i++){
-      this.days.push({
-        id:i
-      })
-    }
+    let today = new Date();
+    let dd = String(today.getDate()).padStart(2, '0');
+    let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+    let yyyy = today.getFullYear()-21;
+    this.today = yyyy + '-' + mm + '-' + dd;
+    this.nacimientoToday = yyyy + '-' + mm + '-' + dd;
   }
 
   select(dat:boolean){
@@ -156,6 +97,8 @@ export class RegisterComponent implements OnInit {
   }
 
   insert(formValue:any){
+    console.log(formValue);
+
     this.blockUI.start();
     setTimeout(() => {
       $("#emailSignUpModal").modal('hide');
@@ -165,7 +108,7 @@ export class RegisterComponent implements OnInit {
     }, 1000);
     formValue.birthday = formValue.year+"-"+formValue.month+"-"+formValue.day
     formValue.username =  formValue.email.split('@')[0]
-    formValue.tipoUsuarioId =  1;
+    formValue.rol =  2;
     formValue.avatar = 'https://png.icons8.com/find-user-male/color/1600';
     this.mainService.create(formValue)
                       .then(response => {

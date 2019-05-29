@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     BussinessAddress:false
   };
   mainData = {
-    hash:'',
+    password:'',
     username:localStorage.getItem('currentEmail'),
     id:+localStorage.getItem('currentId'),
     type:'changepass'
@@ -50,13 +50,15 @@ export class HomeComponent implements OnInit {
     private UsersService:UsersService,
     ) { }
 
-    changePass(){
+    changePass(formValue:any){
       // console.log(this.mainData.hash);
+      formValue.id=+localStorage.getItem('currentId')
       this.blockUI.start()
-      this.AuthService.recovery(this.mainData)
+      this.AuthService.updatePass(formValue)
                       .then( response => {
                         // console.log(response);
-                        this.createSuccess('Password changed')
+                        this.cargarOne();
+                        this.createSuccess('Su Clave fue Cambiada')
                         $('#ActualizaPass').modal('hide');
                         this.blockUI.stop()
                       })
@@ -91,7 +93,7 @@ export class HomeComponent implements OnInit {
                       this.selected.EmailAddress = response.verificacion?response.verificacion.indexOf("E"):false;
                       this.selected.PhoneNumber = response.verificacion?response.verificacion.indexOf("P"):false;
                       this.selected.BussinessAddress = response.verificacion?response.verificacion.indexOf("B"):false;
-                      if(response.google=='21'){
+                      if(response.state=='21'){
                         $('#ActualizaPass').modal('show');
                       }
                       this.blockUI.stop();

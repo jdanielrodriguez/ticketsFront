@@ -39,7 +39,7 @@ constructor(private http:HttpClient){
     }
     getAll():Promise<any> {
       this.reloadToken()
-      let url = `${this.basePath}/usuario`
+      let url = `${this.basePath}/api/users`
       return this.http.get(url)
                       .toPromise()
                         .then(response => {
@@ -51,7 +51,7 @@ constructor(private http:HttpClient){
 
 
     create(form):Promise<any> {
-    let url = `${this.basePath}/registro`
+    let url = `${this.basePath}/api/users`
       return this.http.post(url,form)
                       .toPromise()
                         .then(response => {
@@ -66,7 +66,7 @@ constructor(private http:HttpClient){
 
     addAddress(form):Promise<any> {
       this.reloadToken()
-      let url = `${this.basePath}/direcciones`
+      let url = `${this.basePath}/api/direcciones`
       return this.http.post(url,form)
                       .toPromise()
                         .then(response => {
@@ -77,7 +77,7 @@ constructor(private http:HttpClient){
     }
 
     delete(id):Promise<any> {
-    let url = `${this.basePath}/usuario/${id}`
+    let url = `${this.basePath}/api/users/${id}`
       return this.http.delete(url)
                       .toPromise()
                         .then(response => {
@@ -89,7 +89,7 @@ constructor(private http:HttpClient){
 
     update(form):Promise<any> {
       this.reloadToken()
-      let url = `${this.basePath}/usuario/${form.id}`
+      let url = `${this.basePath}/api/users/${form.id}`
       return this.http.put(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
@@ -101,7 +101,7 @@ constructor(private http:HttpClient){
 
     getSingle(id:number):Promise<any> {
       this.reloadToken()
-      let url = `${this.basePath}/usuario/${id}`
+      let url = `${this.basePath}/api/users/${id}`
     // console.log(this.headers);
 
       return this.http.get(url,{headers: this.headers})
