@@ -27,15 +27,7 @@ selectedData: any;
 @BlockUI() blockUI: NgBlockUI;
 browserLang:any = this.parentComponent.browserLang;
 Id:any = '';
-slides:any = []
-Biss:any = [
-  {
-    id:1,
-    name:"Sellet/Company",
-    description:"Some quick example text to build on the card title and make up the bulk of the card's content.",
-    range:3
-  }
-]
+slides:any
 //Servicio el cual se va a trabajar
 constructor(
   private parentComponent: NavComponent,
@@ -70,10 +62,9 @@ ngOnInit() {
   // console.log(this.translate);
   $(document).ready(data => {
       this.changeLang()
-      this.ngAfterViewInit()
-      this.getCategories();
-      this.cargarTop();
       this.cargarSlides();
+      this.ngAfterViewInit()
+      this.cargarTop();
   })
 }
 ngAfterViewInit() {
@@ -91,7 +82,7 @@ navegar(url:string,id?:number){
     localStorage.setItem('idCategory',id+'');
   }
 }
-getCategories(){
+getFuciones(){
   this.blockUI.start();
   let today = new Date();
   let dd = String(today.getDate()).padStart(2, '0');
@@ -103,14 +94,42 @@ getCategories(){
     state:'0',
     filter:'proximos'
   }
+    this.mainService.getAllFilter(data)
+                        .then(response => {
+                          response.forEach(element => {
+                            element.idtitulo = element.titulo.replace(/ /g,'_');
+                          });
+                          this.Table = response;
+                          console.log(response);
+
+                          this.blockUI.stop();
+                        }).catch(error => {
+                          console.clear
+                          this.blockUI.stop();
+                          this.createError(error)
+                        })
+
+
+  }
+  cargarSlides(){
+      this.blockUI.start();
+      let today = new Date();
+      let dd = String(today.getDate()).padStart(2, '0');
+      let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+      let yyyy = today.getFullYear();
+      let stoday = yyyy + '-' + mm + '-' + dd;
+      let data = {
+        id:stoday,
+        state:'0',
+        filter:'proximos-principales'
+      }
       this.mainService.getAllFilter(data)
                           .then(response => {
-
-                            this.Table = response;
+                            this.slides = response;
                             // console.log(this.slides);
-
-                            this.sliderInicio = Math.round(Math.random() * (response.length));
-
+                            this.sliderInicio = this.slides.length<10?0:Math.round(Math.random() * (response.length));
+                            // console.clear()
+                            this.getFuciones();
                             this.blockUI.stop();
                           }).catch(error => {
 
@@ -119,33 +138,6 @@ getCategories(){
                             this.blockUI.stop();
                             this.createError(error)
                           })
-    this.Table = [
-      {
-        descripcion: "Primer Evento",
-        imagen:"http://placehold.it/3000x3000?text=X",
-        id: 1
-      }
-    ]
-
-  }
-  cargarSlides(){
-      // this.blockUI.start();
-      // this.SlidesService.getAll()
-      //                     .then(response => {
-
-      //                       this.slides = response;
-      //                       // console.log(this.slides);
-
-      //                       this.sliderInicio = Math.round(Math.random() * (response.length));
-
-      //                       this.blockUI.stop();
-      //                     }).catch(error => {
-
-      //                       console.clear
-
-      //                       this.blockUI.stop();
-      //                       this.createError(error)
-      //                     })
 
     }
   cargarTop(){

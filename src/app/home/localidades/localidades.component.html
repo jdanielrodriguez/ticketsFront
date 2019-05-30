@@ -1,3 +1,56 @@
-<p>
-  localidades works!
-</p>
+<div class="text-center mb-3">
+  <div class="ml-5 mr-5 text-left mt-5">
+    <div class="row" *ngIf="SelectedData">
+      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 offset-xs-2 offset-sm-2 offset-md-2 offset-lg-2">
+        <span>
+          <h3>
+            Evento {{SelectedData.eventos.titulo}}
+          </h3>
+        </span>
+        <span>
+          <h5>
+            Precio: ${{SelectedData.precio}}.00
+          </h5>
+        </span>
+        <span>
+          <h5>
+            Total: ${{SelectedData.totalAll}}.00
+          </h5>
+        </span>
+        <div class="row">
+
+          <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2" *ngFor="let data of SelectedData.lugares; let i = index">
+
+            <div class="checkbox">
+              <label>
+                <input type="checkbox" (change)="add()" name="lugar{{data.id}}" [checked]="data.vendido" [disabled]="data.vendido" name="lugar{{data.id}}" [(ngModel)]="data.selected">
+                {{data.titulo}}
+              </label>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 offset-xs-2 offset-sm-2 offset-md-2 offset-lg-2">
+
+            <button type="button" class="form-control btn btn-outline-primary" (click)="insert()">Comprar</button>
+
+          </div>
+          <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
+
+            <button type="button" class="form-control btn btn-outline-danger" (click)="goBack()">Cancelar</button>
+
+          </div>
+
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+<!-- fin container -->
+  <!-- Inicio Notificaciones -->
+  <simple-notifications [options]="options"></simple-notifications>
+  <!-- Fin Notificaciones -->

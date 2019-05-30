@@ -56,8 +56,6 @@ createError(error) {
       this.authenticationService.Authentication(formValue)
         .then(response => {
           this.auth = response
-          console.log(response);
-
             if(response.state){
             localStorage.setItem('currentUser', response.username);
             localStorage.setItem('currentEmail', response.email);
@@ -68,6 +66,7 @@ createError(error) {
             localStorage.setItem('currentApellidos', response.apellidos);
             localStorage.setItem('currentNombres', response.nombres);
             localStorage.setItem('currentAvatar', response.foto);
+            localStorage.setItem('currentRol', response.rol);
             setTimeout(element=>{
               $("#rouded-profile").attr("src",response.foto?response.foto:localStorage.getItem('currentAvatar'));
             },500);

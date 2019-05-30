@@ -7,6 +7,17 @@ import { NotificationsService } from 'angular2-notifications';
   styleUrls: ['./eventos.component.css']
 })
 export class EventosComponent implements OnInit {
+  localidades:any
+
+  constructor(
+    private _service: NotificationsService,
+  ) { }
+
+  ngOnInit() {
+  }
+  insert(data){
+
+  }
   public options = {
     position: ["bottom", "right"],
     timeOut: 2000,
@@ -16,21 +27,11 @@ export class EventosComponent implements OnInit {
     pauseOnHover: true,
     clickToClose: true,
     maxLength: 200
-};
-
-createSuccess(success) {
-      this._service.success('¡Éxito!',success)
-
-}
-createError(error) {
-      this._service.error('¡Error!',error)
-
-}
-  constructor(
-    private _service: NotificationsService,
-  ) { }
-
-  ngOnInit() {
+  };
+  createSuccess(success) {
+    this._service.success('¡Éxito!',success)
   }
-
+  createError(error) {
+    this._service.error('¡Error!',error)
+  }
 }

@@ -9,6 +9,8 @@
 }
 html,
 body {
+  min-height: 10%;
+  position: relative;
   width: 100% !important;
   min-width: 1000px!important;
   height: 100% !important;
@@ -24,4 +26,10 @@ html, body {
 .carouselMain{
   width: 100%;
   height: auto;
+  max-height: 550px;
+}
+.footerWme {
+  position: absolute;
+  bottom: 60px;
+  width: 100%;
 }

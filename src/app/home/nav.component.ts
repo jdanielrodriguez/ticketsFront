@@ -113,16 +113,18 @@ export class NavComponent implements OnInit {
       this.user = {
         username:localStorage.getItem('currentUser'),
         email:localStorage.getItem('currentEmail'),
-        name:localStorage.getItem('currentFirstName'),
-        lastname:localStorage.getItem('currentLastName'),
+        name:localStorage.getItem('currentNombres'),
+        lastname:localStorage.getItem('currentApellidos'),
         id:localStorage.getItem('currentId'),
         picture:localStorage.getItem('currentPicture'),
         state:localStorage.getItem('currentState'),
         rol:localStorage.getItem('currentRol'),
-        idrol:localStorage.getItem('currentRolId'),
-        idcliente:localStorage.getItem('currentClienteId'),
-        token:localStorage.getItem('token')
+        idrol:localStorage.getItem('currentRol'),
+        token:null,
+        idcliente:null
       }
+      console.log(this.user);
+
     }else{
       this.user = {
         username:null,

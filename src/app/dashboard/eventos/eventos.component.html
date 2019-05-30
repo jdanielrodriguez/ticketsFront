@@ -21,7 +21,30 @@
     </div>
 
     <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10">
+      <form class="form-signin" autocomplete="off" id="login-form"  #loginForm="ngForm" (ngSubmit)="insert(loginForm.value)">
+        <h1 class="h3 mb-3 font-weight-normal">Ingreso</h1>
+        <div class="input-group mb-1">
+          <input type="text" class="form-control" name="username" required
+          ngModel #username="ngModel" placeholder="Usuario">
+        </div>
 
+        <div class="input-group mb-3">
+          <input type="password" class="form-control" name="password" required
+          ngModel #password="ngModel" placeholder="Password">
+        </div>
+        <!-- Remember me and forgot pass area -->
+        <div class="mb-3 row">
+          <div class="ml-3 col-xs-6 col-sm-6 col-md-6 col-lg-6 offset-xl-3 form-group form-check ">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Remember me</label>
+          </div>
+          <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
+              <a class="c-celeste-bishound" [routerLink]="['./../recovery']">Forgot password?</a>
+          </div>
+        </div>
+        <!-- Fin Remember me and forgot pass area -->
+        <button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-sign-in"></i> Sign In</button>
+      </form>
     </div>
 
     <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">

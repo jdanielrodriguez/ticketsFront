@@ -14,8 +14,8 @@ import { AuthGuard } from "./_guards/auth.guard";
 
 const routes: Routes = [
   { path: '', component: MainComponent , pathMatch: 'full'},
-  { path: 'evento/:id', component: EventoComponent},
-  { path: 'evento/:idEvento/localidad/:idLocalidad', component: LocalidadesComponent, canActivate: [AuthGuard] },
+  { path: 'evento/:id/:fecha', component: EventoComponent},
+  { path: 'evento/:idFuncion/localidad/:idArea', component: LocalidadesComponent, canActivate: [AuthGuard] },
   { path: 'checkout/:id', component: CheckoutComponent, canActivate: [AuthGuard] },
   { path: 'login', component: LoginComponent, canActivate: [HomeGuard] },
   { path: 'recovery', component: RecoveryComponent, canActivate: [HomeGuard] },
