@@ -33,6 +33,9 @@ export class CheckoutComponent implements OnInit {
 
   ngOnInit() {
     this.getParams();
+    $(document).ready(function(){
+      $('[data-toggle="tooltip"]').tooltip();
+    });
   }
 
   getParams(){
@@ -46,10 +49,10 @@ export class CheckoutComponent implements OnInit {
     if (datos) {
       //localStorage.getItem('carrito')
       this.SelectedData = JSON.parse(datos);
-      localStorage.removeItem('selectedSillas');
+      // localStorage.removeItem('selectedSillas');
 
     }
-    // console.log(this.SelectedData);
+    console.log(this.SelectedData);
 
     // this.blockUI.start();
     //   this.mainService.getSingle(id)
