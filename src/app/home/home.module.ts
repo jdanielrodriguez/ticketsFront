@@ -31,6 +31,8 @@ import { MainComponent } from './main/main.component';
 import { EventoComponent } from './evento/evento.component';
 import { LocalidadesComponent } from './localidades/localidades.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { ComprobanteComponent } from './comprobante/comprobante.component';
+import { ConocenosComponent } from './conocenos/conocenos.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -65,6 +67,8 @@ export function HttpLoaderFactory(http: HttpClient) {
     EventoComponent,
     LocalidadesComponent,
     CheckoutComponent,
+    ComprobanteComponent,
+    ConocenosComponent,
   ],
   providers: [
     AuthService,

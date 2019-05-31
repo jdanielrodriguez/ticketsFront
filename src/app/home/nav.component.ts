@@ -123,7 +123,6 @@ export class NavComponent implements OnInit {
         token:null,
         idcliente:null
       }
-      console.log(this.user);
 
     }else{
       this.user = {

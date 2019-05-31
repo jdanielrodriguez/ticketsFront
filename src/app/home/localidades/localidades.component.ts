@@ -16,6 +16,7 @@ export class LocalidadesComponent implements OnInit {
     idArea:'',
     idFuncion:''
   }
+  cantidad = 0
   SelectedData:any = null
   @BlockUI() blockUI: NgBlockUI;
   constructor(
@@ -27,6 +28,7 @@ export class LocalidadesComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    $('html, body').animate({scrollTop:0}, '300');
     this.getParams();
   }
 
@@ -40,6 +42,7 @@ export class LocalidadesComponent implements OnInit {
     this.blockUI.start();
       this.mainService.getSingle(id)
                           .then(response => {
+                            response.totalAll = 0
                             response.lugares.forEach((element,i) => {
                               element.titulo = element.titulo+' '+(i+1);
                               element.selected = false;
@@ -76,6 +79,7 @@ export class LocalidadesComponent implements OnInit {
       }
     });
     if(seleccionados.length>0){
+      this.cantidad = seleccionados.length;
       this.SelectedData.totalAll = this.SelectedData.precio*(seleccionados.length)
 
     }

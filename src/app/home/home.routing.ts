@@ -8,6 +8,8 @@ import { MainComponent } from './main/main.component';
 import { EventoComponent } from './evento/evento.component';
 import { LocalidadesComponent } from './localidades/localidades.component';
 import { CheckoutComponent } from './checkout/checkout.component';
+import { ComprobanteComponent } from './comprobante/comprobante.component';
+import { ConocenosComponent } from './conocenos/conocenos.component';
 
 import { HomeGuard } from "./_guards/home.guard";
 import { AuthGuard } from "./_guards/auth.guard";
@@ -17,6 +19,8 @@ const routes: Routes = [
   { path: 'evento/:id/:fecha', component: EventoComponent},
   { path: 'evento/:idFuncion/localidad/:idArea', component: LocalidadesComponent, canActivate: [AuthGuard] },
   { path: 'checkout/:id', component: CheckoutComponent, canActivate: [AuthGuard] },
+  { path: 'paid/:token/:ern', component: ComprobanteComponent, canActivate: [AuthGuard] },
+  { path: 'conocenos', component: ConocenosComponent },
   { path: 'login', component: LoginComponent, canActivate: [HomeGuard] },
   { path: 'recovery', component: RecoveryComponent, canActivate: [HomeGuard] },
   { path: 'register', component: RegisterComponent, canActivate: [HomeGuard] },

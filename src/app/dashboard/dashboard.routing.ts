@@ -6,12 +6,14 @@ import { HomeComponent } from './home/home.component';
 import { InboxComponent } from './inbox/inbox.component';
 import { AsientosComponent } from './asientos/asientos.component';
 import { EventosComponent } from './eventos/eventos.component';
+import { ProfileComponent } from './profile/profile.component';
 import { LocalidadesComponent } from './localidades/localidades.component';
 
 import { AuthGuard } from "../home/_guards/auth.guard";
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent  },
+  { path: 'home', component: HomeComponent , canActivate: [AuthGuard]  },
+  { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]  },
   { path: 'eventos', component: EventosComponent },
   { path: 'asientos', component: AsientosComponent },
   { path: 'localidades', component: LocalidadesComponent },

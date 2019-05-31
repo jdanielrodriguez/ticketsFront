@@ -27,6 +27,7 @@ import { BlockUIModule } from 'ng-block-ui';
 import { EventosComponent } from './eventos/eventos.component';
 import { LocalidadesComponent } from './localidades/localidades.component';
 import { AsientosComponent } from './asientos/asientos.component';
+import { ProfileComponent } from './profile/profile.component';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -60,6 +61,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EventosComponent,
     LocalidadesComponent,
     AsientosComponent,
+    ProfileComponent,
   ],
   providers:[
     AuthGuard,

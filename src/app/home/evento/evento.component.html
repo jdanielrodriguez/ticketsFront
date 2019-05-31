@@ -26,34 +26,37 @@
 
   <div class="ml-5 mr-5 text-left mt-5">
     <div class="row">
-      <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-        <span>
+      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 offset-xs-3 offset-sm-3 offset-md-3 offset-lg-3">
+        <span class="text-primary">
           <h3>
             Evento
           </h3>
         </span>
+        <small class="text-dark">
+          Escoge la Funcion que mas te interese
+        </small>
         <div class="accordion" id="accordionExample" *ngFor="let data of funcionesTable; let i = index">
           <div class="card">
-            <div class="card-header" id="headingOne">
-              <h2 class="mb-0">
-                <button class="btn btn-link" type="button" (click)="collapse('collapseOne-'+((data.id)?data.id:''))">
-                  {{data.titulo}} {{data.inicio.substr(0,(data.inicio.length-3))}}
+            <div class="card-header text-secondary" id="headingOne">
+              <h2 class="mb-0 ponter">
+                <button class="btn btn-link text-left" type="button" (click)="collapse('collapseOne-'+((data.id)?data.id:''))">
+                  {{data.titulo}} <br> Fecha: {{data.fecha_inicio}} <br> Hora: {{data.hora_inicio.substr(0,(data.hora_inicio.length-3))}}
                 </button>
               </h2>
             </div>
 
-            <div id="collapseOne-{{((data.id)?data.id:'')}}" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+            <div id="collapseOne-{{((data.id)?data.id:'')}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
               <div class="card-body">
-                <div *ngFor="let items of data.areas" class="row text-left pl-3" (click)="navegar('./../../../evento/'+data.id+'/localidad/'+items.id)">
+                <a *ngFor="let items of data.areas" class="row text-left pl-3" [routerLink]="['./']"  (click)="navegar('./../../../evento/'+data.id+'/localidad/'+items.id)">
                   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     {{items.titulo}}
                   </div>
                   <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
                     <strong>
-                      ${{items.precio}}.00*
+                      ${{items.precio.toFixed(2)}}*
                     </strong>
                   </div>
-                </div>
+                </a>
               </div>
             </div>
           </div>
@@ -81,7 +84,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
+      <div class="modal-body w-100">
         <app-login [isModal]="true"></app-login>
       </div>
     </div>

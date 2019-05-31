@@ -24,7 +24,6 @@
             ],
             "styles": [
               "src/assets/css/bootstrap.css",
-              "src/assets/css/jquery-ui.css",
               "src/assets/css/font-awesome.css",
               "src/assets/css/loaders.min.css",
               "src/assets/css/nouislider.min.css",
@@ -33,6 +32,7 @@
             "scripts": [
               "src/assets/js/jquery.js",
               "src/assets/js/jquery-ui.js",
+              "src/assets/js/popper.js",
               "src/assets/js/bootstrap.js",
               "src/assets/js/upload.js"
             ],

@@ -97,14 +97,15 @@ createError(error) {
             // console.log(response);
           }
         }).catch(error => {
-          console.clear
+            console.clear
 
-                this.blockUI.stop();
-          if(error.status==404){
-            this.createError("User or Password incorrect");
+            this.blockUI.stop();
+          if(error.status==401){
+            this.createError("Usuario o Clave incorrectas");
           }else{
             this.createError("Error: please call to support")
-                this.blockUI.stop();
+            console.log(error);
+
           }
           setTimeout(() => {
                 this.blockUI.stop();

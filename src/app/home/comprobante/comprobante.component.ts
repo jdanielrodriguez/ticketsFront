@@ -8,20 +8,25 @@ import { EventosVentasService } from "./../_services/eventos-ventas.service";
 declare var $: any
 
 @Component({
-  selector: 'app-checkout',
-  templateUrl: './checkout.component.html',
-  styleUrls: ['./checkout.component.css']
+  selector: 'app-comprobante',
+  templateUrl: './comprobante.component.html',
+  styleUrls: ['./comprobante.component.css']
 })
-export class CheckoutComponent implements OnInit {
+export class ComprobanteComponent implements OnInit {
   dataSearch = {
-    id:'',
-    lugares:[],
-    total:0,
-    titulo:'',
-    funcion:''
+    token:'',
+    ern:''
   }
+
+  comprobante = {
+    token:'',
+    aprobacion:'',
+    ern:''
+  }
+  nombres = localStorage.getItem('currentNombres');
+  apellidos = localStorage.getItem('currentApellidos');
+  email = localStorage.getItem('currentEmail');
   SelectedData:any = null
-  errorPago:boolean = false
   @BlockUI() blockUI: NgBlockUI;
   constructor(
     private route: ActivatedRoute,
@@ -38,59 +43,64 @@ export class CheckoutComponent implements OnInit {
   }
 
   getParams(){
-    this.dataSearch.id = this.route.snapshot.paramMap.get("id").split(':')[0];
-    this.dataSearch.titulo = this.route.snapshot.paramMap.get("id").split(':')[1];
-    if(this.route.snapshot.paramMap.get("id").split(':')[2]){
-      this.errorPago = true;
-    }else{
-      this.errorPago = false;
-    }
-    this.cargarSingle(+this.dataSearch.id)
+    this.dataSearch.token = this.route.snapshot.paramMap.get("token");
+    this.dataSearch.ern = this.route.snapshot.paramMap.get("ern");
+    this.cargarComprobante(this.dataSearch)
   }
 
-  cargarSingle(id:number){
+  cargarComprobante(dato:any){
     let datos = localStorage.getItem('selectedSillas');
     if (datos) {
-      //localStorage.getItem('carrito')
       this.SelectedData = JSON.parse(datos);
       // localStorage.removeItem('selectedSillas');
 
     }
-    console.log(this.SelectedData);
+    if(dato.token.length<5){
+      this.router.navigate(['./../../../../checkout/'+this.SelectedData.id+':'+(this.SelectedData.eventos.titulo.replace(/ /g,'_'))+':0'])
+    }
 
-    // this.blockUI.start();
-    //   this.mainService.getSingle(id)
-    //                       .then(response => {
-    //                         response.lugares.forEach((element,i) => {
-    //                           element.titulo = element.titulo+' '+(i+1);
-    //                           element.selected = false;
-    //                         });
-    //                         this.SelectedData = response;
-    //                         console.log(response);
-    //                         this.blockUI.stop();
-    //                       }).catch(error => {
-    //                         console.clear
-    //                         this.blockUI.stop();
-    //                         this.createError(error)
-    //                       })
+    this.blockUI.start();
+    let data = {
+      token:dato.token,
+      ern:dato.ern
+    }
+
+      this.paidService.comprobante(data)
+                          .then(response => {
+                            console.log(this.SelectedData);
+                            console.log(response);
+                            this.comprobante = response;
+                            // this.enviarEmail();
+                            // this.insert();
+                            this.blockUI.stop();
+                          }).catch(error => {
+                            console.clear
+                            this.blockUI.stop();
+                            this.createError(error)
+                          })
   }
   insert(){
-    let seleccionados = []
-    this.SelectedData.lugares.forEach(element => {
-      if(element.selected){
-        seleccionados.push(element)
-      }
-    });
-    if(seleccionados.length>0){
-      this.SelectedData.lugares = seleccionados
-      localStorage.setItem('selectedSillas',JSON.stringify(this.SelectedData));
+      localStorage.removeItem('selectedSillas');
       this.blockUI.start();
       let data = {
         cantidad: this.SelectedData.lugares.length,
         precio: this.SelectedData.precio,
-        descripcion: 'Pago',
-        id: 1,
-        url: "comewme.com"
+        descripcion: 'Compra de boleto '+this.SelectedData.descripcion,
+        url: "comewme.com",
+        titulo : 'titulo',
+        lugar : 'lugar',
+        codigo : 'codigo',
+        total : 'total',
+        latitud : 'latitud',
+        longitud : 'longitud',
+        type : 'type',
+        state : 'state',
+        usuario : 'usuario',
+        evento : 'evento',
+        evento_funcion : 'evento_funcion',
+        evento_funcion_area_lugar : 'evento_funcion_area_lugar',
+        evento_vendedor : 'evento_vendedor',
+        evento_descuento : 'evento_descuento'
       }
       this.paidService.pagar(data)
                           .then(response => {
@@ -104,7 +114,25 @@ export class CheckoutComponent implements OnInit {
                             this.createError(error)
                           })
 
+  }
+  enviarEmail(){
+    this.blockUI.start();
+    let data = {
+      nombres:this.nombres,
+      apellidos:this.apellidos,
+      email:this.email,
+      SelectedData:this.SelectedData,
+      comprobante:this.comprobante
     }
+    this.paidService.enviar(data)
+                  .then(response => {
+                    this.createSuccess("Su comprobante ha sido enviado");
+                    this.blockUI.stop();
+                  }).catch(error => {
+                    console.clear
+                    this.blockUI.stop();
+                    this.createError(error)
+                  })
   }
 
   add(){
@@ -134,7 +162,7 @@ export class CheckoutComponent implements OnInit {
                             this.blockUI.stop();
                             this.cargarFunciones(response.evento);
                             this.cargarAreas(response.id);
-                            this.cargarSingle(response.id);
+                            // this.cargarSingle(response.id);
                           }).catch(error => {
                             console.clear
                             this.blockUI.stop();
