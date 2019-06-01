@@ -20,6 +20,7 @@ export class CheckoutComponent implements OnInit {
     titulo:'',
     funcion:''
   }
+  vendedores:any=[]
   SelectedData:any = null
   errorPago:boolean = false
   @BlockUI() blockUI: NgBlockUI;
@@ -53,10 +54,13 @@ export class CheckoutComponent implements OnInit {
     if (datos) {
       //localStorage.getItem('carrito')
       this.SelectedData = JSON.parse(datos);
+      this.vendedores = this.SelectedData.descuentos?this.SelectedData.descuentos:[];
+      // console.log(this.vendedores);
+
       // localStorage.removeItem('selectedSillas');
 
     }
-    console.log(this.SelectedData);
+    // console.log(this.SelectedData);
 
     // this.blockUI.start();
     //   this.mainService.getSingle(id)
@@ -74,29 +78,71 @@ export class CheckoutComponent implements OnInit {
     //                         this.createError(error)
     //                       })
   }
-  insert(){
-    let seleccionados = []
-    this.SelectedData.lugares.forEach(element => {
-      if(element.selected){
-        seleccionados.push(element)
-      }
+  buscarPromo(data:any){
+    this.blockUI.start();
+    let paso = false;
+    let vendedores = []
+    this.SelectedData.eventos.vendedores.forEach(element => {
+        if(element.usuarios && (element.usuarios.codigo==data.promoCode)){
+          paso = true;
+          vendedores.push(element)
+        }
     });
-    if(seleccionados.length>0){
-      this.SelectedData.lugares = seleccionados
+
+    if(paso){
+      vendedores.forEach(element => {
+        element.descuento = element.porcentaje>0?true:false;
+        let data = {
+          titulo:'Descuento de '+(element.descuento?(element.porcentaje+"%"):(element.cantidad)),
+          porcentaje:(element.descuento?(element.porcentaje/100):(element.cantidad)),
+          email:element.usuarios?element.usuarios.email:element.titulo,
+          codigo:element.usuarios?element.usuarios.codigo:element.titulo,
+          total: element.descuento?((this.SelectedData.totalAll*(element.porcentaje/100))):(element.cantidad)
+        }
+        // this.SelectedData.totalAll = element.descuento?(this.SelectedData.totalAll-(this.SelectedData.totalAll*(element.porcentaje/100))):(this.SelectedData.totalAll-element.cantidad);
+        this.SelectedData.descuento = this.SelectedData.descuento+(element.descuento?((this.SelectedData.totalAll*(element.porcentaje/100))):(element.cantidad));
+        this.vendedores.push(data)
+        this.SelectedData.evento_vendedor = element.id
+      });
+      this.SelectedData.descuentos = this.vendedores
+      localStorage.setItem('selectedSillas',JSON.stringify(this.SelectedData));
+
+      $("#promoCode").prop('disabled',true);
+      $("#promoCodeBTN").prop('disabled',true);
+    }else{
+      this.createError('Este codigo promocional no es valido')
+    }
+
+
+    this.blockUI.stop();
+
+    // console.log(this.SelectedData);
+
+
+  }
+  insert(){
+    if(this.SelectedData.lugares.length>0){
       localStorage.setItem('selectedSillas',JSON.stringify(this.SelectedData));
       this.blockUI.start();
+      let descuento = 0;
+      this.vendedores.forEach(element => {
+        descuento += element.porcentaje;
+      });
+      descuento = this.vendedores.length>0?descuento/this.vendedores.length:0
+      // console.log(this.vendedores);
+      // console.log(descuento);
+
       let data = {
         cantidad: this.SelectedData.lugares.length,
-        precio: this.SelectedData.precio,
+        precio: this.SelectedData.precio-(this.SelectedData.precio*descuento),
         descripcion: 'Pago',
         id: 1,
         url: "comewme.com"
       }
       this.paidService.pagar(data)
                           .then(response => {
-
-                            console.log(response);
-                            window.open(response.token,'_blank');
+                            // console.log(response);
+                            window.open(response.token,'_self');
                             this.blockUI.stop();
                           }).catch(error => {
                             console.clear

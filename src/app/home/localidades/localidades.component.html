@@ -14,7 +14,7 @@
 
             <div class="checkbox">
               <label>
-                <input type="checkbox" (change)="add()" name="lugar{{data.id}}" [checked]="data.vendido" [disabled]="data.vendido" name="lugar{{data.id}}" [(ngModel)]="data.selected">
+                <input type="checkbox" (change)="add()" name="lugar{{data.id}}" [checked]="data.vendido==1" [disabled]="data.vendido==1" name="lugar{{data.id}}" [(ngModel)]="data.selected">
                 {{data.titulo}}
               </label>
             </div>

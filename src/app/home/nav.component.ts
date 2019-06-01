@@ -62,7 +62,10 @@ export class NavComponent implements OnInit {
     this.cargarGetCarrito();
     this.getCategories();
     this.getParnerts();
+    setTimeout(() => {
+    this.fullSession(true);
 
+    }, 500);
 
     $('.bg-animate-adds').css( {'background-image': 'url("./../assets/png/fondos/fondo1.jpeg")'} );
     // this.changeIMG();

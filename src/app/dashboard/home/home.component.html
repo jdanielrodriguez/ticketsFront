@@ -52,6 +52,9 @@
                 <h5 class="c-azul-bishound">Tipo de Usuario: {{SelectedData.roles.titulo}}</h5>
               </div>
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pt-1 text-center">
+                <h5 class="c-azul-bishound">Codigo: <span class="text-primary">{{SelectedData.codigo}}</span> </h5>
+              </div>
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pt-1 text-center">
                 <a [routerLink]="['./../profile']">Editar Perfil</a>
               </div>
             </div>
@@ -62,7 +65,7 @@
               Tickets Comprados
             </div>
             <div class="mb-2 col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right c-celeste-bishound">
-              <h5>0</h5>
+              <h5>{{SelectedData.comprados?SelectedData.comprados.length:0}}</h5>
             </div>
             <!-- <div class="mb-2 col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left">
               Location
@@ -71,11 +74,9 @@
               <a href="#">view on map</a>
             </div> -->
 
-            <div class="mb-2 col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left mt-3">
-              Correos
-            </div>
-            <div class="mb-2 col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right mt-3">
-              <a href="#">Ver Todo</a>
+
+            <div class="mb-2 col-xs-12 col-sm-12 col-md-12 col-lg-12 text-right mt-3" [class.d-none]="SelectedData.codigo">
+              <a [routerLink]="['./']" (click)="generar();">Generar Codigo</a>
             </div>
           </div>
           <!-- Fin Seller Data -->

@@ -106,12 +106,16 @@ export class RegisterComponent implements OnInit {
 
         this.blockUI.stop();
     }, 1000);
+
     formValue.birthday = formValue.year+"-"+formValue.month+"-"+formValue.day
     formValue.username =  formValue.email.split('@')[0]
     formValue.rol =  2;
     formValue.avatar = 'https://png.icons8.com/find-user-male/color/1600';
+    let string = formValue.birthday+":"+formValue.username;
+    let encodedString = btoa(string);
+    formValue.codigo =  encodedString.substr(encodedString.length-10,encodedString.length);
     this.mainService.create(formValue)
-                      .then(response => {
+                      .then(async response => {
                         // console.log(response);
                         // this.cargarAll()
                         $("#emailSignUpModal").modal('hide');
@@ -119,25 +123,16 @@ export class RegisterComponent implements OnInit {
                         console.clear
                         localStorage.setItem('currentUser', response.username);
                         localStorage.setItem('currentEmail', response.email);
-                        localStorage.setItem('currentFirstName', ((response?response.primerNombre:'')));
-                        localStorage.setItem('currentLastName', ((response?response.primerApellido:'')));
                         localStorage.setItem('currentId', response.id);
-                        localStorage.setItem('currentPicture', response.avatar);
-                        localStorage.setItem('currentState', response.estado);
-                        localStorage.setItem('currentUser', response.username);
-                        localStorage.setItem('currentBisCardId', response.bisCardId);
+                        localStorage.setItem('currentPicture', response.foto);
+                        localStorage.setItem('currentState', response.state);
                         localStorage.setItem('currentEmail', response.email);
-                        localStorage.setItem('currentApellidos', response.primerApellido);
-                        localStorage.setItem('currentNombres', response.primerNombre);
-                        localStorage.setItem('currentEstado', response.estado);
-                        localStorage.setItem('currentSalt', response.salt);
-                        localStorage.setItem('currentTelefono', response.telefono);
-                        localStorage.setItem('currentAvatar', response.avatar);
-                        localStorage.setItem('token', response.token);
-                        localStorage.setItem('currentNuevaSesion', response.google);
-                        localStorage.setItem('currentTipoUsuarioId', response.tipoUsuarioId);
-                        this.router.navigate([`./../dashboard/home`])
-                        this.blockUI.stop();
+                        localStorage.setItem('currentApellidos', response.apellidos);
+                        localStorage.setItem('currentNombres', response.nombres);
+                        localStorage.setItem('currentAvatar', response.foto);
+                        localStorage.setItem('currentRol', response.rol);
+                       await this.router.navigate([`./../dashboard/home`])
+                        await this.blockUI.stop();
 
                       }).catch(error => {
                         console.clear

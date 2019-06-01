@@ -17,12 +17,13 @@ export class ComprobanteComponent implements OnInit {
     token:'',
     ern:''
   }
-
+  responseData=[]
   comprobante = {
     token:'',
     aprobacion:'',
     ern:''
   }
+  idUser = localStorage.getItem('currentId');
   nombres = localStorage.getItem('currentNombres');
   apellidos = localStorage.getItem('currentApellidos');
   email = localStorage.getItem('currentEmail');
@@ -67,52 +68,94 @@ export class ComprobanteComponent implements OnInit {
 
       this.paidService.comprobante(data)
                           .then(response => {
-                            console.log(this.SelectedData);
-                            console.log(response);
-                            this.comprobante = response;
-                            // this.enviarEmail();
-                            // this.insert();
+                            // console.log(this.SelectedData);
+                            // console.log(response);
+                            if(response.status!=203){
+                              // localStorage.removeItem('selectedSillas');
+                              this.comprobante = response;
+                              // this.enviarEmail();
+                              this.insert();
+                            }
                             this.blockUI.stop();
                           }).catch(error => {
                             console.clear
                             this.blockUI.stop();
                             this.createError(error)
+                            // console.log(error);
+                            if(error.error){
+                              if(error.error.message=="Compra Denegada"){
+                                this.router.navigate(['./../../../../checkout/'+this.SelectedData.id+':'+(this.SelectedData.eventos.titulo.replace(/ /g,'_'))+':0'])
+                              }
+                            }
                           })
   }
   insert(){
-      localStorage.removeItem('selectedSillas');
+      // localStorage.removeItem('selectedSillas');
+      // let response1 = []
       this.blockUI.start();
-      let data = {
-        cantidad: this.SelectedData.lugares.length,
-        precio: this.SelectedData.precio,
-        descripcion: 'Compra de boleto '+this.SelectedData.descripcion,
-        url: "comewme.com",
-        titulo : 'titulo',
-        lugar : 'lugar',
-        codigo : 'codigo',
-        total : 'total',
-        latitud : 'latitud',
-        longitud : 'longitud',
-        type : 'type',
-        state : 'state',
-        usuario : 'usuario',
-        evento : 'evento',
-        evento_funcion : 'evento_funcion',
-        evento_funcion_area_lugar : 'evento_funcion_area_lugar',
-        evento_vendedor : 'evento_vendedor',
-        evento_descuento : 'evento_descuento'
-      }
-      this.paidService.pagar(data)
-                          .then(response => {
+      if(this.SelectedData){
+        this.SelectedData.lugares.forEach(async element => {
+          let data = {
+            cantidad: this.SelectedData.lugares.length,
+            precio: this.SelectedData.precio,
+            descripcion: element.descripcion,
+            url: "paid/"+this.dataSearch.token+"/"+this.dataSearch.ern,
+            titulo : element.titulo,
+            lugar : 'lugar',
+            aprobacion : this.comprobante.aprobacion,
+            token : this.dataSearch.token,
+            ern : this.dataSearch.ern,
+            codigo : element.eventos.eventos.eventos.usuarios.codigo,
+            total : this.SelectedData.totalAll-this.SelectedData.descuento,
+            latitud : this.SelectedData.eventos.latitud,
+            longitud : this.SelectedData.eventos.longitud,
+            usuario : this.idUser,
+            evento : element.eventos.eventos.evento,
+            evento_funcion : element.eventos.evento_funcion,
+            evento_funcion_area_lugar : element.id,
+            evento_vendedor : this.SelectedData.evento_vendedor?this.SelectedData.evento_vendedor:null,
+            evento_descuento : null
+          }
 
-                            console.log(response);
-                            window.open(response.token,'_blank');
-                            this.blockUI.stop();
-                          }).catch(error => {
-                            console.clear
-                            this.blockUI.stop();
-                            this.createError(error)
-                          })
+          await this.paidService.create(data)
+                              .then(async response => {
+                                await this.responseData.push(response);
+                                // this.blockUI.stop();
+
+                                  // console.log("data",data);
+                                  // console.log("response",response);
+                              }).catch(error => {
+                                console.clear
+                                this.blockUI.stop();
+                                this.createError(error)
+                              })
+        });
+
+        this.mainService.update(this.SelectedData)
+                            .then(async response => {
+                              this.blockUI.stop();
+                              await this.enviarEmail();
+                              localStorage.removeItem('selectedSillas');
+                              this.createSuccess("Su compra fue exitosa, se le redireccionara a su dashboard")
+                              await this.router.navigate(['./../../../../dashboard/home'])
+
+                                // console.log("data",data);
+                                // console.log("response",response);
+
+                            }).catch(error => {
+                              console.clear
+                              this.blockUI.stop();
+                              this.createError(error)
+                            })
+        // console.log(this.responseData);
+      }else{
+        this.blockUI.stop();
+        this.createError("Lo sentimos, tu orden no pudo ser procesada")
+        this.router.navigate(['./../../../../dashboard/home'])
+
+      }
+
+
 
   }
   enviarEmail(){

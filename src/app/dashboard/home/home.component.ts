@@ -50,6 +50,25 @@ export class HomeComponent implements OnInit {
     private UsersService:UsersService,
     ) { }
 
+    generar(){
+      let string = this.SelectedData.birthday+":"+this.SelectedData.username;
+      let encodedString = btoa(string);
+      this.SelectedData.codigo =  encodedString.substr(encodedString.length-10,encodedString.length);
+      this.UsersService.update(this.SelectedData)
+                      .then(response => {
+                        this.createSuccess('Profile Saved')
+                        this.SelectedData = response
+                        console.clear
+
+
+                        this.blockUI.stop();
+                      }).catch(error => {
+                        console.clear
+
+                        this.blockUI.stop();
+                        this.createError(error)
+                      })
+    }
     changePass(formValue:any){
       // console.log(this.mainData.hash);
       formValue.id=+localStorage.getItem('currentId')
@@ -88,11 +107,7 @@ export class HomeComponent implements OnInit {
                       this.SelectedData.apellido = ((this.SelectedData.primerApellido)?this.SelectedData.primerApellido:'')+' '+((this.SelectedData.segundoApellido)?this.SelectedData.segundoApellido:'')
                       this.SelectedData.nombre = ((this.SelectedData.primerNombre)?this.SelectedData.primerNombre:'')+' '+((this.SelectedData.segundoNombre)?this.SelectedData.segundoNombre:'')
                       // console.log(response);
-                      this.selected.GovermentID = response.verificacion?response.verificacion.indexOf("G"):false;
-                      this.selected.ComercialPatent = response.verificacion?response.verificacion.indexOf("C"):false;
-                      this.selected.EmailAddress = response.verificacion?response.verificacion.indexOf("E"):false;
-                      this.selected.PhoneNumber = response.verificacion?response.verificacion.indexOf("P"):false;
-                      this.selected.BussinessAddress = response.verificacion?response.verificacion.indexOf("B"):false;
+
                       if(response.state=='21'){
                         $('#ActualizaPass').modal('show');
                       }

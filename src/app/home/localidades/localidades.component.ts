@@ -42,13 +42,14 @@ export class LocalidadesComponent implements OnInit {
     this.blockUI.start();
       this.mainService.getSingle(id)
                           .then(response => {
+                            response.descuento = 0
                             response.totalAll = 0
                             response.lugares.forEach((element,i) => {
                               element.titulo = element.titulo+' '+(i+1);
-                              element.selected = false;
+                              element.selected = element.vendido;
                             });
                             this.SelectedData = response;
-                            console.log(response);
+                            // console.log(response);
                             this.blockUI.stop();
                           }).catch(error => {
                             console.clear
@@ -59,7 +60,7 @@ export class LocalidadesComponent implements OnInit {
   insert(){
     let seleccionados = []
     this.SelectedData.lugares.forEach(element => {
-      if(element.selected){
+      if(element.selected && element.vendido==0){
         seleccionados.push(element)
       }
     });
@@ -74,7 +75,7 @@ export class LocalidadesComponent implements OnInit {
   add(){
     let seleccionados = []
     this.SelectedData.lugares.forEach(element => {
-      if(element.selected){
+      if(element.selected && element.vendido==0){
         seleccionados.push(element)
       }
     });
