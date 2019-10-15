@@ -33,6 +33,7 @@ export class LocalidadesComponent implements OnInit {
   }
 
   getParams(){
+    localStorage.removeItem('selectedSillas');
     this.dataSearch.idArea = this.route.snapshot.paramMap.get("idArea");
     this.dataSearch.idFuncion = this.route.snapshot.paramMap.get("idFuncion");
     this.cargarSingle(+this.dataSearch.idArea)

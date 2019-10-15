@@ -108,7 +108,7 @@ export class EventoComponent implements OnInit {
       this.parentService.getAllFilter(data)
                           .then(response => {
                             this.funcionesTable = response;
-                            console.log(response);
+                            // console.log(response);
 
                             this.blockUI.stop();
                           }).catch(error => {

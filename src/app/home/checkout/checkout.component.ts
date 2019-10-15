@@ -134,11 +134,13 @@ export class CheckoutComponent implements OnInit {
 
       let data = {
         cantidad: this.SelectedData.lugares.length,
-        precio: this.SelectedData.precio-(this.SelectedData.precio*descuento),
+        precio: parseFloat(this.SelectedData.precio)-(parseFloat(this.SelectedData.precio)*descuento),
         descripcion: 'Pago',
         id: 1,
         url: "comewme.com"
       }
+      console.log(data);
+
       this.paidService.pagar(data)
                           .then(response => {
                             // console.log(response);

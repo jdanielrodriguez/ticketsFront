@@ -28,6 +28,7 @@ import { EventosComponent } from './eventos/eventos.component';
 import { LocalidadesComponent } from './localidades/localidades.component';
 import { AsientosComponent } from './asientos/asientos.component';
 import { ProfileComponent } from './profile/profile.component';
+import { NguiMapModule} from '@ngui/map';
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -47,6 +48,7 @@ export function HttpLoaderFactory(http: HttpClient) {
       }
     }),
     SimpleNotificationsModule.forRoot(),
+    NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyCdJAwErIy3KmcE_EfHACIvL0Nl1RjhcUo'}),
     BlockUIModule,
     LoadersCssModule,
     DataTableModule,

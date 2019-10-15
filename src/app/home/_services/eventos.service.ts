@@ -50,6 +50,19 @@ return Promise.reject(error.message || error)
     }
 
 
+    getAllFilter(data):Promise<any> {
+    let filter = data.filter?"?filter="+data.filter:"";
+    let url = `${this.basePath}/api/filter/${data.id}/eventos/${data.state}${filter}`
+      return this.http.get(url)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response)
+                          return response
+                        })
+                        .catch(this.handleError)
+    }
+
+
     create(form):Promise<any> {
     let url = `${this.basePath}/api/eventos`
       return this.http.post(url,form)

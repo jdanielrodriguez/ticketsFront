@@ -41,7 +41,7 @@ return Promise.reject(error.message || error)
     getAllFilter(data):Promise<any> {
     let filter = data.filter?"?filter="+data.filter:"";
     let url = `${this.basePath}/api/filter/${data.id}/eventosfunciones/${data.state}${filter}`
-      return this.http.get(url)
+      return this.http.get(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)

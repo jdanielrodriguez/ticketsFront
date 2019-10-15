@@ -1,10 +1,13 @@
 <block-ui>
 <div class="body w-100">
     <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <a class="navbar-brand" [routerLink]="['./']" (click)="navegar('./../')">
-            <img src="./../../assets/png/fondos/TICKE3-8.png" width="150" height="50" class="d-inline-block align-top" alt="">
+        <a class="navbar-brand mr-auto" [routerLink]="['./']" (click)="navegar('./../')">
+            <img src="./../../assets/png/fondos/TICKE3-8.png" width="75" height="50" class="d-inline-block align-top" alt="">
           </a>
-      <ul class="nav ml-auto">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+      <ul class="nav collapse navbar-collapse2 ml-auto text-rigth" id="navbarToggleExternalContent">
         <li class="nav-item">
           <a class="nav-link active pointer" [routerLink]="['./']" (click)="navegar('./../')">Inicio</a>
         </li>
@@ -17,6 +20,7 @@
         <li class="nav-item" *ngIf="!user.id">
           <a class="nav-link pointer" [routerLink]="['./']" (click)="navegar('./register')">Registrate</a>
         </li>
+
         <li class="nav-item dropdown mr-3" *ngIf="user.id">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{user.name?user.name:user.username}} {{user.lastname?user.lastname:''}}
@@ -30,13 +34,14 @@
         </li>
       </ul>
 
+
     </nav>
   <div style="margin-top: 60px;">
     <router-outlet></router-outlet>
   </div>
   <nav class="navbar bottom  navbar-light bg-faded">
       <div class="mx-auto text-center">
-        <p class="mb-1">© 2019 ComeWithMeGT</p>
+        <p class="mb-1">© 2019 TEN - The Education Network</p>
         <ul class="list-inline">
           <li class="list-inline-item px-2"><a class="pointer" [routerLink]="['./']" (click)="navegar('./../')">Conocenos</a></li>
           <li class="list-inline-item px-2" *ngIf="!user.id"><a class="pointer" [routerLink]="['./']" (click)="navegar('./login')">Entrar</a></li>

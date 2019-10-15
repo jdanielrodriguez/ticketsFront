@@ -21,6 +21,7 @@ export class ComprobanteComponent implements OnInit {
   comprobante = {
     token:'',
     aprobacion:'',
+    fechaAprobacion:'',
     ern:''
   }
   idUser = localStorage.getItem('currentId');
@@ -70,11 +71,14 @@ export class ComprobanteComponent implements OnInit {
                           .then(response => {
                             // console.log(this.SelectedData);
                             // console.log(response);
-                            if(response.status!=203){
+                              // this.comprobante = response;
+                              if(response.status!=203){
                               // localStorage.removeItem('selectedSillas');
                               this.comprobante = response;
-                              // this.enviarEmail();
+                              this.enviarEmail();
                               this.insert();
+                            }else{
+                              this.buscarSingle();
                             }
                             this.blockUI.stop();
                           }).catch(error => {
@@ -102,6 +106,8 @@ export class ComprobanteComponent implements OnInit {
             url: "paid/"+this.dataSearch.token+"/"+this.dataSearch.ern,
             titulo : element.titulo,
             lugar : 'lugar',
+            fechaAprobacion : this.comprobante.fechaAprobacion,
+            fechaAprobacionS : this.comprobante.fechaAprobacion,
             aprobacion : this.comprobante.aprobacion,
             token : this.dataSearch.token,
             ern : this.dataSearch.ern,
@@ -193,18 +199,33 @@ export class ComprobanteComponent implements OnInit {
   goBack(){
     this.location.back();
   }
-  buscarSingle(search:any){
+  buscarSingle(){
     this.blockUI.start();
     let data = {
-      id:search.titulo.replace(/_/g,' '),
-      state:search.fecha,
-      filter:'buscar'
+      id:this.dataSearch.token,
+      state:this.dataSearch.ern,
+      filter:'token'
     }
-      this.mainService.getAllFilter(data)
+      this.paidService.getAllFilter(data)
                           .then(response => {
                             this.blockUI.stop();
-                            this.cargarFunciones(response.evento);
-                            this.cargarAreas(response.id);
+                            console.log(response);
+                            let data = {
+                              area : 0,
+                              lugar :[]
+                            }
+                            let lugares = []
+                            response.forEach(element => {
+                              lugares.push(element.area)
+                              data = {
+                                area : element.area.evento_funcion_area,
+                                lugar : lugares
+                              }
+                            });
+                            // this.cargarAreas(data)
+
+                            // this.cargarFunciones(response.evento);
+                            // this.cargarAreas(response.id);
                             // this.cargarSingle(response.id);
                           }).catch(error => {
                             console.clear
@@ -213,15 +234,18 @@ export class ComprobanteComponent implements OnInit {
                           })
   }
 
-  cargarAreas(id:number){
+  cargarAreas(other:any){
     this.blockUI.start();
     let data = {
       id:0,
-      state:id,
+      state:other.area,
       filter:'evento_funcion'
     }
-      this.mainService.getAllFilter(data)
+      this.mainService.getSingle(other.area)
                           .then(response => {
+                            console.log(response);
+                            response.lugares =other.lugar
+                            this.SelectedData = response
                             this.blockUI.stop();
                           }).catch(error => {
                             console.clear

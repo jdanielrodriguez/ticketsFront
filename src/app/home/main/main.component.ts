@@ -27,7 +27,7 @@ selectedData: any;
 @BlockUI() blockUI: NgBlockUI;
 browserLang:any = this.parentComponent.browserLang;
 Id:any = '';
-slides:any
+slides:any =[]
 //Servicio el cual se va a trabajar
 constructor(
   private parentComponent: NavComponent,
@@ -100,7 +100,7 @@ getFuciones(){
                             element.idtitulo = element.titulo.replace(/ /g,'_');
                           });
                           this.Table = response;
-                          console.log(response);
+                          // console.log(response);
 
                           this.blockUI.stop();
                         }).catch(error => {
@@ -123,9 +123,18 @@ getFuciones(){
         state:'0',
         filter:'proximos-principales'
       }
+      this.slides = []
       this.mainService.getAllFilter(data)
                           .then(response => {
-                            this.slides = response;
+                            response.forEach(element => {
+                              element.eventos.imagenes.forEach(element2 => {
+                                if(!this.slides.find(element1 => { return element1.id==element2.id})){
+                                  this.slides.push(element2)
+                                }
+                              });
+                            });
+                            // this.slides = response;
+                            // console.log(response);
                             // console.log(this.slides);
                             this.sliderInicio = this.slides.length<10?0:Math.round(Math.random() * (response.length));
                             // console.clear()
