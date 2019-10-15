@@ -47,8 +47,10 @@ export class LocalidadesComponent implements OnInit {
                             response.totalAll = 0
                             response.lugares.forEach((element,i) => {
                               element.titulo = element.titulo+' '+(i+1);
-                              element.selected = element.vendido;
+                              element.vendido = +element.vendido;
+                              element.selected = +element.vendido;
                             });
+                            response.precio = +response.precio
                             this.SelectedData = response;
                             // console.log(response);
                             this.blockUI.stop();
@@ -75,6 +77,8 @@ export class LocalidadesComponent implements OnInit {
 
   add(){
     let seleccionados = []
+    // console.log(this.SelectedData.lugares);
+
     this.SelectedData.lugares.forEach(element => {
       if(element.selected && element.vendido==0){
         seleccionados.push(element)
@@ -82,7 +86,8 @@ export class LocalidadesComponent implements OnInit {
     });
     if(seleccionados.length>0){
       this.cantidad = seleccionados.length;
-      this.SelectedData.totalAll = this.SelectedData.precio*(seleccionados.length)
+      this.SelectedData.precio = parseFloat(this.SelectedData.precio+"");
+      this.SelectedData.totalAll = parseFloat(this.SelectedData.precio*(seleccionados.length)+"");
 
     }
   }

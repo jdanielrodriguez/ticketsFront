@@ -53,7 +53,7 @@
                   </div>
                   <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3">
                     <strong>
-                      ${{items.precio.toFixed(2)}}*
+                      ${{+items.precio>0?(+items.precio).toFixed(2):'0.00'}}*
                     </strong>
                   </div>
                 </a>

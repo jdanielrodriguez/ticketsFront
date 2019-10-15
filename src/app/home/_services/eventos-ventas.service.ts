@@ -64,6 +64,7 @@ return Promise.reject(error)
 
 
     pagar(form):Promise<any> {
+      form.SANDBOX = true;
     let url = `${this.basePath}/api/pagar`
       return this.http.post(url,form)
                       .toPromise()
