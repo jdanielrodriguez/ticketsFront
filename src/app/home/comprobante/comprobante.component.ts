@@ -6,6 +6,7 @@ import { Location } from '@angular/common';
 import { EventosFuncionesAreaService } from "./../_services/eventos-funciones-area.service";
 import { EventosVentasService } from "./../_services/eventos-ventas.service";
 declare var $: any
+declare var TCO: any
 
 @Component({
   selector: 'app-comprobante',
@@ -17,7 +18,16 @@ export class ComprobanteComponent implements OnInit {
     token:'',
     ern:''
   }
+  enviados=false
   responseData=[]
+  tCData = {
+    sellerId: "901416066",
+    publishableKey: "5141E4B3-8298-4808-B8B9-9FA6482D9E50",
+    ccNo: "",//$("#ccNo").val(),
+    cvv: "",//$("#cvv").val(),
+    expMonth: "",//$("#expMonth").val(),
+    expYear: ""//$("#expYear").val()
+};
   comprobante = {
     token:'',
     aprobacion:'',
@@ -51,47 +61,112 @@ export class ComprobanteComponent implements OnInit {
   }
 
   cargarComprobante(dato:any){
+    this.blockUI.start();
+
     let datos = localStorage.getItem('selectedSillas');
     if (datos) {
       this.SelectedData = JSON.parse(datos);
       // localStorage.removeItem('selectedSillas');
 
     }
-    if(dato.token.length<5){
-      this.router.navigate(['./../../../../checkout/'+this.SelectedData.id+':'+(this.SelectedData.eventos.titulo.replace(/ /g,'_'))+':0'])
-    }
+    // if(dato.token.length<5){
+    //   this.router.navigate(['./../../../../checkout/'+this.SelectedData.id+':'+(this.SelectedData.eventos.titulo.replace(/ /g,'_'))+':0'])
+    // }
 
-    this.blockUI.start();
     let data = {
       token:dato.token,
       ern:dato.ern
     }
+    setTimeout(() => {
+      this.blockUI.stop();
 
-      this.paidService.comprobante(data)
-                          .then(response => {
-                            // console.log(this.SelectedData);
-                            // console.log(response);
-                              // this.comprobante = response;
-                              if(response.status!=203){
-                              // localStorage.removeItem('selectedSillas');
-                              this.comprobante = response;
-                              this.enviarEmail();
-                              this.insert();
-                            }else{
-                              this.buscarSingle();
-                            }
-                            this.blockUI.stop();
-                          }).catch(error => {
-                            console.clear
-                            this.blockUI.stop();
-                            this.createError(error)
-                            // console.log(error);
-                            if(error.error){
-                              if(error.error.message=="Compra Denegada"){
-                                this.router.navigate(['./../../../../checkout/'+this.SelectedData.id+':'+(this.SelectedData.eventos.titulo.replace(/ /g,'_'))+':0'])
-                              }
-                            }
-                          })
+    }, 500);
+      // this.paidService.comprobante(data)
+      //                     .then(response => {
+      //                       // console.log(this.SelectedData);
+      //                       // console.log(response);
+      //                         // this.comprobante = response;
+      //                         if(response.status!=203){
+      //                         // localStorage.removeItem('selectedSillas');
+      //                         this.comprobante = response;
+      //                         this.enviarEmail();
+      //                         this.insert();
+      //                       }else{
+      //                         this.buscarSingle();
+      //                       }
+      //                       this.blockUI.stop();
+      //                     }).catch(error => {
+      //                       console.clear
+      //                       this.blockUI.stop();
+      //                       this.createError(error)
+      //                       // console.log(error);
+      //                       if(error.error){
+      //                         if(error.error.message=="Compra Denegada"){
+      //                           this.router.navigate(['./../../../../checkout/'+this.SelectedData.id+':'+(this.SelectedData.eventos.titulo.replace(/ /g,'_'))+':0'])
+      //                         }
+      //                       }
+      //                     })
+  }
+  getToken(){
+    this.blockUI.start();
+
+    // Setup token request arguments
+    var args = {
+        sellerId: this.tCData.sellerId,
+        publishableKey: this.tCData.publishableKey,
+        ccNo: this.tCData.ccNo,//"4000000000000002",//$("#ccNo").val(),
+        cvv: this.tCData.cvv,//"123",//$("#cvv").val(),
+        expMonth: this.tCData.expMonth,//$("#expMonth").val(),
+        expYear: this.tCData.expYear//$("#expYear").val()
+    };
+    TCO.loadPubKey('sandbox',
+    // Make the token request
+      data => {
+        TCO.requestToken(response => {
+            // var myForm = document.getElementById('myCCForm');
+            let data = {
+              token:response.response.token.token,
+              price:this.SelectedData.totalAll-this.SelectedData.descuento,
+              quantity:1,
+              usuario:this.idUser
+
+            }
+            // console.log(response.response.token.token);
+            // console.log(this.SelectedData);
+
+            this.paidService.pago(data)
+                            .then(async response2 => {
+                              // console.log(response.response.token.token);
+                              // console.log(response2);
+                              this.dataSearch.token = response.response.token.token
+                              this.dataSearch.ern = response2.result.response.transactionId
+                              this.comprobante.ern = this.dataSearch.ern
+                              this.comprobante.aprobacion = response2.result.response.orderNumber
+                              this.comprobante.token = response.response.token.token
+                              // console.log(this.dataSearch);
+
+                              await this.insert()
+                              this.blockUI.stop();
+
+                            })
+                            .catch(error => {
+                              console.log(error);
+
+                              this.blockUI.stop();
+
+                            })
+            // Set the token as the value for the token input
+            // myForm.token.value = response.response.token.token;
+        }, data => {
+            if (data.errorCode === 200) {
+                this.getToken();
+            } else {
+                console.log(data.errorMsg);
+                this.blockUI.stop();
+            }
+        }, args)
+      }
+    );
   }
   insert(){
       // localStorage.removeItem('selectedSillas');
@@ -140,10 +215,10 @@ export class ComprobanteComponent implements OnInit {
         this.mainService.update(this.SelectedData)
                             .then(async response => {
                               this.blockUI.stop();
-                              await this.enviarEmail();
                               localStorage.removeItem('selectedSillas');
-                              this.createSuccess("Su compra fue exitosa, se le redireccionara a su dashboard")
-                              await this.router.navigate(['./../../../../dashboard/home'])
+                              this.createSuccess("Su compra fue exitosa, se le redireccionara a su dashboard en un momento")
+                              await this.enviarEmail();
+
 
                                 // console.log("data",data);
                                 // console.log("response",response);
@@ -176,11 +251,17 @@ export class ComprobanteComponent implements OnInit {
     this.paidService.enviar(data)
                   .then(response => {
                     this.createSuccess("Su comprobante ha sido enviado");
+                    this.enviados=false
+                    setTimeout(() => {
+                      this.router.navigate(['./../../../../dashboard/home'])
+
+                    }, 5000);
                     this.blockUI.stop();
                   }).catch(error => {
                     console.clear
                     this.blockUI.stop();
-                    this.createError(error)
+                    this.enviados=true
+                    this.createError("Ha ocurrido un error enviando su comprobante, por favor de click al boton enviar para intentar otra vez.")
                   })
   }
 

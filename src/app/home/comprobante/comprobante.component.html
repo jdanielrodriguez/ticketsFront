@@ -62,16 +62,48 @@
               {{data.eventos?data.eventos.eventos.inicio.replace(' ',' / '):''}}
             </td>
             <td class=" text-right ">
-              ${{data.eventos.precio.toFixed(2)}}
+              ${{data.eventos.precio?(data.eventos.precio*1.00).toFixed(2):0}}
             </td>
             <td class=" text-right ">
-              ${{data.eventos.precio.toFixed(2)}}
+              ${{data.eventos.precio?(data.eventos.precio*1.00).toFixed(2):0}}
             </td>
           </tr>
         </tbody>
       </table>
       <div class="row text-right">
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 offset-xs-7 offset-sm-7 offset-md-7 offset-lg-7 text-dark">
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 offset-xs-2 offset-sm-2 offset-md-2 offset-lg-2 text-dark">
+            <form class="p-2" autocomplete="off" id="TC-form"  #TCForm="ngForm" (ngSubmit)="getToken()">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="noTC" required
+                  ngModel #noTC="ngModel" placeholder="Numero de Tarjeta" autocomplete="off" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.ccNo">
+
+                </div>
+                <div class="input-group">
+                  <input type="number" class="form-control" id="mtVencimiento" required
+                  ngModel #mtVencimiento="ngModel" placeholder="01" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.expMonth">
+
+                  <input type="number" class="form-control" id="yrVencimiento" required
+                  ngModel #yrVencimiento="ngModel" placeholder="21" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.expYear">
+
+                </div>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="nameTC" required
+                  ngModel #nameTC="ngModel" autocomplete="off" placeholder="Nombre" [ngModelOptions]="{standalone: true}">
+
+                </div>
+                <div class="input-group">
+                  <input type="text" class="form-control" id="cvvTC" required
+                  ngModel #cvvTC="ngModel" autocomplete="off" placeholder="CVV" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.cvv">
+
+                </div>
+
+                <div class="input-group text-right">
+                    <button type="button" (click)="getToken()" class="btn btn-secondary">Pagar</button>
+
+                  </div>
+              </form>
+        </div>
+        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 offset-xs-2 offset-sm-2 offset-md-2 offset-lg-2 text-dark">
           <strong>
           Sub Total:<br>
           Impuestos (IVA 12%):<br>
@@ -102,7 +134,7 @@
             </div>
         </div>
         <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 text-right pt-5" *ngIf="comprobante.token!=''">
-          <button type="button" class="btn btn-primary" (click)="enviarEmail()">Enviar</button>
+          <button type="button" class="btn btn-primary" [disabled]="!enviados" (click)="enviarEmail()">Enviar</button>
         </div>
       </div>
     </div>

@@ -123,7 +123,6 @@ export class CheckoutComponent implements OnInit {
   insert(){
     if(this.SelectedData.lugares.length>0){
       localStorage.setItem('selectedSillas',JSON.stringify(this.SelectedData));
-      this.blockUI.start();
       let descuento = 0;
       this.vendedores.forEach(element => {
         descuento += element.porcentaje;
@@ -139,18 +138,19 @@ export class CheckoutComponent implements OnInit {
         id: 1,
         url: "comewme.com"
       }
-      console.log(data);
+      // console.log(data);
+      this.router.navigate(['./../../../../paid/'+this.SelectedData.id+'/'+(this.SelectedData.eventos.titulo.replace(/ /g,'_'))])
 
-      this.paidService.pagar(data)
-                          .then(response => {
-                            // console.log(response);
-                            window.open(response.token,'_self');
-                            this.blockUI.stop();
-                          }).catch(error => {
-                            console.clear
-                            this.blockUI.stop();
-                            this.createError(error)
-                          })
+      // this.paidService.pagar(data)
+      //                     .then(response => {
+      //                       // console.log(response);
+      //                       window.open(response.token,'_self');
+      //                       this.blockUI.stop();
+      //                     }).catch(error => {
+      //                       console.clear
+      //                       this.blockUI.stop();
+      //                       this.createError(error)
+      //                     })
 
     }
   }

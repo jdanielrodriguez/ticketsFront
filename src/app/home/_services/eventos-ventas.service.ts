@@ -75,6 +75,17 @@ return Promise.reject(error)
                         .catch(this.handleError)
     }
 
+    pago(form):Promise<any> {
+    let url = `${this.basePath}/api/pago`
+      return this.http.post(url,form)
+                      .toPromise()
+                        .then(response => {
+                          //console.log(response)
+                          return response
+                        })
+                        .catch(this.handleError)
+    }
+
 
     enviar(form):Promise<any> {
       let url = `${this.basePath}/api/enviar`

@@ -51,6 +51,7 @@ createError(error) {
 
 }
 
+
   login(formValue:any){
     this.blockUI.start();
       this.authenticationService.Authentication(formValue)
@@ -120,6 +121,8 @@ createError(error) {
     $('#searchContent').addClass('d-none');
     $('#inSeachForm').removeClass('d-none');
     $('#logoTipo').addClass('d-none');
+    // TCO.loadPubKey('sandbox');
+
   }
 
 }

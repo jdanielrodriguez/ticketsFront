@@ -34,7 +34,8 @@
               "src/assets/js/jquery-ui.js",
               "src/assets/js/popper.js",
               "src/assets/js/bootstrap.js",
-              "src/assets/js/upload.js"
+              "src/assets/js/upload.js",
+              "src/assets/js/2co.js"
             ],
             "es5BrowserSupport": true
           },
