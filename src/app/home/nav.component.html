@@ -27,7 +27,11 @@
             </a>
             <div class="dropdown-menu" style="margin-left: -5rem;" aria-labelledby="navbarDropdown">
               <a class="dropdown-item" [routerLink]="['./']" (click)="navegar('./../../../../../../../dashboard/home')">Panel de Informacion</a>
+              <a class="dropdown-item" [routerLink]="['./']" (click)="navegar('./../../../../../../../dashboard/entradas')">Mis Entradas</a>
+              <a class="dropdown-item" [routerLink]="['./']" (click)="navegar('./../../../../../../../dashboard/eventos')">Eventos Anteriores</a>
+              <a class="dropdown-item" [routerLink]="['./']" (click)="navegar('./../../../../../../../dashboard/mis-eventos')" *ngIf="+user.rol==2">Mis Eventos</a>
               <a class="dropdown-item" [routerLink]="['./']" (click)="navegar('./../../../../../../../dashboard/profile')">Perfil</a>
+              <a class="dropdown-item" [routerLink]="['./']" (click)="navegar('./../../../../../../../dashboard/configuracion')">Configuracion</a>
               <div class="dropdown-divider"></div>
               <a class="dropdown-item" [routerLink]="['./']" (click)="logout();">Salir</a>
             </div>
