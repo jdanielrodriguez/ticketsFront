@@ -16,40 +16,300 @@
   </nav>
   <!-- Home Windows -->
   <div class="row mt-3">
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-rigth">
+
+      <button type="button" class="btn btn-info"  (click)="addEvento()"> <i class="fa fa-plus"></i > </button>
+
+
+    </div>
+
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 offset-xs-3 offset-sm-3 offset-md-3 offset-lg-3">
-      <div class="accordion" id="AcordionEditar">
+      <div class="accordion" id="AcordionIngresar">
         <div class="card">
-          <div id="formEditar" class="collapse" aria-labelledby="headingOne" data-parent="#AcordionEditar">
+          <div id="formIngresar" class="collapse" aria-labelledby="headingOne" data-parent="#AcordionIngresar">
             <div class="card-body">
-                <form class="form-signin" autocomplete="off" id="login-form"  #loginForm="ngForm" (ngSubmit)="insert(loginForm.value)">
+                <form class="form-signin" autocomplete="off" id="insert-form"  #eventoInsertForm="ngForm" (ngSubmit)="insert(eventoInsertForm);ocultarForm()">
                     <h1 class="h3 mb-3 font-weight-normal">Funcion</h1>
 
                     <div class="row">
+                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 mx-auto">
+                          <div class="input-group mb-1">
+                            <input type="text" class="form-control" name="titulo" required
+                            ngModel #titulo="ngModel" placeholder="Titulo">
+                          </div>
+                        </div>
+                      </div>
+
                       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <div class="input-group mb-1">
-                          <input type="text" class="form-control" name="username" required
-                          ngModel #username="ngModel" placeholder="Usuario">
+                          <input type="text" class="form-control" name="direccion" required
+                          ngModel #direccion="ngModel" placeholder="direccion">
                         </div>
                       </div>
 
                       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
                         <div class="input-group mb-3">
-                          <input type="password" class="form-control" name="password" required
-                          ngModel #password="ngModel" placeholder="Password">
+                          <input type="text" class="form-control" name="descripcion" required
+                          ngModel #descripcion="ngModel" placeholder="descripcion" >
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                        <div class="input-group mb-1">
+                          <input class="form-control" placeholder="yyyy-mm-dd"
+                                name="fecha_inicio" #fecha_inicioVal="ngModel" [(ngModel)]="fechaInicio" ngbDatepicker #fecha_inicio="ngbDatepicker">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="fecha_inicio.toggle()" type="button">
+                              <i class="fa fa-calendar"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group mb-3">
+                          <input class="form-control" placeholder="yyyy-mm-dd"
+                                name="fecha_fin" #fecha_finVal="ngModel" [(ngModel)]="fechaFin" ngbDatepicker #fecha_fin="ngbDatepicker">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="fecha_fin.toggle()" type="button">
+                              <i class="fa fa-calendar"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group mb-1">
+                          <input type="text" class="form-control" name="hora_inicio" required
+                          ngModel #hora_inicio="ngModel" placeholder="hora_inicio" >
                         </div>
                       </div>
 
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" name="hora_fin" required
+                          ngModel #hora_fin="ngModel" placeholder="hora_fin" >
+                        </div>
+                      </div>
                       <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 my-3">
                         <ngui-map
                           zoom="18"
-                          center="14.66430813990437, -90.51446914672852"
+                          center="14.66430813990437,-90.51446914672852"
                           (mapClick)="onMapClick($event)"
                           mapTypeId="roadmap">
-                            <marker *ngFor="let pos of positions"
-                              [position]="pos"
-                              (initialized$)="onMarkerInit($event)"></marker>
+                            <marker [position]="positions"></marker>
                         </ngui-map>
                       </div>
+                    </div>
+                    <button class="btn btn-lg btn-primary btn-block" type="submit">Agregar Evento</button>
+                  </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 offset-xs-3 offset-sm-3 offset-md-3 offset-lg-3">
+      <div class="accordion" id="AcordionEditar">
+        <div class="card">
+          <div id="formEditar" class="collapse" aria-labelledby="headingOne" data-parent="#AcordionEditar">
+            <div class="card-body">
+                <form class="form-signin" autocomplete="off" id="editar-form" *ngIf="SelectedData" #editarForm="ngForm" (ngSubmit)="update(editarForm)">
+                    <h1 class="h3 mb-3 font-weight-normal">Evento</h1>
+
+                    <div class="row">
+                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 row">
+                        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 mx-auto">
+                          <div class="input-group mb-1">
+                            <input type="text" class="form-control" name="titulo" required
+                            ngModel #titulo="ngModel" placeholder="Titulo" [(ngModel)]="SelectedData.titulo">
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group mb-1">
+                          <input type="text" class="form-control" name="direccion" required
+                          ngModel #direccion="ngModel" placeholder="direccion" [(ngModel)]="SelectedData.titulo">
+                        </div>
+                      </div>
+
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" name="descripcion" required
+                          ngModel #descripcion="ngModel" placeholder="descripcion" [(ngModel)]="SelectedData.descripcion">
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+
+                        <div class="input-group mb-1">
+                          <input class="form-control" placeholder="yyyy-mm-dd"
+                                name="fecha_inicio" #fecha_inicioVal="ngModel" [(ngModel)]="SelectedData.fecha_inicio" ngbDatepicker #fecha_inicio="ngbDatepicker">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="fecha_inicio.toggle()" type="button">
+                              <i class="fa fa-calendar"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group mb-3">
+                          <input class="form-control" placeholder="yyyy-mm-dd"
+                                name="fecha_fin" #fecha_finVal="ngModel" [(ngModel)]="SelectedData.fecha_fin" ngbDatepicker #fecha_fin="ngbDatepicker">
+                          <div class="input-group-append">
+                            <button class="btn btn-outline-secondary calendar" (click)="fecha_fin.toggle()" type="button">
+                              <i class="fa fa-calendar"></i>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group mb-1">
+                          <input type="text" class="form-control" name="hora_inicio" required
+                          ngModel #hora_inicio="ngModel" placeholder="hora_inicio" [(ngModel)]="SelectedData.hora_inicio">
+                        </div>
+                      </div>
+
+                      <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" name="hora_fin" required
+                          ngModel #hora_fin="ngModel" placeholder="hora_fin" [(ngModel)]="SelectedData.hora_fin">
+                        </div>
+                      </div>
+                      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 my-3">
+                        <ngui-map
+                          zoom="18"
+                          center="{{SelectedData.latitud>0?SelectedData.latitud:'14.66430813990437'}},{{SelectedData.longitud<0?SelectedData.longitud:'-90.51446914672852'}}"
+                          (mapClick)="onMapClick($event)"
+                          mapTypeId="roadmap">
+                            <marker [position]="positions"></marker>
+                        </ngui-map>
+                      </div>
+                      <div class="row">
+                        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                          <ngb-tabset>
+                            <ngb-tab>
+                              <ng-template ngbTabTitle><b>Fotos</b></ng-template>
+                              <ng-template ngbTabContent>
+                                <div class="py-3 mt-3 profile-main">
+                                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 mx-auto ">
+                                      <label for="uploadImagenFuncion" class="text icon">Seleccionar archivo</label>
+                                      <progress value="0" max="100" class="loader_img barra_de_progreso"></progress>
+                                      <input type="file" id="uploadImagenFuncion" (change)="subirImagenes($event,{id:0},'uploadImagenFuncion');blockUI.start()"/>
+                                      <button type="button" (click)="blockUI.stop()" id="stopLoader" class="form-control border-morado  text icon d-none" placeholder="">Tomar Foto </button>
+                                  </div>
+                                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 mx-auto">
+                                    <div class="cuadro-img d-flex">
+                                        <img src="http://placehold.it/500X500?text=X" style="max-height: 100%;" id="imagenComentario" class="img-thumbnail m-auto" alt="" srcset="">
+                                    </div>
+                                  </div>
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-3">
+                                    <button type="button" style="padding: .1em 1em;" class="btn btn-primary" id="guardarImagenes" (click)="guardarImg()">Agregar</button>
+                                </div>
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-3">
+                                    <div class="shadow p-3 mt-3 profile-main">
+                                      <table class="table table-hover w-100" *ngIf="SelectedData.imagenes" [mfData]="SelectedData.imagenes" #mf="mfDataTable" [mfRowsOnPage]="6">
+                                          <div class="w-100">
+                                              <div class="row p-3" >
+                                                  <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 cuadro-img-min d-flex" *ngFor="let data of mf.data">
+                                                    <img src="{{data.url}}" style="max-height: 100%;" class="img-thumbnail m-auto" alt="" srcset="">
+                                                  </div>
+                                              </div>
+                                          </div>
+                                          <div>
+                                          <div class="row">
+                                              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                  <mfBootstrapPaginator></mfBootstrapPaginator>
+                                              </div>
+                                          </div>
+                                          </div>
+                                        </table>
+                                    </div>
+                                  </div>
+                                </div>
+                              </ng-template>
+                            </ngb-tab>
+                            <ngb-tab>
+                              <ng-template ngbTabTitle><b>Localidades</b></ng-template>
+                              <ng-template ngbTabContent>
+
+                                <div class="row">
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                    <form class="inline-form" autocomplete="off" id="localidad-form" #formLocalidad="ngForm" (ngSubmit)="agregarLocalidad(SelectedData,formLocalidad)">
+
+                                    <input type="text" ngModel name="descripcionLocalidad" #descripcionLocalidad="ngModel" id="descripcionLocalidad"  >
+                                    <input type="number" ngModel name="precioLocalidad" #precioLocalidad="ngModel" id="precioLocalidad"  >
+                                    <button type="submit" class="btn btn-info"  > <i class="fa fa-plus"></i > </button>
+                                    </form>
+                                  </div>
+                                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 mt-5">
+                                    <div class="accordion " id="AcordionLocalidades" *ngFor="let data of SelectedData.areas; let i = index">
+                                      <div class="card">
+                                        <div class="card-header pointer text-secondary" id="headingOne"  (click)="collapse('collapseOne22-'+((data.id)?data.id:''))">
+
+                                            <button class="btn btn-link text-left" type="button">
+                                                <h2 class="mb-0 ">{{data.titulo}} </h2>
+                                            </button>
+                                            <button type="button" class="btn btn-danger" (click)="eliminarLocalidad(data.id)">Borrar</button>
+                                        </div>
+
+                                        <div id="collapseOne22-{{((data.id)?data.id:'')}}" class="collapse" aria-labelledby="headingOne" data-parent="#AcordionLocalidades">
+                                          <div class="card-body">
+                                            <div class="row mb-4 ml-5 mr-5">
+                                              <div class="d-md-flex flex-wrap gutter-sm pt-3 mb-3">
+
+                                                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                                                  <input type="number" ngModel #lugaresNuevos="ngModel" id="lugaresNuevos"  [ngModelOptions]="{standalone: true}">
+                                                  <button type="button" class="btn btn-info"  (click)="data.catidadLugares=lugaresNuevos.value;insertLugares(data,lugaresNuevos)"> <i class="fa fa-plus"></i > </button>
+                                                </div>
+
+                                                <div class="row text-dark">
+                                                  <div style="width: 20%;" *ngFor="let item of data.lugares; let i = index">
+                                                    <div class="checkbox" [class.text-secondary]="item.vendido==1" [class.text-dark]="item.vendido==0 && item.selected==0" [class.text-primary]="item.selected==1">
+                                                      <label for="lugar{{item.id}}" class="pointer">
+                                                        <input class="d-none" type="checkbox" (change)="add(item)" id="lugar{{item.id}}" [checked]="item.vendido==1" [disabled]="item.vendido==1" name="lugar{{item.id}}" [(ngModel)]="item.selected">
+                                                        <i class="pointer fa " [class.fa-child]="item.selected==0" [class.fa-street-view]="item.selected==1" style="font-size: 18px;" ></i> {{item.titulo}}<i class="ml-2 fa " [class.fa-check]="item.selected==1" style="font-size: 18px;" ></i>
+                                                      </label>
+                                                    </div>
+                                                  </div>
+
+                                                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+
+                                                    <button type="button" class="btn btn-primary">Vendido</button>
+
+                                                  </div>
+                                                  <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 text-center">
+
+                                                    <button type="button" class="btn btn-danger" (click)="deleteLugares(data)">Borrar</button>
+
+                                                  </div>
+
+                                                </div>
+
+                                              </div>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                  </div>
+                                </div>
+
+
+                              </ng-template>
+                            </ngb-tab>
+                            <ngb-tab>
+                              <ng-template ngbTabTitle><b>Embajadores</b></ng-template>
+                              <ng-template ngbTabContent>
+                                <p>Sed commodo, leo at suscipit dictum, quam est porttitor sapien, eget sodales nibh elit id diam. Nulla facilisi. Donec egestas ligula vitae odio interdum aliquet. Duis lectus turpis, luctus eget tincidunt eu, congue et odio. Duis pharetra et nisl at faucibus. Quisque luctus pulvinar arcu, et molestie lectus ultrices et. Sed diam urna, egestas ut ipsum vel, volutpat volutpat neque. Praesent fringilla tortor arcu. Vivamus faucibus nisl enim, nec tristique ipsum euismod facilisis. Morbi ut bibendum est, eu tincidunt odio. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris aliquet odio ac lorem aliquet ultricies in eget neque. Phasellus nec tortor vel tellus pulvinar feugiat.</p>
+                              </ng-template>
+                            </ngb-tab>
+                          </ngb-tabset>
+                        </div>
+                      </div>
+
+
 
 
                     </div>
@@ -77,8 +337,13 @@
             <div class="card-body">
               <div class="row mb-4 ml-5 mr-5">
                 <div class="d-md-flex flex-wrap gutter-sm pt-3 mb-3">
+
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <button type="button" class="btn btn-info"  (click)="collapse('collapseOne-'+((data.id)?data.id:''));collapse('formIngresar');mainEvento=data.id"> <i class="fa fa-plus"></i > </button>
+                  </div>
+
                   <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mb-3 service-card"
-                        (click)="collapse('formEditar');collapse('collapseOne-'+((data.id)?data.id:''))"
+                        (click)="collapse('formEditar');collapse('collapseOne-'+((data.id)?data.id:''),item)"
                         style="cursor: pointer"
                         *ngFor="let item of data.funciones">
                     <div class="card mb-4 shadow-sm">
@@ -115,6 +380,34 @@
   </div>
 
 <!-- Fin Home Windows -->
+</div>
+
+<div class="modal fade" id="AgregarEventoModal">
+  <div class="modal-dialog">
+    <form class="modal-content" autocomplete="off" #EventoAdd="ngForm" (ngSubmit)="insertarEvento(EventoAdd.value)">
+      <div class="modal-header">
+          <h4 class="modal-title">Agrega la informacion basica de tu evento</h4>
+      </div>
+      <div class="modal-body">
+            <div class="form-group">
+              <div class="input-group mb-3">
+                  <input type="text" class="form-control bishound-input" placeholder="Titulo" id="titulo" name="titulo" required
+                  ngModel #titulo="ngModel">
+              </div>
+            </div>
+          <div class="form-group">
+              <div class="input-group mb-3">
+                  <input type="text" class="form-control bishound-input" placeholder="Descripcion" id="descripcio" name="descripcio" required
+                  ngModel #descripcio="ngModel">
+              </div>
+            </div>
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" [disabled]="titulo.value==''">Guardar</button>
+        <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
+      </div>
+    </form>
+  </div>
 </div>
 
   <!-- Inicio Notificaciones -->

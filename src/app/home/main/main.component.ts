@@ -126,17 +126,19 @@ getFuciones(){
       this.slides = []
       this.mainService.getAllFilter(data)
                           .then(response => {
+                            console.log(response);
                             response.forEach(element => {
-                              element.eventos.imagenes.forEach(element2 => {
+                              element.imagenes.forEach(element2 => {
                                 if(!this.slides.find(element1 => { return element1.id==element2.id})){
                                   this.slides.push(element2)
                                 }
                               });
                             });
                             // this.slides = response;
-                            // console.log(response);
+                            console.log(response);
                             // console.log(this.slides);
-                            this.sliderInicio = this.slides.length<10?0:Math.round(Math.random() * (response.length));
+                            let ramdominicio=Math.round(Math.random() * (this.slides.length))
+                            this.sliderInicio = this.slides.length<10?0:ramdominicio;
                             // console.clear()
                             this.getFuciones();
                             this.blockUI.stop();

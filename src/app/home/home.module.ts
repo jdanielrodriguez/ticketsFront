@@ -19,6 +19,7 @@ import { NouisliderModule } from 'ng2-nouislider';
 import { UsersService } from './_services/users.service';
 import { GlobalsService } from './_services/globals.service';
 import { EventosFuncionesAreaService } from './_services/eventos-funciones-area.service';
+import { EventosFuncionesAreaLugarService } from './_services/eventos-funciones-area-lugar.service';
 import { EventosFuncionesService } from './_services/eventos-funciones.service';
 import { EventosVentasService } from './_services/eventos-ventas.service';
 import { EventosService } from './_services/eventos.service';
@@ -79,6 +80,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     EventosVentasService,
     HomeGuard,
     EventosFuncionesAreaService,
+    EventosFuncionesAreaLugarService,
     GlobalsService,
   ]
 })

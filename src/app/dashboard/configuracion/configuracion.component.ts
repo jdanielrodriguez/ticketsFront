@@ -7,6 +7,7 @@ import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs';
 // import 'rxjs/add/operator/switchMap';;
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { path } from "../../config.module";
 
 declare var $: any
 @Component({
@@ -17,7 +18,9 @@ declare var $: any
 export class ConfiguracionComponent implements OnInit {
   tipoUsuario:number = +localStorage.getItem('currentTipoUsuarioId');
   sesionNueva = localStorage.getItem('currentNuevaSesion');
+  public isCollapsed = true;
   ranking=5;
+  private basePath:string = path.path
   SelectedData:any = null;
   id:number = +localStorage.getItem('currentId');
   selected={
@@ -96,6 +99,8 @@ export class ConfiguracionComponent implements OnInit {
                       if(response.state=='21'){
                         $('#ActualizaPass').modal('show');
                       }
+                      console.log(this.SelectedData);
+
                       this.blockUI.stop();
                     }).catch(error => {
                       console.clear
@@ -111,10 +116,11 @@ export class ConfiguracionComponent implements OnInit {
         this.blockUI.stop();
     }, 1000);
     formValue.id = localStorage.getItem('currentId');
-    let nombres = formValue.nombre.split(' ')
-    let apellidos = formValue.apellido.split(' ')
+    let nombres = formValue.nombres.split(' ')
+    let apellidos = formValue.apellidos.split(' ')
     this.SelectedData.primerNombre = nombres[0] ;
     this.SelectedData.segundoNombre = nombres[1] ;
+    this.SelectedData.foto = $('.img-profile').attr("src") ;
     this.SelectedData.primerApellido = apellidos[0] ;
     this.SelectedData.segundoApellido = apellidos[1] ;
     this.SelectedData.descripcion = formValue.descripcion ;
@@ -136,6 +142,46 @@ export class ConfiguracionComponent implements OnInit {
                       })
 
 
+  }
+
+  subirImagenes(archivo,form,id){
+    this.blockUI.start();
+    var archivos=archivo.srcElement.files;
+    let url = `${this.basePath}/api/upload`
+
+    var i=0;
+    var size=archivos[i].size;
+    var type=archivos[i].type;
+        if(size<(2*(1024*1024))){
+          if(type=="image/png" || type=="image/jpeg" || type=="image/jpg"){
+        $("#"+id).upload(url,
+            {
+              avatar: archivos[i],
+              carpeta: "perfil/"+localStorage.getItem('currentId')
+          },
+          function(respuesta)
+          {
+            $('.img-profile').attr("src",'')
+            $('.img-profile').attr("src",respuesta.picture)
+            $("#"+id).val('')
+            $("#barra_de_progreso").val(0)
+            $("#stopLoader").click();
+
+          },
+          function(progreso, valor)
+          {
+
+            $("#barra_de_progreso").val(valor);
+          }
+        );
+          }else{
+            this.createError("El tipo de imagen no es valido")
+            this.blockUI.stop();
+          }
+      }else{
+        this.createError("La imagen es demaciado grande")
+        this.blockUI.stop();
+      }
   }
 
   public options = {

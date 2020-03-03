@@ -27,6 +27,7 @@ export class NavComponent implements OnInit {
   mainImg:string = localStorage.getItem('currentAvatar');
   public agregados: any[] = [];
   browserLang:any;
+  footerYear=new Date().getUTCFullYear();
   translate:any;
   public user = {
     username:null,

@@ -16,54 +16,108 @@
       </nav>
   <!-- Home Windows -->
   <div class="row pt-3" *ngIf="SelectedData">
-    <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 mx-auto mb-3 mt-3 ">
+    <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8 mx-auto mb-3 mt-3 ">
       <!-- Seller Card -->
       <div class="card box-shadow-medium mb-5">
           <img class="shadow img-profile mt-3"src="{{(SelectedData.foto && SelectedData.foto!='null' && SelectedData.foto!='')?SelectedData.foto:'http://placehold.it/1000px1000?text=X'}}" alt="Avatar">
           <div class="card-body">
             <h5 class="card-title text-center c-azul-bishound">{{SelectedData.nombres+' '+SelectedData.apellidos}}</h5>
           </div>
-          <!-- Rate Area -->
-          <div class="row ml-0 mr-0">
-              <div class="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                <div class="rate">
-                  <div class="clasificacion">
-                    <input id="Ranking1" name="ranking" type="radio" [value]="5" disabled [class.checkStar]="ranking>=5">
-                    <label for="Ranking1">★</label>
-                    <input id="Ranking2" name="ranking" type="radio" [value]="4" disabled [class.checkStar]="ranking>=4">
-                    <label for="Ranking2">★</label>
-                    <input id="Ranking3" name="ranking" type="radio" [value]="3" disabled [class.checkStar]="ranking>=3">
-                    <label for="Ranking3">★</label>
-                    <input id="Ranking4" name="ranking" type="radio" [value]="2" disabled [class.checkStar]="ranking>=2">
-                    <label for="Ranking4">★</label>
-                    <input id="Ranking5" name="ranking" type="radio" [value]="1" disabled [class.checkStar]="ranking>=1">
-                    <label for="Ranking5">★</label>
-                  </div>
-                </div>
-              </div>
-              <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4 pt-1 text-left c-celeste-bishound">
-                <h5>5</h5>
-              </div>
-            </div>
-            <!-- Fin Rate Area -->
             <!-- info seller Area -->
           <div class="row ml-0 mr-0">
+              <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pt-1 text-center">
+                <form class="form-signin" autocomplete="off" id="edit-form"  #EditForm="ngForm">
+                  <input type="file"  class="fileinput" title="Seleccione imagen de perfil" id="avatar" (change)="subirImagenes($event,EditForm.value,'avatar')"/>
+                  <progress value="0" max="100" id="barra_de_progreso"></progress>
+                  <button type="button" (click)="blockUI.stop()" id="stopLoader" class="form-control border-morado  text icon d-none" placeholder="">Tomar Foto </button>
+                </form>
+              </div>
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pb-1 text-center">
                 <h5 class="c-azul-bishound">Tipo de Usuario: {{SelectedData.roles.titulo}}</h5>
               </div>
               <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 pt-1 text-center">
-                <a [routerLink]="['./../profile']">Editar Perfil</a>
+                <a [routerLink]="['./../profile']">Ver Prefil</a>
               </div>
             </div>
             <!-- Fin info seller Area -->
           <!-- Seller Data -->
           <div class="row ml-0 mr-0 mt-1 mb-4">
-            <div class="mb-2 col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left c-celeste-bishound">
-              Tickets Comprados
+            <div class="mb-2 col-xs-12 col-sm-12 col-md-12 col-lg-12 text-left c-celeste-bishound">
+              <form class="profile-form" autocomplete="off" id="profile-form"  #profileForm="ngForm" (ngSubmit)="update(profileForm.value)">
+                <h1 class="h3 mb-3 font-weight-normal">Mi perfil</h1>
+
+                <div class="row">
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control" name="username" required
+                      ngModel #username="ngModel" placeholder="username" [(ngModel)]="this.SelectedData.username">
+                    </div>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control" name="email" required
+                      ngModel #email="ngModel" placeholder="email" [(ngModel)]="this.SelectedData.email">
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control" name="nombres" required
+                      ngModel #nombres="ngModel" placeholder="nombres" [(ngModel)]="this.SelectedData.nombres">
+                    </div>
+                  </div>
+
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control" name="apellidos" required
+                      ngModel #apellidos="ngModel" placeholder="apellidos" [(ngModel)]="this.SelectedData.apellidos">
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="input-group mb-1">
+                      <input type="text" class="form-control" name="descripcion" required
+                      ngModel #descripcion="ngModel" placeholder="Usuario" [(ngModel)]="this.SelectedData.descripcion">
+                    </div>
+                  </div>
+                  <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+                    <div class="input-group mb-1">
+                      <input type="text" (click)="isCollapsed = !isCollapsed"
+                      [attr.aria-expanded]="!isCollapsed" class="form-control" name="nacimiento" required
+                      ngModel #nacimiento="ngModel" placeholder="Usuario" [(ngModel)]="this.SelectedData.nacimiento">
+                    </div>
+                  </div>
+                  <div [ngbCollapse]="isCollapsed" class="mb-2 col-xs-10 col-sm-10 col-md-10 col-lg-10 offset-xs-1 offset-sm-1 offset-md-1 offset-lg-1 text-left mt-3">
+                    <form autocomplete="off" #recovery1Form="ngForm" (ngSubmit)="changePass(recovery1Form.value)">
+                            <div class="form-group">
+                              <div class="input-group mb-3">
+                                  <input type="password" class="form-control bishound-input" placeholder="Escribe otra vez tu contraseña" id="old_pass" name="old_pass" required
+                                  ngModel #old_pass="ngModel">
+                              </div>
+                            </div>
+                          <div class="form-group">
+                              <div class="input-group mb-3">
+                                  <input type="password" class="form-control bishound-input" placeholder="Crea una nueva contraseña" id="new_pass" name="new_pass" required
+                                  ngModel #new_pass="ngModel">
+                              </div>
+                            </div>
+                            <div class="form-group">
+                              <div class="input-group mb-3">
+                                  <input type="password" class="form-control bishound-input" placeholder="Confirma tu nueva contraseña" id="new_pass_rep" name="new_pass_rep" required
+                                  ngModel #new_pass_rep="ngModel">
+                              </div>
+                            </div>
+                        <button type="submit" class="btn btn-primary" [disabled]="(new_pass.value!=new_pass_rep.value) || new_pass.value==''">Change Password</button>
+                    </form>
+                  </div>
+
+
+
+                </div>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Actualizar</button>
+              </form>
+
             </div>
-            <div class="mb-2 col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right c-celeste-bishound">
-              <h5>0</h5>
-            </div>
+
             <!-- <div class="mb-2 col-xs-5 col-sm-5 col-md-5 col-lg-5 text-left">
               Location
             </div>
@@ -71,12 +125,7 @@
               <a href="#">view on map</a>
             </div> -->
 
-            <div class="mb-2 col-xs-7 col-sm-7 col-md-7 col-lg-7 text-left mt-3">
-              Correos
-            </div>
-            <div class="mb-2 col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right mt-3">
-              <a href="#">Ver Todo</a>
-            </div>
+            
           </div>
           <!-- Fin Seller Data -->
 
@@ -98,24 +147,24 @@
   <div class="modal-dialog">
     <form class="modal-content" autocomplete="off" #recoveryForm="ngForm" (ngSubmit)="changePass(recoveryForm.value)">
       <div class="modal-header">
-          <h4 class="modal-title">Tu clave fue reseteada, debes cambiarla</h4>
+          <h4 class="modal-title">Tu contraseña fue reseteada, debes cambiarla</h4>
       </div>
       <div class="modal-body">
             <div class="form-group">
               <div class="input-group mb-3">
-                  <input type="password" class="form-control bishound-input" placeholder="Escribe otra vez la clave que te enviamos" id="old_pass" name="old_pass" required
+                  <input type="password" class="form-control bishound-input" placeholder="Escribe otra vez la contraseña que te enviamos" id="old_pass" name="old_pass" required
                   ngModel #old_pass="ngModel">
               </div>
             </div>
           <div class="form-group">
               <div class="input-group mb-3">
-                  <input type="password" class="form-control bishound-input" placeholder="Crea una nueva clave" id="new_pass" name="new_pass" required
+                  <input type="password" class="form-control bishound-input" placeholder="Crea una nueva contraseña" id="new_pass" name="new_pass" required
                   ngModel #new_pass="ngModel">
               </div>
             </div>
             <div class="form-group">
               <div class="input-group mb-3">
-                  <input type="password" class="form-control bishound-input" placeholder="Confirma tu nueva clave" id="new_pass_rep" name="new_pass_rep" required
+                  <input type="password" class="form-control bishound-input" placeholder="Confirma tu nueva contraseña" id="new_pass_rep" name="new_pass_rep" required
                   ngModel #new_pass_rep="ngModel">
               </div>
             </div>

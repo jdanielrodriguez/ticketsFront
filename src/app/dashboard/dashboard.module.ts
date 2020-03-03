@@ -33,6 +33,8 @@ import { EntradasComponent } from './entradas/entradas.component';
 import { ConfiguracionComponent } from './configuracion/configuracion.component';
 import { MisEventosComponent } from './mis-eventos/mis-eventos.component';
 
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
 }
@@ -55,6 +57,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     BlockUIModule,
     LoadersCssModule,
     DataTableModule,
+    NgbModule,
     ChartsModule,
     DashboardRoutingModule
   ],

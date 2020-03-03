@@ -62,6 +62,8 @@ export class EventoComponent implements OnInit {
       this.parentService.getAllFilter(data)
                           .then(response => {
                             this.blockUI.stop();
+                            console.log(response);
+
                             this.cargarFunciones(response.evento);
                             this.cargarAreas(response.id);
                             this.cargarSingle(response.id);
