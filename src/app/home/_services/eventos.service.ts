@@ -17,7 +17,20 @@ export class EventosService {
 private basePath:string = path.path
 
 constructor(private http:HttpClient){
+  this.getToken()
+}
+private token = '';
 
+getToken(token?){
+
+  let datos = localStorage.getItem('token');
+    if(datos){
+      this.token = (datos);
+    }else{
+      this.token = token?token:path.token
+    }
+  this.headers.append('Content-Type', 'application/json');
+  this.headers.append('Authorization', 'Bearer ' + this.token );
 }
 
 private handleError(error:any):Promise<any> {
@@ -28,7 +41,7 @@ return Promise.reject(error.message || error)
 
     getAll():Promise<any> {
     let url = `${this.basePath}/api/eventos`
-      return this.http.get(url)
+      return this.http.get(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)
@@ -40,7 +53,7 @@ return Promise.reject(error.message || error)
 
     getAllMine(id):Promise<any> {
     let url = `${this.basePath}/api/filter/0/eventos/${id}?filter=usuario`
-      return this.http.get(url)
+      return this.http.get(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)
@@ -53,7 +66,7 @@ return Promise.reject(error.message || error)
     getAllFilter(data):Promise<any> {
     let filter = data.filter?"?filter="+data.filter:"";
     let url = `${this.basePath}/api/filter/${data.id}/eventos/${data.state}${filter}`
-      return this.http.get(url)
+      return this.http.get(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)
@@ -65,7 +78,7 @@ return Promise.reject(error.message || error)
 
     create(form):Promise<any> {
     let url = `${this.basePath}/api/eventos`
-      return this.http.post(url,form)
+      return this.http.post(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)
@@ -76,7 +89,7 @@ return Promise.reject(error.message || error)
 
     delete(id):Promise<any> {
     let url = `${this.basePath}/api/eventos/${id}`
-      return this.http.delete(url)
+      return this.http.delete(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)
@@ -87,7 +100,7 @@ return Promise.reject(error.message || error)
 
     update(form):Promise<any> {
     let url = `${this.basePath}/api/eventos/${form.id}`
-      return this.http.put(url,form)
+      return this.http.put(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)
@@ -98,7 +111,7 @@ return Promise.reject(error.message || error)
 
     getSingle(id:number):Promise<any> {
     let url = `${this.basePath}/api/eventos/${id}`
-      return this.http.get(url)
+      return this.http.get(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)

@@ -68,6 +68,7 @@ createError(error) {
             localStorage.setItem('currentNombres', response.nombres);
             localStorage.setItem('currentAvatar', response.foto);
             localStorage.setItem('currentRol', response.rol);
+            localStorage.setItem('token', response.token);
             setTimeout(element=>{
               $("#rouded-profile").attr("src",response.foto?response.foto:localStorage.getItem('currentAvatar'));
             },500);

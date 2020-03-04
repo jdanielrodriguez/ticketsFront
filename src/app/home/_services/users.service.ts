@@ -31,7 +31,7 @@ constructor(private http:HttpClient){
       if(datos){
         this.token = (datos);
       }else{
-        this.token = path.token
+        this.token = token?token:btoa(path.token)
       }
       this.headers = new HttpHeaders({
         'Content-Type' : 'application/json',
@@ -40,7 +40,7 @@ constructor(private http:HttpClient){
     getAll():Promise<any> {
       this.reloadToken()
       let url = `${this.basePath}/api/users`
-      return this.http.get(url)
+      return this.http.get(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response;)
@@ -52,7 +52,7 @@ constructor(private http:HttpClient){
 
     create(form):Promise<any> {
     let url = `${this.basePath}/api/users`
-      return this.http.post(url,form)
+      return this.http.post(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           // console.log(response)
@@ -67,7 +67,7 @@ constructor(private http:HttpClient){
     addAddress(form):Promise<any> {
       this.reloadToken()
       let url = `${this.basePath}/api/direcciones`
-      return this.http.post(url,form)
+      return this.http.post(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           // console.log(response)

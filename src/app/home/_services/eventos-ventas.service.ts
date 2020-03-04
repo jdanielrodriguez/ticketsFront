@@ -17,7 +17,20 @@ export class EventosVentasService {
 private basePath:string = path.path
 
 constructor(private http:HttpClient){
+  this.getToken()
+}
+private token = '';
 
+getToken(token?){
+
+  let datos = localStorage.getItem('token');
+    if(datos){
+      this.token = (datos);
+    }else{
+      this.token = token?token:path.token
+    }
+  this.headers.append('Content-Type', 'application/json');
+  this.headers.append('Authorization', 'Bearer ' + this.token );
 }
 
 private handleError(error:any):Promise<any> {
@@ -28,7 +41,7 @@ return Promise.reject(error)
 
     getAll():Promise<any> {
     let url = `${this.basePath}/api/eventosventa`
-      return this.http.get(url)
+      return this.http.get(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)
@@ -41,7 +54,7 @@ return Promise.reject(error)
     getAllFilter(data):Promise<any> {
     let filter = data.filter?"?filter="+data.filter:"";
     let url = `${this.basePath}/api/filter/${data.id}/eventosventa/${data.state}${filter}`
-      return this.http.get(url)
+      return this.http.get(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)
@@ -53,7 +66,7 @@ return Promise.reject(error)
 
     create(form):Promise<any> {
     let url = `${this.basePath}/api/eventosventa`
-      return this.http.post(url,form)
+      return this.http.post(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)
@@ -66,7 +79,7 @@ return Promise.reject(error)
     pagar(form):Promise<any> {
       form.SANDBOX = true;
     let url = `${this.basePath}/api/pagar`
-      return this.http.post(url,form)
+      return this.http.post(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)
@@ -77,7 +90,7 @@ return Promise.reject(error)
 
     pago(form):Promise<any> {
     let url = `${this.basePath}/api/pago`
-      return this.http.post(url,form)
+      return this.http.post(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)
@@ -89,7 +102,7 @@ return Promise.reject(error)
 
     enviar(form):Promise<any> {
       let url = `${this.basePath}/api/enviar`
-        return this.http.post(url,form)
+        return this.http.post(url,form,{headers: this.headers})
                         .toPromise()
                           .then(response => {
                             //console.log(response)
@@ -101,7 +114,7 @@ return Promise.reject(error)
 
     comprobante(form):Promise<any> {
     let url = `${this.basePath}/api/comprobante`
-      return this.http.post(url,form)
+      return this.http.post(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)
@@ -112,7 +125,7 @@ return Promise.reject(error)
 
     delete(id):Promise<any> {
     let url = `${this.basePath}/api/eventosventa/${id}`
-      return this.http.delete(url)
+      return this.http.delete(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)
@@ -123,7 +136,7 @@ return Promise.reject(error)
 
     update(form):Promise<any> {
     let url = `${this.basePath}/api/eventosventa/${form.id}`
-      return this.http.put(url,form)
+      return this.http.put(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)
@@ -134,7 +147,7 @@ return Promise.reject(error)
 
     getSingle(id:number):Promise<any> {
     let url = `${this.basePath}/api/eventosventa/${id}`
-      return this.http.get(url)
+      return this.http.get(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
                           //console.log(response)
