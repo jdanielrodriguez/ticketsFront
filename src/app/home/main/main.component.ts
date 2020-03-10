@@ -5,6 +5,7 @@ import { Location } from '@angular/common';
 import { NavComponent } from "./../nav.component";
 import { NotificationsService } from 'angular2-notifications';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 
 import { EventosFuncionesService } from "./../_services/eventos-funciones.service";
 import { AppComponent } from "./../../app.component";
@@ -15,7 +16,8 @@ declare var $: any
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css']
+  styleUrls: ['./main.component.css'],
+  providers:[NgbCarouselConfig]
 })
 export class MainComponent implements OnInit {
 Table: any = null;
@@ -38,11 +40,16 @@ constructor(
   private router: Router,
   private app: AppComponent,
   public translate: TranslateService,
-  private nav:NavComponent
-  ) { }
+  private nav:NavComponent,
+  private config: NgbCarouselConfig
+    ) { }
 
 //Llamar los metodos que se van a utilizar
 ngOnInit() {
+    this.config.interval = 3000;
+    this.config.wrap = true;
+    this.config.keyboard = true;
+    this.config.pauseOnHover = false;
     this.blockUI.start();
     let datos = localStorage.getItem('carrito');
     if(datos){

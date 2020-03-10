@@ -86,7 +86,7 @@ return Promise.reject(error.message || error)
                         .catch(this.handleError)
     }
 
-    update(form):Promise<any> {
+    vender(form):Promise<any> {
     let url = `${this.basePath}/api/vender/${form.id}`
       return this.http.put(url,form,{headers: this.headers})
                       .toPromise()
@@ -96,6 +96,19 @@ return Promise.reject(error.message || error)
                         })
                         .catch(this.handleError)
     }
+
+
+
+    update(form):Promise<any> {
+      let url = `${this.basePath}/api/eventosfuncionesarea/${form.id}`
+        return this.http.put(url,form,{headers: this.headers})
+                        .toPromise()
+                          .then(response => {
+                            //console.log(response)
+                            return response
+                          })
+                          .catch(this.handleError)
+      }
 
     getSingle(id:number):Promise<any> {
     let url = `${this.basePath}/api/eventosfuncionesarea/${id}`

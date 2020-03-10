@@ -212,7 +212,7 @@ export class ComprobanteComponent implements OnInit {
                               })
         });
 
-        this.mainService.update(this.SelectedData)
+        this.mainService.vender(this.SelectedData)
                             .then(async response => {
                               this.blockUI.stop();
                               localStorage.removeItem('selectedSillas');

@@ -1,5 +1,5 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import {NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter} from '@ng-bootstrap/ng-bootstrap';
+import {NgbDateAdapter, NgbDateStruct, NgbDateNativeAdapter, NgbCarousel} from '@ng-bootstrap/ng-bootstrap';
 
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
@@ -164,6 +164,19 @@ export class MisEventosComponent implements OnInit {
     form.reset();
 
   }
+
+  actualizarLocalidad(selected:any,form){
+      this.blockUI.start()
+    this.sixthService.update(selected)
+                        .then(response=>{
+                          selected=response
+                          this.blockUI.stop()
+                        })
+                        .catch(error=>{
+                          this.blockUI.stop()
+                          console.log(error);
+                        })
+  }
   cargarAll(){
     this.blockUI.start();
     let today = new Date();
@@ -193,7 +206,6 @@ export class MisEventosComponent implements OnInit {
                           })
   }
   insertLugares(area,form?){
-    console.log(area);
     let lugar = {
       titulo: "Silla ",
       descripcion: "prueba 2",
@@ -208,7 +220,6 @@ export class MisEventosComponent implements OnInit {
     };
     this.fourdService.create(lugar)
                       .then(response => {
-                        console.log(response);
                         form.reset()
                         this.blockUI.stop();
                         this.select(this.SelectedData)
@@ -249,7 +260,6 @@ export class MisEventosComponent implements OnInit {
     this.mainService.create(data)
                       .then(response => {
                         this.eventoId = response.id
-                        console.log(response);
                         $('#AgregarEventoModal').modal('hide');
                         this.blockUI.stop();
                         this.cargarAll()
@@ -264,7 +274,7 @@ export class MisEventosComponent implements OnInit {
       url: $('#imagenComentario').attr("src"),
       evento:this.SelectedData.id
     }
-    $('#imagenComentario').attr("src","http://placehold.it/500X500?text=X");
+    $('#imagenComentario').attr("src","https://placehold.it/500X500?text=X");
     this.SelectedData.url = data.url;
     this.SelectedData.evento = data.evento;
 
@@ -273,24 +283,21 @@ export class MisEventosComponent implements OnInit {
     this.fiveService.create(this.SelectedData)
                       .then(response=>{
                         this.blockUI.stop()
-                        console.log(response);
                         this.SelectedData.imagenes.push(response)
-                          console.log(this.SelectedData);
                         })
                         .catch(error=>{
                           this.blockUI.stop()
-                          console.log(error);
-
                         })
 
   }
   update(formValue){
-    formValue = this.SelectedData
+    formValue = formValue?formValue.value?formValue.value:formValue:this.SelectedData
     this.mainEvento = this.mainEvento?this.mainEvento:this.SelectedData.evento
     formValue.fecha_fin=formValue.fecha_fin.toISOString().split("T")[0];
     formValue.fecha_inicio=formValue.fecha_inicio.toISOString().split("T")[0];
     formValue.latitud = this.lat;
     formValue.longitud = this.lng;
+    formValue.id = this.SelectedData.id
     formValue.evento = this.mainEvento;
     formValue.inicio = formValue.fecha_inicio+" "+formValue.hora_inicio
     formValue.fin = formValue.fecha_fin+" "+formValue.hora_fin
@@ -298,7 +305,6 @@ export class MisEventosComponent implements OnInit {
     this.secondService.update(formValue)
                       .then(response=>{
                         this.blockUI.stop()
-                        console.log(response);
                         this.select(response)
                       })
                       .catch(error=>{
@@ -322,8 +328,6 @@ export class MisEventosComponent implements OnInit {
           },
           function(respuesta)
           {
-            console.log(respuesta);
-
             $('#imagenComentario').attr("src",'')
             $('#imagenComentario').attr("src",respuesta.picture)
             $("#"+id).val('')
@@ -333,9 +337,6 @@ export class MisEventosComponent implements OnInit {
           },
           function(progreso, valor)
           {
-            console.log(progreso);
-            console.log(valor);
-
             $(".barra_de_progreso").val(valor);
           },
           function(error){
@@ -358,7 +359,7 @@ export class MisEventosComponent implements OnInit {
                         response.id = response.evento_funcion
                         this.select(response)
                         this.createSuccess('Localidad borrada exitosamente')
-                        console.clear
+                        console.clear()
 
                         this.blockUI.stop();
                       }).catch(error => {

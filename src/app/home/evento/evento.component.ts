@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+import { NgbCarouselConfig } from '@ng-bootstrap/ng-bootstrap';
 import { EventosFuncionesAreaService } from "./../_services/eventos-funciones-area.service";
 import { EventosFuncionesService } from "./../_services/eventos-funciones.service";
 declare var $: any
@@ -9,7 +10,8 @@ declare var $: any
 @Component({
   selector: 'app-evento',
   templateUrl: './evento.component.html',
-  styleUrls: ['./evento.component.css']
+  styleUrls: ['./evento.component.css'],
+  providers:[NgbCarouselConfig]
 })
 export class EventoComponent implements OnInit {
   dataSearch = {
@@ -27,9 +29,14 @@ export class EventoComponent implements OnInit {
     private parentService: EventosFuncionesService,
     private mainService: EventosFuncionesAreaService,
     private router: Router,
+    private config: NgbCarouselConfig
   ) { }
 
   ngOnInit() {
+    this.config.interval = 3000;
+    this.config.wrap = true;
+    this.config.keyboard = true;
+    this.config.pauseOnHover = false;
     this.getParams();
   }
 
@@ -62,7 +69,7 @@ export class EventoComponent implements OnInit {
       this.parentService.getAllFilter(data)
                           .then(response => {
                             this.blockUI.stop();
-                            console.log(response);
+                            //console.log(response);
 
                             this.cargarFunciones(response.evento);
                             this.cargarAreas(response.id);
@@ -110,7 +117,7 @@ export class EventoComponent implements OnInit {
       this.parentService.getAllFilter(data)
                           .then(response => {
                             this.funcionesTable = response;
-                            // console.log(response);
+                            console.log("funciones",response);
 
                             this.blockUI.stop();
                           }).catch(error => {

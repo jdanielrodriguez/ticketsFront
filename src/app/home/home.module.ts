@@ -5,6 +5,7 @@ import { LoadersCssModule } from 'angular2-loaders-css';
 import { SimpleNotificationsModule } from 'angular2-notifications';
 import { DataTableModule } from 'angular-6-datatable';
 import {TooltipModule} from 'ng2-tooltip-directive';
+import {NgbModule,NgbCarousel} from '@ng-bootstrap/ng-bootstrap';
 
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
@@ -55,6 +56,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     SimpleNotificationsModule.forRoot(),
     LoadersCssModule,
     NouisliderModule,
+    NgbModule,
     // Ng5SliderModule,
     HomeRoutingModule,
     DataTableModule
