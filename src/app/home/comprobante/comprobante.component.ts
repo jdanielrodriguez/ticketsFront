@@ -1,16 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Location } from '@angular/common';
 import { EventosFuncionesAreaService } from "./../_services/eventos-funciones-area.service";
 import { EventosVentasService } from "./../_services/eventos-ventas.service";
+import {
+  IPayPalConfig,
+  ICreateOrderRequest
+} from 'ngx-paypal';
+
 declare var $: any
 declare var TCO: any
-
+declare var hljs: any;
 @Component({
   selector: 'app-comprobante',
   templateUrl: './comprobante.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrls: ['./comprobante.component.css']
 })
 export class ComprobanteComponent implements OnInit {
@@ -18,6 +24,12 @@ export class ComprobanteComponent implements OnInit {
     token:'',
     ern:''
   }
+  public defaultPrice: string = '9.99';
+  public showSuccess: boolean = false;
+  public showCancel: boolean = false;
+  public showError: boolean = false;
+  public payPalConfig ? : IPayPalConfig;
+  active = 1;
   enviados=false
   responseData=[]
   tCData = {
@@ -34,6 +46,7 @@ export class ComprobanteComponent implements OnInit {
     fechaAprobacion:'',
     ern:''
   }
+  @ViewChild('priceElem') priceElem?: ElementRef;
   idUser = localStorage.getItem('currentId');
   nombres = localStorage.getItem('currentNombres');
   apellidos = localStorage.getItem('currentApellidos');
@@ -51,9 +64,70 @@ export class ComprobanteComponent implements OnInit {
 
   ngOnInit() {
     $('html, body').animate({scrollTop:0}, '300');
+    this.initConfig();
     this.getParams();
   }
 
+  private initConfig(): void {
+    this.payPalConfig = {
+    currency: 'EUR',
+    clientId: 'sb',
+    createOrderOnClient: (data) => <ICreateOrderRequest>{
+      intent: 'CAPTURE',
+      purchase_units: [
+        {
+          amount: {
+            currency_code: 'EUR',
+            value: '9.99',
+            breakdown: {
+              item_total: {
+                currency_code: 'EUR',
+                value: '9.99'
+              }
+            }
+          },
+          items: [
+            {
+              name: 'Enterprise Subscription',
+              quantity: '1',
+              category: 'DIGITAL_GOODS',
+              unit_amount: {
+                currency_code: 'EUR',
+                value: '9.99',
+              },
+            }
+          ]
+        }
+      ]
+    },
+    advanced: {
+      commit: 'true'
+    },
+    style: {
+      label: 'paypal',
+      layout: 'vertical'
+    },
+    onApprove: (data, actions) => {
+      console.log('onApprove - transaction was approved, but not authorized', data, actions);
+      actions.order.get().then(details => {
+        console.log('onApprove - you can get full order details inside onApprove: ', details);
+      });
+    },
+    onClientAuthorization: (data) => {
+      console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+      this.showSuccess = true;
+    },
+    onCancel: (data, actions) => {
+      console.log('OnCancel', data, actions);
+    },
+    onError: err => {
+      console.log('OnError', err);
+    },
+    onClick: (data, actions) => {
+      console.log('onClick', data, actions);
+    },
+  };
+  }
   getParams(){
     this.dataSearch.token = this.route.snapshot.paramMap.get("token");
     this.dataSearch.ern = this.route.snapshot.paramMap.get("ern");
@@ -168,6 +242,31 @@ export class ComprobanteComponent implements OnInit {
       }
     );
   }
+
+  getTokenQPP(){
+    this.blockUI.start();
+    // Setup token request arguments
+    var data = {
+        sellerId: this.tCData.sellerId,
+        publishableKey: this.tCData.publishableKey,
+        ccNo: this.tCData.ccNo,//"4000000000000002",//$("#ccNo").val(),
+        cvv: this.tCData.cvv,//"123",//$("#cvv").val(),
+        expMonth: this.tCData.expMonth,//$("#expMonth").val(),
+        expYear: this.tCData.expYear//$("#expYear").val()
+    };
+    this.paidService.qpago(data)
+                    .then(async response => {
+                      // console.log(response.response.token.token);
+                      this.dataSearch.token = response.response.token.token
+                      this.blockUI.stop();
+                    })
+                    .catch(error => {
+                      console.log(error);
+                      this.blockUI.stop();
+                    })
+
+  }
+
   insert(){
       // localStorage.removeItem('selectedSillas');
       // let response1 = []

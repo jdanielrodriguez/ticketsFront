@@ -70,56 +70,168 @@
           </tr>
         </tbody>
       </table>
-      <div class="row text-right">
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 offset-xs-2 offset-sm-2 offset-md-2 offset-lg-2 text-dark">
-            <form class="p-2" autocomplete="off" id="TC-form"  #TCForm="ngForm" (ngSubmit)="getToken()">
-                <div class="input-group">
-                  <input type="text" class="form-control" id="noTC" required
-                  ngModel #noTC="ngModel" placeholder="Numero de Tarjeta" autocomplete="off" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.ccNo">
 
-                </div>
-                <div class="input-group">
-                  <input type="number" class="form-control" id="mtVencimiento" required
-                  ngModel #mtVencimiento="ngModel" placeholder="01" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.expMonth">
+      <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+          <ngb-tabset [destroyOnHide]="false">
+            <ngb-tab>
+              <ng-template ngbTabTitle>                  <img src="data:image/png;base64,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" style="width: 5rem;height: 2rem;cursor: pointer;">
+</ng-template>
 
-                  <input type="number" class="form-control" id="yrVencimiento" required
-                  ngModel #yrVencimiento="ngModel" placeholder="21" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.expYear">
+              <ng-template ngbTabContent>
+                <div class="row text-right w-100">
+                  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 offset-xs-2 offset-sm-2 offset-md-2 offset-lg-2 text-dark">
+                      <form class="p-2" autocomplete="off" id="TC-form"  #TCForm="ngForm" (ngSubmit)="getToken()">
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="noTC" required
+                            ngModel #noTC="ngModel" placeholder="Numero de Tarjeta" autocomplete="off" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.ccNo">
 
-                </div>
-                <div class="input-group">
-                  <input type="text" class="form-control" id="nameTC" required
-                  ngModel #nameTC="ngModel" autocomplete="off" placeholder="Nombre" [ngModelOptions]="{standalone: true}">
+                          </div>
+                          <div class="input-group">
+                            <input type="number" class="form-control" id="mtVencimiento" required
+                            ngModel #mtVencimiento="ngModel" placeholder="01" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.expMonth">
 
-                </div>
-                <div class="input-group">
-                  <input type="text" class="form-control" id="cvvTC" required
-                  ngModel #cvvTC="ngModel" autocomplete="off" placeholder="CVV" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.cvv">
+                            <input type="number" class="form-control" id="yrVencimiento" required
+                            ngModel #yrVencimiento="ngModel" placeholder="21" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.expYear">
 
-                </div>
+                          </div>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="nameTC" required
+                            ngModel #nameTC="ngModel" autocomplete="off" placeholder="Nombre" [ngModelOptions]="{standalone: true}">
 
-                <div class="input-group text-right">
-                    <button type="button" (click)="getToken()" class="btn btn-secondary">Pagar</button>
+                          </div>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="cvvTC" required
+                            ngModel #cvvTC="ngModel" autocomplete="off" placeholder="CVV" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.cvv">
 
+                          </div>
+
+                          <div class="input-group text-right">
+                              <button type="button" (click)="getToken()" class="btn btn-secondary">Pagar</button>
+
+                            </div>
+                        </form>
                   </div>
-              </form>
-        </div>
-        <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 offset-xs-2 offset-sm-2 offset-md-2 offset-lg-2 text-dark">
-          <strong>
-          Sub Total:<br>
-          Impuestos (IVA 12%):<br>
-    <span *ngIf="SelectedData.descuento>0">Descuento:<br></span>
-          Total:<br>
-          </strong>
-        </div>
-        <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-primary">
-          <strong>
-              ${{(SelectedData.totalAll.toFixed(2)-(SelectedData.totalAll.toFixed(2)*0.12)).toFixed(2)}}<br>
-              ${{(SelectedData.totalAll.toFixed(2)*0.12).toFixed(2)}}<br>
-        <span class="text-danger" *ngIf="SelectedData.descuento>0">- ${{SelectedData.descuento.toFixed(2)}}<br></span>
-              ${{((SelectedData.totalAll-SelectedData.descuento)).toFixed(2)}}<br>
-          </strong>
+                  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 offset-xs-2 offset-sm-2 offset-md-2 offset-lg-2 text-dark">
+                    <strong>
+                    Sub Total:<br>
+                    Impuestos (IVA 12%):<br>
+              <span *ngIf="SelectedData.descuento>0">Descuento:<br></span>
+                    Total:<br>
+                    </strong>
+                  </div>
+                  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-primary">
+                    <strong>
+                        ${{(SelectedData.totalAll.toFixed(2)-(SelectedData.totalAll.toFixed(2)*0.12)).toFixed(2)}}<br>
+                        ${{(SelectedData.totalAll.toFixed(2)*0.12).toFixed(2)}}<br>
+                  <span class="text-danger" *ngIf="SelectedData.descuento>0">- ${{SelectedData.descuento.toFixed(2)}}<br></span>
+                        ${{((SelectedData.totalAll-SelectedData.descuento)).toFixed(2)}}<br>
+                    </strong>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>
+                <span>
+                  <img src="https://newsroom.mastercard.com/wp-content/uploads/2016/09/paypal-logo.png" style="width: 5rem;height: 2rem;cursor: pointer;">
+                </span>
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="row text-right w-100">
+                  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 offset-xs-2 offset-sm-2 offset-md-2 offset-lg-2 text-dark">
+                      <form class="p-2" autocomplete="off" id="TC-form"  #TCForm="ngForm" (ngSubmit)="getToken()">
+                          <div class="input-group">
+                            <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+
+                          </div>
+                          <div class="input-group text-right">
+                              <button type="button" (click)="getToken()" class="btn btn-secondary">Pagar</button>
+
+                            </div>
+                        </form>
+                  </div>
+                  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 offset-xs-2 offset-sm-2 offset-md-2 offset-lg-2 text-dark">
+                    <strong>
+                    Sub Total:<br>
+                    Impuestos (IVA 12%):<br>
+              <span *ngIf="SelectedData.descuento>0">Descuento:<br></span>
+                    Total:<br>
+                    </strong>
+                  </div>
+                  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-primary">
+                    <strong>
+                        ${{(SelectedData.totalAll.toFixed(2)-(SelectedData.totalAll.toFixed(2)*0.12)).toFixed(2)}}<br>
+                        ${{(SelectedData.totalAll.toFixed(2)*0.12).toFixed(2)}}<br>
+                  <span class="text-danger" *ngIf="SelectedData.descuento>0">- ${{SelectedData.descuento.toFixed(2)}}<br></span>
+                        ${{((SelectedData.totalAll-SelectedData.descuento)).toFixed(2)}}<br>
+                    </strong>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+            <ngb-tab>
+              <ng-template ngbTabTitle>                  <img src="https://theme.zdassets.com/theme_assets/1977456/e4a1a1b3871d2e8e9ead31b3a7b87f1bc57ea69d.png" style="width: 5rem;height: 2rem;cursor: pointer;">
+              </ng-template>
+              <ng-template ngbTabContent>
+                <div class="row text-right w-100">
+                  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 offset-xs-2 offset-sm-2 offset-md-2 offset-lg-2 text-dark">
+                      <form class="p-2" autocomplete="off" id="TC-form"  #TCForm="ngForm" (ngSubmit)="getTokenQPP()">
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="noTC" required
+                            ngModel #noTC="ngModel" placeholder="Numero de Tarjeta" autocomplete="off" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.ccNo">
+
+                          </div>
+                          <div class="input-group">
+                            <input type="number" class="form-control" id="mtVencimiento" required
+                            ngModel #mtVencimiento="ngModel" placeholder="01" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.expMonth">
+
+                            <input type="number" class="form-control" id="yrVencimiento" required
+                            ngModel #yrVencimiento="ngModel" placeholder="21" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.expYear">
+
+                          </div>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="nameTC" required
+                            ngModel #nameTC="ngModel" autocomplete="off" placeholder="Nombre" [ngModelOptions]="{standalone: true}">
+
+                          </div>
+                          <div class="input-group">
+                            <input type="text" class="form-control" id="cvvTC" required
+                            ngModel #cvvTC="ngModel" autocomplete="off" placeholder="CVV" [ngModelOptions]="{standalone: true}" [(ngModel)]="tCData.cvv">
+
+                          </div>
+
+                          <div class="input-group text-right">
+                              <button type="button" (click)="getTokenQPP()" class="btn btn-secondary">Pagar</button>
+
+                            </div>
+                        </form>
+                  </div>
+                  <div class="col-xs-3 col-sm-3 col-md-3 col-lg-3 offset-xs-2 offset-sm-2 offset-md-2 offset-lg-2 text-dark">
+                    <strong>
+                    Sub Total:<br>
+                    Impuestos (IVA 12%):<br>
+              <span *ngIf="SelectedData.descuento>0">Descuento:<br></span>
+                    Total:<br>
+                    </strong>
+                  </div>
+                  <div class="col-xs-2 col-sm-2 col-md-2 col-lg-2 text-primary">
+                    <strong>
+                        ${{(SelectedData.totalAll.toFixed(2)-(SelectedData.totalAll.toFixed(2)*0.12)).toFixed(2)}}<br>
+                        ${{(SelectedData.totalAll.toFixed(2)*0.12).toFixed(2)}}<br>
+                  <span class="text-danger" *ngIf="SelectedData.descuento>0">- ${{SelectedData.descuento.toFixed(2)}}<br></span>
+                        ${{((SelectedData.totalAll-SelectedData.descuento)).toFixed(2)}}<br>
+                    </strong>
+                  </div>
+                </div>
+              </ng-template>
+            </ngb-tab>
+
+          </ngb-tabset>
         </div>
       </div>
+
+
       <div class="row" *ngIf="comprobante.token!=''">
         <div class = "col-xs-9 col-sm-9 col-md-9 col-lg-9 text-secondary">
             <div class="card">

@@ -45,7 +45,8 @@
     "ng2-map": "^0.16.5",
     "ng2-nouislider": "^1.7.13",
     "ng2-tooltip-directive": "2.0.0",
-    "ngx-owl-carousel-o": "^1.1.7",
+    "ngx-owl-carousel-o": "^1.2.0",
+    "ngx-paypal": "^6.0.1",
     "nouislider": "^13.1.4",
     "owl.carousel": "^2.3.4",
     "popper.js": "^1.16.1",
@@ -54,7 +55,7 @@
     "tslib": "^1.11.1",
     "typings": "^2.1.1",
     "uploadjs": "^1.0.0",
-    "yarn": "^1.22.0",
+    "yarn": "^1.22.4",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

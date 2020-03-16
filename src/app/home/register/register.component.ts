@@ -62,15 +62,19 @@ export class RegisterComponent implements OnInit {
       let apellidos = (socialusers.name.split(" ")[3]?socialusers.name.split(" ")[3]:"")+(socialusers.name.split(" ")[4]?" "+socialusers.name.split(" ")[4]:" ")
       console.log(socialusers);
 
+    let string = socialusers.token.substr(0,10)+":"+socialusers.email.split("@")[0];
+    let encodedString = btoa(string);
+
       let data:Socialusers = {
         email:socialusers.email,
         google_id:socialusers.id,
         google_token:socialusers.token,
-        password:socialusers.token,
+        password:socialusers.token.substr(0,10),
         google_idToken:socialusers.idToken?socialusers.idToken:null,
         google:socialusers.provider,
         imagen:socialusers.image,
         nombres:nombres,
+        codigo:encodedString.substr(encodedString.length-10,encodedString.length),
         state:1,
         apellidos:apellidos,
         username:socialusers.email.split("@")[0]
@@ -115,6 +119,11 @@ export class RegisterComponent implements OnInit {
             }
     }).catch((e)=>{
       console.log(e);
+      if(e.status==400){
+        this.createError("Este Usuario ya existe")
+      }else{
+        this.createError(e);
+      }
       this.blockUI.stop();
 
     })
@@ -208,9 +217,12 @@ export class RegisterComponent implements OnInit {
 
                       }).catch(error => {
                         console.clear
-
                         this.blockUI.stop();
-                        this.createError(error)
+                        if(error.status==400){
+                          this.createError("Este Usuario ya existe")
+                        }else{
+                          this.createError(error);
+                        }
                       })
 
 

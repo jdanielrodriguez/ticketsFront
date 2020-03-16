@@ -14,6 +14,7 @@ export class Socialusers {
     username?:string;
     password?:string;
     nombres?:string;
+    codigo?:string;
     apellidos?:string;
     rol?:string;
     nacimiento?:string;

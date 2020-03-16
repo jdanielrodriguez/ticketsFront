@@ -6,7 +6,6 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
 import { DataTableModule } from 'angular-6-datatable';
 import {TooltipModule} from 'ng2-tooltip-directive';
 import {NgbModule,NgbCarousel} from '@ng-bootstrap/ng-bootstrap';
-
 import {HttpClient, HttpClientModule} from '@angular/common/http';
 import {TranslateModule, TranslateLoader} from '@ngx-translate/core';
 import {TranslateHttpLoader} from '@ngx-translate/http-loader';
@@ -35,7 +34,7 @@ import { LocalidadesComponent } from './localidades/localidades.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import { ComprobanteComponent } from './comprobante/comprobante.component';
 import { ConocenosComponent } from './conocenos/conocenos.component';
-
+import { NgxPayPalModule } from 'ngx-paypal';
 import { GoogleLoginProvider, FacebookLoginProvider, AuthService } from 'angular-6-social-login';
 import { SocialLoginModule, AuthServiceConfig } from 'angular-6-social-login';
 export function HttpLoaderFactory(http: HttpClient) {
@@ -62,6 +61,7 @@ export function socialConfigs() {
     FormsModule,
     TooltipModule,
     HttpClientModule,
+    NgxPayPalModule,
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,
