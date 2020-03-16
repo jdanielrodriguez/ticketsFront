@@ -6,8 +6,7 @@ import { Location } from '@angular/common';
 import { EventosFuncionesAreaService } from "./../_services/eventos-funciones-area.service";
 import { EventosVentasService } from "./../_services/eventos-ventas.service";
 import {
-  IPayPalConfig,
-  ICreateOrderRequest
+  PayPalConfig, PayPalEnvironment, PayPalIntegrationType
 } from 'ngx-paypal';
 
 declare var $: any
@@ -28,7 +27,7 @@ export class ComprobanteComponent implements OnInit {
   public showSuccess: boolean = false;
   public showCancel: boolean = false;
   public showError: boolean = false;
-  public payPalConfig ? : IPayPalConfig;
+  public payPalConfig ? : PayPalConfig;
   active = 1;
   enviados=false
   responseData=[]
@@ -64,69 +63,40 @@ export class ComprobanteComponent implements OnInit {
 
   ngOnInit() {
     $('html, body').animate({scrollTop:0}, '300');
-    this.initConfig();
     this.getParams();
   }
 
   private initConfig(): void {
-    this.payPalConfig = {
-    currency: 'EUR',
-    clientId: 'sb',
-    createOrderOnClient: (data) => <ICreateOrderRequest>{
-      intent: 'CAPTURE',
-      purchase_units: [
-        {
-          amount: {
-            currency_code: 'EUR',
-            value: '9.99',
-            breakdown: {
-              item_total: {
-                currency_code: 'EUR',
-                value: '9.99'
-              }
-            }
-          },
-          items: [
-            {
-              name: 'Enterprise Subscription',
-              quantity: '1',
-              category: 'DIGITAL_GOODS',
-              unit_amount: {
-                currency_code: 'EUR',
-                value: '9.99',
-              },
-            }
-          ]
+    console.log(this.SelectedData);
+
+    this.payPalConfig = new PayPalConfig(PayPalIntegrationType.ClientSideREST, PayPalEnvironment.Sandbox, {
+      commit: true,
+      client: {
+        sandbox: 'AalFZZbA2kAOqv2eWPvQv2c71wORECzcoJ-Js4onMTF33B2bmc7zaMolh9iIdNqPRpn8NjHGsyr0RKAX'
+      },
+      button: {
+        color:   'silver',
+        shape:   'pill',
+        size:'large',
+        label:   'pay'
+      },
+      onPaymentComplete: async (data, actions) => {
+        await this.insert()
+        console.log('OnPaymentComplete');
+      },
+      onCancel: (data, actions) => {
+        console.log('OnCancel');
+      },
+      onError: (err) => {
+        console.log('OnError');
+      },
+      transactions: [{
+        amount: {
+          currency: 'USD',
+          total: parseFloat(((this.SelectedData.totalAll-this.SelectedData.descuento)).toFixed(2))
         }
-      ]
-    },
-    advanced: {
-      commit: 'true'
-    },
-    style: {
-      label: 'paypal',
-      layout: 'vertical'
-    },
-    onApprove: (data, actions) => {
-      console.log('onApprove - transaction was approved, but not authorized', data, actions);
-      actions.order.get().then(details => {
-        console.log('onApprove - you can get full order details inside onApprove: ', details);
-      });
-    },
-    onClientAuthorization: (data) => {
-      console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
-      this.showSuccess = true;
-    },
-    onCancel: (data, actions) => {
-      console.log('OnCancel', data, actions);
-    },
-    onError: err => {
-      console.log('OnError', err);
-    },
-    onClick: (data, actions) => {
-      console.log('onClick', data, actions);
-    },
-  };
+      }]
+    });
   }
   getParams(){
     this.dataSearch.token = this.route.snapshot.paramMap.get("token");
@@ -140,6 +110,8 @@ export class ComprobanteComponent implements OnInit {
     let datos = localStorage.getItem('selectedSillas');
     if (datos) {
       this.SelectedData = JSON.parse(datos);
+      this.initConfig();
+
       // localStorage.removeItem('selectedSillas');
 
     }
@@ -389,7 +361,6 @@ export class ComprobanteComponent implements OnInit {
       this.paidService.getAllFilter(data)
                           .then(response => {
                             this.blockUI.stop();
-                            console.log(response);
                             let data = {
                               area : 0,
                               lugar :[]
