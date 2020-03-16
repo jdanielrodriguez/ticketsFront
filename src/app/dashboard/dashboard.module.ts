@@ -17,7 +17,7 @@ import { UsersService } from './../home/_services/users.service';
 import { AuthGuard } from './../home/_guards/auth.guard';
 import { HomeGuard } from './../home/_guards/home.guard';
 import { GlobalsService } from '../home/_services/globals.service';
-import { AuthService } from '../home/_services/auth.service';
+import { AuthServices } from '../home/_services/auth.service';
 
 import { LoaderComponent } from './loader/loader.component';
 import { InboxComponent } from './inbox/inbox.component';
@@ -79,7 +79,7 @@ export function HttpLoaderFactory(http: HttpClient) {
     UsersService,
     HomeGuard,
     GlobalsService,
-    AuthService,
+    AuthServices,
 
   ]
 })

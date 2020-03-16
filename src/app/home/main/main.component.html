@@ -22,7 +22,7 @@
             style="cursor: pointer"
             *ngFor="let data of Table">
         <div class="card mb-4 shadow-sm" style="height: 320px; width: auto;">
-          <img class="bd-placeholder-img card-img-top" style="margin-top:5%;margin-left:auto;margin-right:auto;width: 200px;height: 100%;" src="{{((data.imagenes!=null && data.imagenes.length>0)?data.imagenes[0].url:'https://placehold.it/1000X1000?text=X')}}">
+          <img class="bd-placeholder-img card-img-top" style="margin-top:5%;margin-left:auto;margin-right:auto;height: 200px;width: auto;" src="{{((data.imagenes!=null && data.imagenes.length>0)?data.imagenes[0].url:'https://placehold.it/1000X1000?text=X')}}">
 
           <div class="card-body" style="height:120px;">
             <p class="card-text text-primary">

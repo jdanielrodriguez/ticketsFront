@@ -2,7 +2,7 @@ import { Component, Input, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { UsersService } from "./../../home/_services/users.service";
-import { AuthService } from "./../../home/_services/auth.service";
+import { AuthServices } from "./../../home/_services/auth.service";
 import { NotificationsService } from 'angular2-notifications';
 import { Subject } from 'rxjs';
 // import 'rxjs/add/operator/switchMap';;
@@ -49,7 +49,7 @@ export class ConfiguracionComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private router: Router,
-    private AuthService: AuthService,
+    private AuthService: AuthServices,
     private UsersService:UsersService,
     ) { }
 

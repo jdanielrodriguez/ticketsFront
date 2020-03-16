@@ -17,22 +17,42 @@
             <!-- Remember me and forgot pass area -->
             <div class="mb-3 row">
               <div class="ml-3 col-xs-6 col-sm-6 col-md-6 col-lg-6 offset-xl-3 form-group form-check ">
-                <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                <label class="form-check-label" for="exampleCheck1">Remember me</label>
+                  <a class="c-celeste-bishound" [routerLink]="['./../register']">Registrate</a>
               </div>
               <div class="col-xs-5 col-sm-5 col-md-5 col-lg-5 text-right">
-                  <a class="c-celeste-bishound" [routerLink]="['./../recovery']">Forgot password?</a>
+                  <a class="c-celeste-bishound" [routerLink]="['./../recovery']">Olvidaste tu contraseña?</a>
               </div>
             </div>
             <!-- Fin Remember me and forgot pass area -->
-            <button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-sign-in"></i> Sign In</button>
+            <button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-sign-in"></i> Ingresar</button>
+
+            <div class="row mt-5">
+
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <a class="btn btn-block btn-social btn-facebook bg-facebook text-light"  (click)="socialSignIn('facebook')" >
+                  <span class="fa fa-facebook"></span>
+                  Ingresar con Facebook
+                </a>
+              </div>
+
+              <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+                <a class="btn btn-block btn-social btn-google bg-danger text-light"  (click)="socialSignIn('google')" >
+                  <span class="fa fa-google"></span>
+                  Ingresar con Google
+                </a>
+              </div>
+
+            </div>
+
+
+
+
           </form>
 
     </div>
   </div>
 
 </div>
-
 
 <!-- Inicio Notificaciones -->
 <simple-notifications [options]="options"></simple-notifications>

@@ -267,6 +267,12 @@ export class NavComponent implements OnInit {
     localStorage.removeItem('token');
     localStorage.removeItem('currentNuevaSesion');
     localStorage.removeItem('currentTipoUsuarioId');
+
+    localStorage.removeItem('currentRol');
+    localStorage.removeItem('googleToken');
+    localStorage.removeItem('googleidToken');
+    localStorage.removeItem('googleId');
+    localStorage.removeItem('facebook_id');
     // localStorage.clear();
       this.router.navigate([`../../../../../../`])
 

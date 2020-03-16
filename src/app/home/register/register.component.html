@@ -60,6 +60,24 @@
               <button class="btn btn-lg btn-primary btn-block" type="submit"><i class="fa fa-sign-in"></i> Registrar</button>
             </form>
 
+
+      </div>
+      <div class="row mt-5 col-xs-6 col-sm-6 col-md-6 col-lg-6 offset-xs-3 offset-sm-3 offset-md-3 offset-lg-3 text-left">
+
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <a class="btn btn-block btn-social btn-facebook bg-facebook text-light"  (click)="socialSignIn('facebook')" >
+            <span class="fa fa-facebook"></span>
+            Ingresar con Facebook
+          </a>
+        </div>
+
+        <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
+          <a class="btn btn-block btn-social btn-google bg-danger text-light"  (click)="socialSignIn('google')" >
+            <span class="fa fa-google"></span>
+            Ingresar con Google
+          </a>
+        </div>
+
       </div>
     </div>
 

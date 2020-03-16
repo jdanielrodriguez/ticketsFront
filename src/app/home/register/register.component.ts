@@ -2,10 +2,14 @@ import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { NotificationsService } from 'angular2-notifications';
 import { UsersService } from "../_services/users.service";
-import { AuthService } from "../_services/auth.service";
+import { AuthServices } from "../_services/auth.service";
 declare var $: any
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
+declare var $: any
 
+import { GoogleLoginProvider, FacebookLoginProvider, AuthService } from 'angular-6-social-login';
+import { SocialLoginModule, AuthServiceConfig } from 'angular-6-social-login';
+import { Socialusers } from "./../../interfaces";
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -25,7 +29,8 @@ export class RegisterComponent implements OnInit {
   constructor(
       private _service: NotificationsService,
       private router: Router,
-      private AuthService: AuthService,
+      private AuthService: AuthServices,
+      public OAuth: AuthService,
       private mainService: UsersService,
     ) { }
 
@@ -44,7 +49,76 @@ export class RegisterComponent implements OnInit {
   select(dat:boolean){
     this.selected = dat;
   }
+  public socialSignIn(socialProvider: string) {
+      this.blockUI.start();
+      let socialPlatformProvider;
+    if (socialProvider === 'facebook') {
+      socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+    } else if (socialProvider === 'google') {
+      socialPlatformProvider = GoogleLoginProvider.PROVIDER_ID;
+    }
+    this.OAuth.signIn(socialPlatformProvider).then(socialusers => {
+      let nombres = (socialusers.name.split(" ")[0]?socialusers.name.split(" ")[0]:"")+(socialusers.name.split(" ")[1]?" "+socialusers.name.split(" ")[1]:" ")
+      let apellidos = (socialusers.name.split(" ")[3]?socialusers.name.split(" ")[3]:"")+(socialusers.name.split(" ")[4]?" "+socialusers.name.split(" ")[4]:" ")
+      console.log(socialusers);
 
+      let data:Socialusers = {
+        email:socialusers.email,
+        google_id:socialusers.id,
+        google_token:socialusers.token,
+        password:socialusers.token,
+        google_idToken:socialusers.idToken?socialusers.idToken:null,
+        google:socialusers.provider,
+        imagen:socialusers.image,
+        nombres:nombres,
+        state:1,
+        apellidos:apellidos,
+        username:socialusers.email.split("@")[0]
+
+      }
+      this.blockUI.stop();
+      this.Savesresponse(data);
+    });
+  }
+  Savesresponse(socialusers: Socialusers) {
+      this.blockUI.start();
+      this.mainService.create(socialusers).then((response: any) => {
+            if(response.state){
+              localStorage.setItem('currentUser', response.username);
+              localStorage.setItem('currentEmail', response.email);
+              localStorage.setItem('currentId', response.id);
+              localStorage.setItem('currentPicture', response.foto);
+              localStorage.setItem('currentState', response.state);
+              localStorage.setItem('currentEmail', response.email);
+              localStorage.setItem('currentApellidos', response.apellidos);
+              localStorage.setItem('currentNombres', response.nombres);
+              localStorage.setItem('currentAvatar', response.foto);
+              localStorage.setItem('currentRol', response.rol);
+              localStorage.setItem('googleToken', response.googleToken);
+              localStorage.setItem('googleidToken', response.googleidToken);
+              localStorage.setItem('googleId', response.googleId);
+              localStorage.setItem('facebook_id', response.facebook_id);
+              setTimeout(element=>{
+                $("#rouded-profile").attr("src",response.foto?response.foto:localStorage.getItem('currentAvatar'));
+              },500);
+              console.clear
+                  this.blockUI.stop();
+                  this.router.navigate([`./dashboard/home`])
+            }else{
+
+                  this.blockUI.stop();
+              this.createError("Su usuario se encuentra deshabilitado temporalmente")
+              setTimeout(() => {
+                  this.blockUI.stop();
+              }, 500);
+              // console.log(response);
+            }
+    }).catch((e)=>{
+      console.log(e);
+      this.blockUI.stop();
+
+    })
+  }
   cargarAll(){
     this.blockUI.start();
     this.mainService.getAll()
@@ -97,8 +171,6 @@ export class RegisterComponent implements OnInit {
   }
 
   insert(formValue:any){
-    console.log(formValue);
-
     this.blockUI.start();
     setTimeout(() => {
       $("#emailSignUpModal").modal('hide');

@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
-import { AuthService } from "./../_services/auth.service";
+import { AuthServices } from "./../_services/auth.service";
 import { BlockUI,NgBlockUI } from 'ng-block-ui';
 import { NotificationsService } from 'angular2-notifications';
 declare var $: any
@@ -21,7 +21,7 @@ export class RecoveryComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private mainService: AuthService,
+    private mainService: AuthServices,
     private _service: NotificationsService
   ) { }
 

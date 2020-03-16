@@ -8,18 +8,25 @@ import { path } from "./../../config.module";
 @Injectable({
 providedIn: 'root',
 })
-export class AuthService {
+export class AuthServices {
   	headers = new HttpHeaders({
       'Content-Type' : 'application/json; charset=UTF-8'})
   private basePath:string = path.path
 
   private token = '';
-
+  url;
   constructor(private http:HttpClient){
 
   this.reloadToken();
 
   }
+  Savesresponse(responce)
+      {
+        this.url =  'http://localhost:64726/Api/Login/Savesresponse';
+        let url = `${this.basePath}/api/login`
+        return this.http.post(url,responce);
+
+      }
   reloadToken(token?){
     let datos = token?token:localStorage.getItem('token');
     if(datos){
@@ -31,6 +38,7 @@ export class AuthService {
       'Content-Type' : 'application/json; charset=UTF-8',
       'Authorization': 'Bearer ' + this.token});
   }
+
   private handleError(error:any):Promise<any> {
   console.error("ha ocurrido un error")
   console.log(error)
