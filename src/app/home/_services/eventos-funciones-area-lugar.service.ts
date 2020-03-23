@@ -17,20 +17,20 @@ export class EventosFuncionesAreaLugarService {
 private basePath:string = path.path
 
 constructor(private http:HttpClient){
-  this.getToken()
+  this.reloadToken()
 }
 private token = '';
 
-getToken(token?){
-
-  let datos = localStorage.getItem('token');
-    if(datos){
-      this.token = (datos);
-    }else{
-      this.token = token?token:path.token
-    }
-  this.headers.append('Content-Type', 'application/json');
-  this.headers.append('Authorization', 'Bearer ' + this.token );
+reloadToken(token?){
+  let datos = token?token:localStorage.getItem('token');
+  if(datos){
+    this.token = (datos);
+  }else{
+    this.token = token?token:btoa(path.token)
+  }
+  this.headers = new HttpHeaders({
+    'Content-Type' : 'application/json',
+    'Authorization': 'Bearer ' + this.token});
 }
 
 
@@ -42,6 +42,7 @@ return Promise.reject(error.message || error)
 
     getAll():Promise<any> {
     let url = `${this.basePath}/api/eventosfuncionesarealugar`
+      this.reloadToken()
       return this.http.get(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
@@ -55,6 +56,7 @@ return Promise.reject(error.message || error)
     getAllFilter(data):Promise<any> {
     let filter = data.filter?"?filter="+data.filter:"";
     let url = `${this.basePath}/api/filter/${data.id}/eventosfuncionesarealugar/${data.state}${filter}`
+      this.reloadToken()
       return this.http.get(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
@@ -67,6 +69,7 @@ return Promise.reject(error.message || error)
 
     create(form):Promise<any> {
     let url = `${this.basePath}/api/eventosfuncionesarealugar`
+      this.reloadToken()
       return this.http.post(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
@@ -78,6 +81,7 @@ return Promise.reject(error.message || error)
 
     delete(form):Promise<any> {
     let url = `${this.basePath}/api/eventosfuncionesarealugar/delete`
+      this.reloadToken()
       return this.http.post(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
@@ -89,6 +93,7 @@ return Promise.reject(error.message || error)
 
     update(form):Promise<any> {
     let url = `${this.basePath}/api/vender/${form.id}`
+      this.reloadToken()
       return this.http.put(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
@@ -100,6 +105,7 @@ return Promise.reject(error.message || error)
 
     getSingle(id:number):Promise<any> {
     let url = `${this.basePath}/api/eventosfuncionesarealugar/${id}`
+      this.reloadToken()
       return this.http.get(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {

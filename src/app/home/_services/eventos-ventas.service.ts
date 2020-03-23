@@ -41,6 +41,7 @@ return Promise.reject(error)
 
     getAll():Promise<any> {
     let url = `${this.basePath}/api/eventosventa`
+      this.getToken();
       return this.http.get(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
@@ -54,6 +55,7 @@ return Promise.reject(error)
     getAllFilter(data):Promise<any> {
     let filter = data.filter?"?filter="+data.filter:"";
     let url = `${this.basePath}/api/filter/${data.id}/eventosventa/${data.state}${filter}`
+      this.getToken();
       return this.http.get(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
@@ -66,6 +68,7 @@ return Promise.reject(error)
 
     create(form):Promise<any> {
     let url = `${this.basePath}/api/eventosventa`
+      this.getToken();
       return this.http.post(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
@@ -79,6 +82,7 @@ return Promise.reject(error)
     pagar(form):Promise<any> {
       form.SANDBOX = true;
     let url = `${this.basePath}/api/pagar`
+      this.getToken();
       return this.http.post(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
@@ -90,6 +94,7 @@ return Promise.reject(error)
 
     pago(form):Promise<any> {
     let url = `${this.basePath}/api/pago`
+      this.getToken();
       return this.http.post(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
@@ -103,6 +108,7 @@ return Promise.reject(error)
 
     qpago(form):Promise<any> {
       let url = `${this.basePath}/api/qpago`
+        this.getToken();
         return this.http.post(url,form,{headers: this.headers})
                         .toPromise()
                           .then(response => {
@@ -116,6 +122,7 @@ return Promise.reject(error)
 
     pagalo(form):Promise<any> {
       let url = `${this.basePath}/api/pagalo`
+        this.getToken();
         return this.http.post(url,form,{headers: this.headers})
                         .toPromise()
                           .then(response => {
@@ -128,6 +135,7 @@ return Promise.reject(error)
 
     enviar(form):Promise<any> {
       let url = `${this.basePath}/api/enviar`
+        this.getToken();
         return this.http.post(url,form,{headers: this.headers})
                         .toPromise()
                           .then(response => {
@@ -140,6 +148,7 @@ return Promise.reject(error)
 
     comprobante(form):Promise<any> {
     let url = `${this.basePath}/api/comprobante`
+      this.getToken();
       return this.http.post(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
@@ -151,6 +160,7 @@ return Promise.reject(error)
 
     delete(id):Promise<any> {
     let url = `${this.basePath}/api/eventosventa/${id}`
+      this.getToken();
       return this.http.delete(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
@@ -162,6 +172,7 @@ return Promise.reject(error)
 
     update(form):Promise<any> {
     let url = `${this.basePath}/api/eventosventa/${form.id}`
+      this.getToken();
       return this.http.put(url,form,{headers: this.headers})
                       .toPromise()
                         .then(response => {
@@ -173,6 +184,7 @@ return Promise.reject(error)
 
     getSingle(id:number):Promise<any> {
     let url = `${this.basePath}/api/eventosventa/${id}`
+      this.getToken();
       return this.http.get(url,{headers: this.headers})
                       .toPromise()
                         .then(response => {
