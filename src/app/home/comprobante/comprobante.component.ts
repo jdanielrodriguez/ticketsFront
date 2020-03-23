@@ -273,6 +273,43 @@ export class ComprobanteComponent implements OnInit {
 
   }
 
+  getTokenPagalo(){
+    this.blockUI.start();
+    // Setup token request arguments
+    let tcToken ={
+      nameCard:"Jhon Peter",
+      accountNumber:this.tCData.ccNo,
+      expirationMonth:this.tCData.expMonth,
+      expirationYear:this.tCData.expYear,
+      CVVCard:this.tCData.cvv
+    }
+
+    let data = {
+      cantidad:1,
+      precio:this.SelectedData.totalAll-this.SelectedData.descuento,
+      tcToken:btoa(JSON.stringify(tcToken))
+    };
+    this.paidService.pagalo(data)
+                    .then(async response => {
+                      console.log(response);
+                      if(response.responseCode==100){
+                        this.dataSearch.token = response.responseCode
+                        this.dataSearch.ern = response.responseAuthorization
+                        this.comprobante.ern = this.dataSearch.ern
+                        this.comprobante.aprobacion = response.idTransaction
+                        this.comprobante.token = response.responseAuthorization
+                        await this.insert()
+                        this.blockUI.stop();
+                      }
+                      this.blockUI.stop();
+                    })
+                    .catch(error => {
+                      console.log(error);
+                      this.blockUI.stop();
+                    })
+
+  }
+
   insert(){
       // localStorage.removeItem('selectedSillas');
       // let response1 = []

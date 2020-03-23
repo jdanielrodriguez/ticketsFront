@@ -113,6 +113,19 @@ return Promise.reject(error)
       }
 
 
+
+    pagalo(form):Promise<any> {
+      let url = `${this.basePath}/api/pagalo`
+        return this.http.post(url,form,{headers: this.headers})
+                        .toPromise()
+                          .then(response => {
+                            //console.log(response)
+                            return response
+                          })
+                          .catch(this.handleError)
+      }
+
+
     enviar(form):Promise<any> {
       let url = `${this.basePath}/api/enviar`
         return this.http.post(url,form,{headers: this.headers})

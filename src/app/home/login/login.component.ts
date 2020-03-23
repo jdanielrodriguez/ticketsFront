@@ -105,8 +105,21 @@ Savesresponse(socialusers: Socialusers) {
             setTimeout(element=>{
               $("#rouded-profile").attr("src",response.foto?response.foto:localStorage.getItem('currentAvatar'));
             },500);
+            console.clear
+            if(this.isModal){
+              $('#generalModalDetalle').modal('hide');
+              this.blockUI.stop();
+              let linkURL = localStorage.getItem('lastLinkUrl');
+              if(linkURL){
+                localStorage.removeItem('lastLinkUrl');
+                this.router.navigate([`${linkURL}`])
+              }else{
+                this.router.navigate([`./../../contact/seller/${this.idBis}`])
+              }
+            }else{
                 this.blockUI.stop();
                 this.router.navigate([`./dashboard/home`])
+            }
                 this.blockUI.stop();
                 this.nav.fullSession(true)
           }else{
