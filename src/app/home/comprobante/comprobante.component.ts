@@ -218,18 +218,52 @@ export class ComprobanteComponent implements OnInit {
   getTokenQPP(){
     this.blockUI.start();
     // Setup token request arguments
-    var data = {
-        sellerId: this.tCData.sellerId,
-        publishableKey: this.tCData.publishableKey,
-        ccNo: this.tCData.ccNo,//"4000000000000002",//$("#ccNo").val(),
-        cvv: this.tCData.cvv,//"123",//$("#cvv").val(),
-        expMonth: this.tCData.expMonth,//$("#expMonth").val(),
-        expYear: this.tCData.expYear//$("#expYear").val()
+    let data = {
+      x_login: "visanetgt_qpay",
+      x_private_key: "88888888888",
+      x_api_secret: "99999999999",
+      x_product_id: "1",
+      x_audit_number: "20",
+      x_fp_sequence: "20",
+      x_fp_timestamp: "154681351",
+      x_invoice_num: "001",
+      x_currency_code: "GTQ",
+      x_amount: this.SelectedData.totalAll-this.SelectedData.descuento,
+      x_line_item: "T-Shirt Live Dreams<|>w01<|><|>1<|>85.00<|>N",
+      x_freight: "0",
+      x_email: "email@tuempresa.com",
+      cc_number: this.tCData.ccNo,
+      cc_exp: this.tCData.expMonth+"/"+this.tCData.expYear,
+      cc_cvv2: this.tCData.cvv,
+      cc_name: "Pedro Quino",
+      x_first_name: "Pedro",
+      x_last_name: "Quino",
+      x_company: "1234567-8",
+      x_address: "1 calle 2 ave",
+      x_city: "Guatemala",
+      x_state: "Guatemala",
+      x_country: "Guatemala",
+      x_zip: "01011",
+      x_relay_response: "none",
+      x_relay_url: "none",
+      x_type: "AUTH_ONLY",
+      x_method: "CC",
+      http_origin: "tuempresa.com",
+      cc_type: 'visa',
+      visaencuotas: 0,
     };
     this.paidService.qpago(data)
                     .then(async response => {
-                      // console.log(response.response.token.token);
-                      this.dataSearch.token = response.response.token.token
+                      console.log(response);
+                      if(response.responseCode==100){
+                        this.dataSearch.token = response.responseCode
+                        this.dataSearch.ern = response.responseAuthorization
+                        this.comprobante.ern = this.dataSearch.ern
+                        this.comprobante.aprobacion = response.idTransaction
+                        this.comprobante.token = response.responseAuthorization
+                        await this.insert()
+                        this.blockUI.stop();
+                      }
                       this.blockUI.stop();
                     })
                     .catch(error => {
