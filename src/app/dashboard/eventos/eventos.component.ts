@@ -72,8 +72,6 @@ export class EventosComponent implements OnInit {
       state:localStorage.getItem('currentId'),
       filter:'usuario'
     }
-    console.log(data);
-
       this.mainService.getAllFilter(data)
                           .then(async response => {
                             await response.forEach(element => {

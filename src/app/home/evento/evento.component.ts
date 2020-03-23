@@ -51,6 +51,9 @@ export class EventoComponent implements OnInit {
       this.parentService.getSingle(id)
                           .then(response => {
                             this.SelectedData = response;
+                            console.log('evento',response);
+                            this.areasTable = response.areas;
+                            this.funcionesTable = [response]
                             this.blockUI.stop();
                           }).catch(error => {
                             console.clear
@@ -69,11 +72,9 @@ export class EventoComponent implements OnInit {
       this.parentService.getAllFilter(data)
                           .then(response => {
                             this.blockUI.stop();
-                            //console.log(response);
-
-                            this.cargarFunciones(response.evento);
-                            this.cargarAreas(response.id);
-                            this.cargarSingle(response.id);
+                            this.SelectedData = response;
+                            // this.cargarFunciones(response.evento);
+                            // this.cargarAreas(response.id);
                           }).catch(error => {
                             console.clear
                             this.blockUI.stop();
@@ -90,6 +91,8 @@ export class EventoComponent implements OnInit {
     }
       this.mainService.getAllFilter(data)
                           .then(response => {
+                            console.log('areas',response);
+
                             this.areasTable = response;
                             this.blockUI.stop();
                           }).catch(error => {
@@ -117,8 +120,7 @@ export class EventoComponent implements OnInit {
       this.parentService.getAllFilter(data)
                           .then(response => {
                             this.funcionesTable = response;
-                            console.log("funciones",response);
-
+                            console.log('funciones',response);
                             this.blockUI.stop();
                           }).catch(error => {
                             console.clear

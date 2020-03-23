@@ -1,7 +1,7 @@
 <div class="text-center mb-3">
   <!-- prueba de slider nuevo -->
-  <ngb-carousel *ngIf="funcionesTable">
-    <ng-template ngbSlide *ngFor="let data of funcionesTable[0].imagenes">
+  <ngb-carousel *ngIf="SelectedData">
+    <ng-template ngbSlide *ngFor="let data of SelectedData.imagenes">
       <div >
         <img [src]="data.url" alt="Random first slide" style="width: auto;height: 100%!important;">
         <div class="carousel-caption">
@@ -13,8 +13,8 @@
     </ng-template>
   </ngb-carousel>
   <!-- Fin prueba slider -->
-  <div class="ml-5 mr-5 text-left mt-5">
-    <div class="row">
+  <div class="ml-5 mr-5 text-left mt-5" >
+    <div class="row" *ngIf="SelectedData">
       <div class="col-xs-10 col-sm-10 col-md-12 col-lg-6 offset-lg-3">
         <span class="text-primary">
           <h3>
@@ -24,19 +24,16 @@
         <small class="text-dark">
           Escoge la Funcion que mas te interese
         </small>
-        <div class="accordion" id="accordionExample" *ngFor="let data of funcionesTable; let i = index">
           <div class="card">
             <div class="card-header text-secondary" id="headingOne">
               <h2 class="mb-0 pointer">
-                <button class="btn btn-link text-left" type="button" (click)="collapse('collapseOne-'+((data.id)?data.id:''))">
-                  {{data.titulo}} <br> Fecha: {{data.fecha_inicio}}  Hora: {{data.hora_inicio.substr(0,(data.hora_inicio.length-3))}}
+                <button class="btn btn-link text-left" type="button">
+                  {{SelectedData.titulo}} <br> Fecha: {{SelectedData.fecha_inicio}}  Hora: {{SelectedData.hora_inicio.substr(0,(SelectedData.hora_inicio.length-3))}}
                 </button>
               </h2>
             </div>
-
-            <div id="collapseOne-{{((data.id)?data.id:'')}}" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
               <div class="card-body">
-                <a *ngFor="let items of data.areas" class="row text-left pl-3 my-3" [routerLink]="['./']"  (click)="navegar('./../../../evento/'+data.id+'/localidad/'+items.id)">
+                <a *ngFor="let items of SelectedData.areas" class="row text-left pl-3 my-3" [routerLink]="['./']"  (click)="navegar('./../../../evento/'+SelectedData.id+'/localidad/'+items.id)">
                   <div class="col-xs-9 col-sm-9 col-md-9 col-lg-9">
                     {{items.titulo}}
                   </div>
@@ -47,10 +44,8 @@
                   </div>
                 </a>
               </div>
-            </div>
           </div>
 
-        </div>
       </div>
       <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4">
 
