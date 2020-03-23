@@ -3,6 +3,7 @@ import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
 import { Router, ActivatedRoute } from "@angular/router";
 import { AppComponent } from "./../app.component";
 import { GlobalsService } from "./_services/globals.service";
+import { AuthServices } from "./_services/auth.service";
 import { LangService } from "./_services/lang.service";
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 
@@ -46,6 +47,7 @@ export class NavComponent implements OnInit {
     private router: Router,
     private LangService: LangService,
     private GlobalsService: GlobalsService,
+    private AuthServices: AuthServices,
     public app: AppComponent
     ) {}
 
@@ -246,7 +248,15 @@ export class NavComponent implements OnInit {
       localStorage.setItem('idCategory',id+'');
     }
   }
-  logout(){
+  async logout(){
+    let data = {
+      token:localStorage.getItem('token')
+    }
+    try{
+      await this.AuthServices.logout(data);
+    }catch(e){
+      return;
+    }
     this.fullSession(false);
     localStorage.removeItem('currentUser');
     localStorage.removeItem('currentEmail');

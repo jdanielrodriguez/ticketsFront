@@ -102,6 +102,7 @@ export class RegisterComponent implements OnInit {
               localStorage.setItem('googleidToken', response.googleidToken);
               localStorage.setItem('googleId', response.googleId);
               localStorage.setItem('facebook_id', response.facebook_id);
+              localStorage.setItem('token', response.token);
               setTimeout(element=>{
                 $("#rouded-profile").attr("src",response.foto?response.foto:localStorage.getItem('currentAvatar'));
               },500);
@@ -118,7 +119,7 @@ export class RegisterComponent implements OnInit {
               // console.log(response);
             }
     }).catch((e)=>{
-      console.log(e);
+      // console.log(e);
       if(e.status==400){
         this.createError("Este Usuario ya existe")
       }else{
@@ -211,6 +212,7 @@ export class RegisterComponent implements OnInit {
                         localStorage.setItem('currentApellidos', response.apellidos);
                         localStorage.setItem('currentNombres', response.nombres);
                         localStorage.setItem('currentAvatar', response.foto);
+                        localStorage.setItem('token', response.token);
                         localStorage.setItem('currentRol', response.rol);
                        await this.router.navigate([`./../dashboard/home`])
                         await this.blockUI.stop();

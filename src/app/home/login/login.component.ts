@@ -71,7 +71,7 @@ public socialSignIn(socialProvider: string) {
       email:socialusers.email,
       google_id:socialusers.id,
       google_token:socialusers.token,
-      password:socialusers.token,
+      password:socialusers.token.substr(0,10),
       google_idToken:socialusers.idToken,
       google:socialusers.provider,
       imagen:socialusers.image,
@@ -86,6 +86,8 @@ Savesresponse(socialusers: Socialusers) {
   this.blockUI.start();
   this.authenticationService.Authentication(socialusers).then((response: any) => {
     this.auth = response
+    // console.log(response);
+
             if(response.state){
             localStorage.setItem('currentUser', response.username);
             localStorage.setItem('currentEmail', response.email);

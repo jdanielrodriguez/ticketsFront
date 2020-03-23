@@ -58,6 +58,19 @@ export class AuthServices {
                     .catch(this.handleError)
   }
 
+  logout(login:any):Promise<any> {
+    let url = `${this.basePath}/api/logout`
+
+    this.reloadToken();
+    return this.http.post(url,login)
+                    .toPromise()
+                    .then(response => {
+                      // console.log(response.json())
+                      return response;
+                    })
+                    .catch(this.handleError)
+  }
+
   recovery(form:any):Promise<any>{
     let url = `${this.basePath}/api/users/password/reset`
 

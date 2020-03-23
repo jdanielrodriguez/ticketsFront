@@ -106,7 +106,7 @@ export class MisEventosComponent implements OnInit {
                         funcion.fecha_inicio = new Date(funcion.fecha_inicio);
                         funcion.fecha_fin = new Date(funcion.fecha_fin);
                         this.SelectedData=funcion
-                        console.log("Ultimo",this.SelectedData);
+                        // console.log("Ultimo",this.SelectedData);
                         this.SelectedData.areas.forEach(area => {
                           area.lugares.forEach((lugar ,i)=> {
                             lugar.titulo = lugar.titulo+' '+(i+1);
@@ -123,14 +123,14 @@ export class MisEventosComponent implements OnInit {
   }
 
   onMapReady(map) {
-    console.log('map', map);
-    console.log('markers', map.markers);  // to get all markers as an array
+    // console.log('map', map);
+    // console.log('markers', map.markers);  // to get all markers as an array
   }
   onIdle(event) {
-    console.log('map', event.target);
+    // console.log('map', event.target);
   }
   onMarkerInit(marker) {
-    console.log('marker', marker);
+    // console.log('marker', marker);
   }
   onMapClick(event) {
     this.positions = event.latLng;
@@ -196,7 +196,7 @@ export class MisEventosComponent implements OnInit {
                               element.idtitulo = element.titulo.replace(/ /g,'_');
                             });
                             this.Table = response;
-                            console.log(response);
+                            // console.log(response);
 
                             this.blockUI.stop();
                           }).catch(error => {
