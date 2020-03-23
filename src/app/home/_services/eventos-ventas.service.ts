@@ -22,15 +22,15 @@ constructor(private http:HttpClient){
 private token = '';
 
 getToken(token?){
-
-  let datos = localStorage.getItem('token');
-    if(datos){
-      this.token = (datos);
-    }else{
-      this.token = token?token:path.token
-    }
-  this.headers.append('Content-Type', 'application/json');
-  this.headers.append('Authorization', 'Bearer ' + this.token );
+  let datos = token?token:localStorage.getItem('token');
+  if(datos){
+    this.token = (datos);
+  }else{
+    this.token = token?token:btoa(path.token)
+  }
+  this.headers = new HttpHeaders({
+    'Content-Type' : 'application/json',
+    'Authorization': 'Bearer ' + this.token});
 }
 
 private handleError(error:any):Promise<any> {
