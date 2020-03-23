@@ -133,7 +133,6 @@ getFuciones(){
       this.slides = []
       this.mainService.getAllFilter(data)
                           .then(response => {
-                            console.log(response);
                             response.forEach(element => {
                               element.imagenes.forEach(element2 => {
                                 if(!this.slides.find(element1 => { return element1.id==element2.id})){
@@ -142,7 +141,6 @@ getFuciones(){
                               });
                             });
                             // this.slides = response;
-                            console.log(response);
                             // console.log(this.slides);
                             let ramdominicio=Math.round(Math.random() * (this.slides.length))
                             this.sliderInicio = this.slides.length<10?0:ramdominicio;

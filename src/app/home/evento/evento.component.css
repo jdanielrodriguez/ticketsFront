@@ -22,3 +22,12 @@
   perspective: 1000px;
   height: 500px!important;
 }
+.pointer{
+  cursor: pointer;
+}
+.text-off{
+  line-height: 1.5;
+    background-color: #d6d6d6;
+    color: #d6d6d6;
+    user-select: none;
+}
