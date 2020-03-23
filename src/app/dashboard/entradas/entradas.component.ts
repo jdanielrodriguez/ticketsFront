@@ -39,13 +39,6 @@ export class EntradasComponent implements OnInit {
   collapse(str:string,selectedEdit?){
     if(selectedEdit){
       this.SelectedData=selectedEdit
-      this.SelectedData.areas.forEach(area => {
-        area.lugares.forEach((lugar ,i)=> {
-          lugar.titulo = lugar.titulo+' '+(lugar.lugar);
-          lugar.vendido = +lugar.vendido;
-          lugar.selected = +lugar.vendido;
-        });
-      });
     }
     if($('#'+str).collapse("show")){
       $('#'+str).collapse("hide")
@@ -74,15 +67,27 @@ export class EntradasComponent implements OnInit {
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let yyyy = '1900';
+    // let yyyy = "1900";
+    let yyyy = today.getFullYear();
     let stoday = yyyy + '-' + mm + '-' + dd;
     let data = {
-      state:0,
+      state:stoday,
       id:localStorage.getItem('currentId'),
       filter:'usuario'
     }
       this.mainService.getAllFilter(data)
-                          .then(async response => {
+                          .then(response => {
+                            response.forEach(element => {
+                              element.funciones.forEach(SelectedData => {
+                                SelectedData.areas.forEach(area => {
+                                  area.lugares.forEach((lugar ,i)=> {
+                                    lugar.titulo = lugar.titulo+' '+(lugar.lugar);
+                                    lugar.vendido = +lugar.vendido;
+                                    lugar.selected = +lugar.vendido;
+                                  });
+                                });
+                              });
+                            });
                             this.Table = response;
                             this.blockUI.stop();
                           }).catch(error => {

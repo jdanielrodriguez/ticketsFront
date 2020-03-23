@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Location } from '@angular/common';
-import { EventosService } from "./../../home/_services/eventos.service";
+import { EventosVentasService } from "./../../home/_services/eventos-ventas.service";
 declare var $: any
 @Component({
   selector: 'app-eventos',
@@ -25,7 +25,7 @@ export class EventosComponent implements OnInit {
     private route: ActivatedRoute,
     private _service: NotificationsService,
     private location: Location,
-    private mainService: EventosService,
+    private mainService: EventosVentasService,
     private router: Router,
   ) { }
 
@@ -36,13 +36,15 @@ export class EventosComponent implements OnInit {
     this.SelectedData = null;
     $('#formEditar').removeClass('show');
   }
-  collapse(str:string){
+  collapse(str:string,selectedEdit?){
+    if(selectedEdit){
+      this.SelectedData=selectedEdit
+    }
     if($('#'+str).collapse("show")){
       $('#'+str).collapse("hide")
 
     }else{
       $('#'+str).collapse("show")
-
     }
   }
 
@@ -65,21 +67,28 @@ export class EventosComponent implements OnInit {
     let today = new Date();
     let dd = String(today.getDate()).padStart(2, '0');
     let mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
-    let yyyy = '1900';
+    // let yyyy = "1900";
+    let yyyy = today.getFullYear();
     let stoday = yyyy + '-' + mm + '-' + dd;
     let data = {
-      id:0,
-      state:localStorage.getItem('currentId'),
-      filter:'usuario'
+      state:stoday,
+      id:localStorage.getItem('currentId'),
+      filter:'usuario-pasados'
     }
       this.mainService.getAllFilter(data)
-                          .then(async response => {
-                            await response.forEach(element => {
-                              element.idtitulo = element.titulo.replace(/ /g,'_');
+                          .then(response => {
+                            response.forEach(element => {
+                              element.funciones.forEach(SelectedData => {
+                                SelectedData.areas.forEach(area => {
+                                  area.lugares.forEach((lugar ,i)=> {
+                                    lugar.titulo = lugar.titulo+' '+(lugar.lugar);
+                                    lugar.vendido = +lugar.vendido;
+                                    lugar.selected = +lugar.vendido;
+                                  });
+                                });
+                              });
                             });
                             this.Table = response;
-                            console.log(response);
-
                             this.blockUI.stop();
                           }).catch(error => {
                             console.clear
