@@ -3,7 +3,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { NotificationsService } from 'angular2-notifications';
 import { BlockUI, NgBlockUI } from 'ng-block-ui';
 import { Location } from '@angular/common';
-import { EventosService } from "./../../home/_services/eventos.service";
+import { EventosVentasService } from "./../../home/_services/eventos-ventas.service";
 declare var $: any
 @Component({
   selector: 'app-entradas',
@@ -25,7 +25,7 @@ export class EntradasComponent implements OnInit {
     private route: ActivatedRoute,
     private _service: NotificationsService,
     private location: Location,
-    private mainService: EventosService,
+    private mainService: EventosVentasService,
     private router: Router,
   ) { }
 
@@ -36,13 +36,22 @@ export class EntradasComponent implements OnInit {
     this.SelectedData = null;
     $('#formEditar').removeClass('show');
   }
-  collapse(str:string){
+  collapse(str:string,selectedEdit?){
+    if(selectedEdit){
+      this.SelectedData=selectedEdit
+      this.SelectedData.areas.forEach(area => {
+        area.lugares.forEach((lugar ,i)=> {
+          lugar.titulo = lugar.titulo+' '+(lugar.lugar);
+          lugar.vendido = +lugar.vendido;
+          lugar.selected = +lugar.vendido;
+        });
+      });
+    }
     if($('#'+str).collapse("show")){
       $('#'+str).collapse("hide")
 
     }else{
       $('#'+str).collapse("show")
-
     }
   }
 
@@ -68,20 +77,13 @@ export class EntradasComponent implements OnInit {
     let yyyy = '1900';
     let stoday = yyyy + '-' + mm + '-' + dd;
     let data = {
-      id:0,
-      state:localStorage.getItem('currentId'),
+      state:0,
+      id:localStorage.getItem('currentId'),
       filter:'usuario'
     }
-    console.log(data);
-
       this.mainService.getAllFilter(data)
                           .then(async response => {
-                            await response.forEach(element => {
-                              element.idtitulo = element.titulo.replace(/ /g,'_');
-                            });
                             this.Table = response;
-                            console.log(response);
-
                             this.blockUI.stop();
                           }).catch(error => {
                             console.clear
