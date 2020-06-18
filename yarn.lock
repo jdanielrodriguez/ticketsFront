@@ -724,10 +724,10 @@ angular2-notifications@^2.0.0:
   resolved "https://registry.yarnpkg.com/angular2-notifications/-/angular2-notifications-2.0.0.tgz#29da8031ee4e44d3f30bbcd5b3809a6c8653feec"
   integrity sha512-QfMpewj2M1FKKOcZdDTOBo8/TX5K0Ev5p1BdbKPVpzHY9WAKtQa496/FarpoApBN8uPw8og5cEV20IgLbK+b5Q==
 
-angular@^1.7.9:
-  version "1.7.9"
-  resolved "https://registry.yarnpkg.com/angular/-/angular-1.7.9.tgz#e52616e8701c17724c3c238cfe4f9446fd570bc4"
-  integrity sha512-5se7ZpcOtu0MBFlzGv5dsM1quQDoDeUTwZrWjGtTNA7O88cD8TEk5IEKCTDa3uECV9XnvKREVUr7du1ACiWGFQ==
+angular@^1.8.0:
+  version "1.8.0"
+  resolved "https://registry.yarnpkg.com/angular/-/angular-1.8.0.tgz#b1ec179887869215cab6dfd0df2e42caa65b1b51"
+  integrity sha512-VdaMx+Qk0Skla7B5gw77a8hzlcOakwF8mjlW13DpIWIDlfqwAbSSLfd8N/qZnzEmQF4jC4iofInd3gE7vL8ZZg==
 
 ansi-align@^2.0.0:
   version "2.0.0"
@@ -5157,10 +5157,10 @@ ngx-owl-carousel-o@^1.2.0:
   dependencies:
     tslib "^1.9.0"
 
-ngx-paypal@^6.0.1:
-  version "6.0.1"
-  resolved "https://registry.yarnpkg.com/ngx-paypal/-/ngx-paypal-6.0.1.tgz#0734808f11c9f6ba9cf2d0bc102657bd215cd1a8"
-  integrity sha512-Sc3R4fkDsh76hs3qb8ql/zw9E/0NnzbfCsdo2NjHelWc5g9x6imetIDhwg+Hgy3PN1/TAxGMaR66GPwXKHkCkQ==
+ngx-paypal@^2.0.1:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/ngx-paypal/-/ngx-paypal-2.0.2.tgz#602bc742e3d6632475187ce38f66e4ceb497732c"
+  integrity sha512-lil9Hmg43zWo0SqxBrsf5bQkLPS+CYw+zrTHkXZk7rH9w9b6w/UTCxMc6TV83WVwImvh/IF32uY7TGE4C8lpGg==
 
 nice-try@^1.0.4:
   version "1.0.5"
@@ -7636,6 +7636,11 @@ ts-node@~7.0.0:
     source-map-support "^0.5.6"
     yn "^2.0.0"
 
+tslib@^1.11.1:
+  version "1.13.0"
+  resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.13.0.tgz#c881e13cc7015894ed914862d276436fa9a47043"
+  integrity sha512-i/6DQjL8Xf3be4K/E6Wgpekn5Qasl1usyw++dAA35Ue5orEn65VIxOA+YvNNl9HV3qv70T7CNwjODHZrLwvd1Q==
+
 tslib@^1.7.1, tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-1.11.1.tgz#eb15d128827fbee2841549e171f45ed338ac7e35"
@@ -7706,10 +7711,10 @@ typescript@^2.1.4:
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.9.2.tgz#1cbf61d05d6b96269244eb6a3bce4bd914e0f00c"
   integrity sha512-Gr4p6nFNaoufRIY4NMdpQRNmgxVIGMs4Fcu/ujdYk3nAZqk7supzBE9idmvfZIlH/Cuj//dvi+019qEue9lV0w==
 
-typescript@^3.3.0:
-  version "3.8.3"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
-  integrity sha512-MYlEfn5VrLNsgudQTVJeNaQFUAI7DkhnOjdpAp4T+ku1TfQClewlbSuTVHiA+8skNBgaf02TL/kLOvig4y3G8w==
+typescript@^3.2.4:
+  version "3.9.5"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-3.9.5.tgz#586f0dba300cde8be52dd1ac4f7e1009c1b13f36"
+  integrity sha512-hSAifV3k+i6lEoCJ2k6R2Z/rp/H3+8sdmcn5NrS3/3kE7+RyZXm9aqvxWqjEXHAd8b0pShatpcdMTvEdvAJltQ==
 
 typings-core@^2.3.3:
   version "2.3.3"
