@@ -32,8 +32,8 @@ export class ComprobanteComponent implements OnInit {
   enviados=false
   responseData=[]
   tCData = {
-    sellerId: "901416066",
-    publishableKey: "5141E4B3-8298-4808-B8B9-9FA6482D9E50",
+    sellerId: "901416066",//250351031026ordenes online
+    publishableKey: "5141E4B3-8298-4808-B8B9-9FA6482D9E50",//BEFC3F1A-1B1D-4574-8F2D-89166D828845 ordenes online
     ccNo: "",//$("#ccNo").val(),
     cvv: "",//$("#cvv").val(),
     expMonth: "",//$("#expMonth").val(),
